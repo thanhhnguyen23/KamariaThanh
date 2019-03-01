@@ -1,3 +1,5 @@
+
+-- should the users (employee/manager) be able to sign up with the system?
 CREATE TABLE ers_users(
 	ers_user_id 		NUMBER,
 	ers_username		VARCHAR2(50) UNIQUE,
