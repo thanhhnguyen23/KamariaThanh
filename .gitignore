@@ -36,6 +36,7 @@ local.properties
 .settings/ 
 .loadpath 
 .recommenders 
+
 ExpenseReimbursementSystem/RemoteSystemsTempFiles/
 
 # Eclipse Core 
