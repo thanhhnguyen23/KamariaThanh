@@ -37,12 +37,10 @@ local.properties
 .loadpath 
 .recommenders 
 
-ExpenseReimbursementSystem/RemoteSystemsTempFiles/
-
 # Eclipse Core 
 .project 
 Servers/
-RemoteSystemsTempFiles/
+RemoteSystemsTempFiles/ 
 
 # External tool builders 
 .externalToolBuilders/ 

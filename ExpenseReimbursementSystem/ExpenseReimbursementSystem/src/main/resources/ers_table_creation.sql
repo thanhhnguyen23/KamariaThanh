@@ -43,13 +43,15 @@ CREATE TABLE ers_reimbursement(
 	PRIMARY KEY (reimb_id),
 	
 	CONSTRAINT ers_users_fk_auth
-	FOREIGN KEY (reimb_author) -- is the foreign key referencing itself?
-	REFERENCES ers_users (ers_user_id) -- is the reference?
+	FOREIGN KEY (reimb_author) 
+	REFERENCES ers_users (ers_user_id) 
 	
 	CONSTRAINT ers_users_fk_reslvr
 	FOREIGN KEY (reimb_resolver)
-	REFERENCES ers_users_roles (ers_user_role_id) -- resolver must be a specific type of user? 
-												  --how do you know this user has authorization to "resolve"
+	REFERENCES ers_users_roles (ers_user_role_id)  
+	-- typical roles would be employee (1) and manager (2)
+	-- resolver must be a specific type of user? 
+	--how do you know this user has authorization to "resolve"
 
 	CONSTRAINT ers_reimbursement_status_fk
 	FOREIGN KEY (reimb_status_id)
