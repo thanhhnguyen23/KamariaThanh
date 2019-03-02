@@ -162,9 +162,8 @@ INSERT INTO ers_user_roles(2, 'EMPLOYEE');
 -- ************************************************
 INSERT INTO ers_users VALUES(
 
-	0, 'admin_kd', 'unicorn', 'kamaria', 'deramus', 'kderamus@gmail.com', ''
---	ers_user_id --	ers_username --	ers_password--	user_first_name --	user_last_name --	user_email--	user_role_id		
+	0, 'admin_kd', 'unicorn', 'Kamaria', 'DeRamus', 'kderamus@gmail.com', 1
+	0, 'admin_tn', 'p4ssword', 'Thanh', 'Nguyen', 'tnguyen@gmail.com', 1
+);
 
-
-)
 
