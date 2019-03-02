@@ -55,8 +55,48 @@ public class UserDao implements DAO<User>{
 	}
 
 	public User getByUsername(String username) {
+		User user = null;
 
-	
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id) WHERE ers_username = ?");
+			pstate.setString(1, username);
+
+			List<User> users = this.mapResultSet(pstate.executeQuery());
+			
+			if(users.isEmpty()) {
+				user = null;
+			}
+			else {
+				user = users.get(0);
+			}
+		}
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		return user;
+	}
+
+	public User getByCredentials(String username, String password) {
+		User user = null;
+
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id) WHERE ers_username = ? AND ers_password = ?");
+			pstate.setString(1, username);
+			pstate.setString(2, password);
+
+			List<User> users = this.mapResultSet(pstate.executeQuery());
+			
+			if(users.isEmpty()) {
+				user = null;
+			}
+			else {
+				user = users.get(0);
+			}
+		}
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		return user;
 	}
 
 	private List<User> mapResultSet(ResultSet rs) throws SQLException{
