@@ -1,34 +1,62 @@
 package com.revature.ers.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.revature.ers.models.User;
 import com.revature.ers.util.ConnectionFactory;
 
 public class UserDao implements DAO<User>{
+	
+	private static Logger log = Logger.getLogger(UserDao.class);
 
 	@Override
 	public List<User> getAll() {
 		List<User> users = new ArrayList<>();
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()){ //TODO -- need to create ConnectionFactory util
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id)"); 
+			ResultSet rs = conn.createStatement().executeQuery(
+					"SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id)"
+					); 
 
-			
-			rs.
-			
+			users = this.mapResultSet(rs);
+		} catch (SQLException e){
+			log.error(e.getMessage());
+
 		}
-		catch
-
+		return users;
 	}
 
 	@Override
-	public User getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getById(int userId) {
+		User user = null;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			//TODO - PreparedStatement
+			PreparedStatement pstate = conn.prepareStatement( "SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id) WHERE ers_user_id = ?");
+			pstate.setInt(1, userId);
+			
+			ResultSet rs = pstate.executeQuery();
+			List<User> users = this.mapResultSet(rs);
+			
+			if(!users.isEmpty()) {
+				user = users.get(0);
+				user.setPassword("************");
+			}
+		}
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		return user;
+	}
+
+	public User getByUsername(String username) {
+
+	
 	}
 
 	private List<User> mapResultSet(ResultSet rs) throws SQLException{
@@ -47,5 +75,4 @@ public class UserDao implements DAO<User>{
 		}
 		return users;
 	}
-
 }
