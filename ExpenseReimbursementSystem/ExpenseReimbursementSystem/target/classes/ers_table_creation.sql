@@ -1,17 +1,27 @@
-DROP ers_users
-DROP ers_user_roles
-DROP ers_reimbursement
-DROP ers_reimbursement_status
-DROP ers_reimbursement_type
 
-DROP ers_users_pk_trigger
-DROP ers_roles_pk_trigger
-DROP ers_reimb_pk_trigger
+-- ************************************************
+-- used to reset tables 
+-- ************************************************
+DROP TABLE ers_users;       
+DROP TABLE ers_user_roles;  
+DROP TABLE ers_reimbursement;
+DROP TABLE ers_reimbursement_status;
+DROP TABLE ers_reimbursement_type;
 
-DROP ers_users_pk_seq
-DROP ers_user_roles_pk_seq
-DROP ers_reimb_id_pk_seq
-DROP ers_role_roles_id_pk_seq
+
+-- ************************************************
+-- used to drop triggers
+-- ************************************************
+DROP TRIGGER ers_users_pk_trigger;
+DROP TRIGGER ers_roles_pk_trigger;
+
+
+
+-- ************************************************
+-- used to drop sequences
+-- ************************************************
+drop sequence ers_users_pk_seq;
+drop sequence ers_user_roles_pk_seq;
 
 
 -- should the users (employee/manager) be able to sign up with the system?
@@ -39,9 +49,10 @@ CREATE TABLE ers_users(
 	PRIMARY KEY (ers_user_id),
 	
 	CONSTRAINT users_role_fk
-	FOREIGN KEY (ers_user_role_id)
+	FOREIGN KEY (user_role_id)
 	REFERENCES ers_user_roles (ers_user_role_id)
 );
+-- WORKS
 
 
 CREATE TABLE ers_user_roles(
@@ -51,6 +62,28 @@ CREATE TABLE ers_user_roles(
 	CONSTRAINT ers_user_role_pk
 	PRIMARY KEY (ers_user_role_id)
 );
+-- WORKS
+
+
+
+
+CREATE TABLE ers_reimbursement_status( 
+	reimb_status_id 	NUMBER,
+	reimb_status		VARCHAR2(10),
+	
+	CONSTRAINT reimb_status_pk 
+	PRIMARY KEY (reimb_status_id)
+);
+
+
+CREATE TABLE ers_reimbursement_type(
+	reimb_type_id	NUMBER,
+	reimb_type		VARCHAR2(10),
+	
+	CONSTRAINT reimb_type_pk
+	PRIMARY KEY (reimb_type_id)
+);
+
 
 
 CREATE TABLE ers_reimbursement(
@@ -70,68 +103,27 @@ CREATE TABLE ers_reimbursement(
 	
 	CONSTRAINT ers_users_fk_auth
 	FOREIGN KEY (reimb_author) 
-	REFERENCES ers_users (ers_user_id) 
+	REFERENCES ers_users (ers_user_id),
 	
 	CONSTRAINT ers_users_fk_reslvr
 	FOREIGN KEY (reimb_resolver)
-	REFERENCES ers_users_roles (ers_user_role_id)  
-	-- typical roles would be employee (1) and manager (2)
-	-- resolver will be the user tied to a specific user_role_id defining the "privileges"
+	REFERENCES ers_user_roles (ers_user_role_id),
 	
 	CONSTRAINT ers_reimbursement_status_fk
 	FOREIGN KEY (reimb_status_id)
-	REFERENCES ers_reimbursement_status (reimb_status_id)
+	REFERENCES ers_reimbursement_status (reimb_status_id),
 	
 	CONSTRAINT ers_reimbursement_type_fk
 	FOREIGN KEY (reimb_type_id)
 	REFERENCES ers_reimbursement_type (reimb_type_id)
 );
 
-CREATE TABLE ers_reimbursement_status( 
-	reimb_status_id 	NUMBER,
-	reimb_status		VARCHAR2(10),
-	
-	CONSTRAINT reimb_status_pk 
-	PRIMARY KEY (reimb_status_id)
-);
-
-
-CREATE TABLE ers_reimbursement_type(
-	reimb_type_id	NUMBER,
-	reimb_type		VARCHAR2(10) NOT NULL,
-	
-	CONSTRAINT reimb_type_pk
-	PRIMARY (reimb_type_id)
-);
 
 -- ***************************************************
 -- trigger creation
 -- ***************************************************
-CREATE OR REPLACE TRIGGER ers_users_pk_trigger BEFORE
-    INSERT ON ers_users
-    FOR EACH ROW
-BEGIN
-    SELECT
-        ers_users_pk_seq.NEXTVAL
-    INTO :new.ers_user_id
-    FROM
-        dual;
-END;
-/
-
-CREATE OR REPLACE TRIGGER ers_roles_pk_trigger BEFORE
-    INSERT ON ers_user_roles
-    FOR EACH ROW
-BEGIN
-    SELECT
-        ers_user_roles_pk_seq.NEXTVAL
-    INTO :new.ers_user_role_id
-    FROM
-        dual;
-END;
-/
-
-
+-- COME BACK TO THIS, NOT WORKING
+-- ***************************************************
 CREATE OR REPLACE TRIGGER ers_reimb_pk_trigger BEFORE
     INSERT ON ers_reimbursement
     FOR EACH ROW
@@ -143,24 +135,13 @@ BEGIN
         dual;
 END;
 /
+--****************************************************
 
 
 -- ***************************************************
 -- sequence creation
 -- we'll come back to the status and type
 -- ***************************************************
-CREATE SEQUENCE ers_users_pk_seq 
-MINVALUE 1
-MAXVALUE 999999999
-INCREMENT BY 1
-START WITH 1;
-
-CREATE SEQUENCE ers_user_roles_pk_seq
-MINVALUE 1
-MAXVALUE 999999999
-INCREMENT BY 1
-START WITH 1;
-
 CREATE SEQUENCE ers_reimb_id_pk_seq
 MINVALUE 1
 MAXVALUE 999999999
@@ -200,9 +181,18 @@ INSERT INTO ers_reimbursement_type(4, 'OTHER');
 
 
 -- ************************************************
--- populating tables 
+-- populating admin users to ers_users tables 
 -- ************************************************
-INSERT INTO ers_users VALUES( 0, 'admin_kd', 'unicorn', 'Kamaria', 'DeRamus', 'kderamus@gmail.com', 1);
-INSERT INTO ers_users VALUES( 0, 'admin_tn', 'p4ssword', 'Thanh', 'Nguyen', 'tnguyen@gmail.com', 1 );
+INSERT INTO ers_users VALUES( 1, 'admin_kd', 'unicorn', 'Kamaria', 'DeRamus', 'kderamus@gmail.com', 1);
+INSERT INTO ers_users VALUES( 2, 'admin_tn', 'p4ssword', 'Thanh', 'Nguyen', 'tnguyen@gmail.com', 1 );
+
+-- ************************************************
+-- populating employee users to ers_users tables 
+-- ************************************************
+INSERT INTO ers_users VALUES( 3, 'jsmith', 'p4ssword', 'Jane', 'Smith', 'jsmith@gmail.com', 2);
+INSERT INTO ers_users VALUES( 4, 'jdoe', 'deer', 'John', 'Doe', 'jdoe@gmail.com', 2);
+INSERT INTO ers_users VALUES( 5, 'cjones', 'p4ssword', 'Chris', 'Jones', 'cjones@gmail.com', 2);
+INSERT INTO ers_users VALUES( 6, 'jwall', 'p4ssword', 'Josh', 'Wall', 'jwall@gmail.com', 2);
+INSERT INTO ers_users VALUES( 7, 'amartin', 'p4ssword', 'Amy', 'Martin', 'amartin@gmail.com', 2);
 
 COMMIT;
