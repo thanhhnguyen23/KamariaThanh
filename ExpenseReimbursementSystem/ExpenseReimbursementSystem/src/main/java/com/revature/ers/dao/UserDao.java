@@ -115,4 +115,20 @@ public class UserDao implements DAO<User>{
 		}
 		return users;
 	}
+
+	// unimplemented methods 
+	@Override
+	public User add(User obj) {
+		return null;
+	}
+
+	@Override
+	public User update(User updatedObj) {
+		return null;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		return false;
+	}
 }

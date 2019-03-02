@@ -82,12 +82,19 @@ public class RoleDao implements DAO<Role>{
 			roles.add(role);
 		}
 		return roles;
-		
-		
-		
-		
-		
-		
-		
+	}
+
+	// unimplemented methods
+	@Override
+	public Role add(Role obj) {
+		return null;
+	}
+	@Override
+	public Role update(Role updatedObj) {
+		return null;
+	}
+	@Override
+	public boolean delete(int id) {
+		return false;
 	}
 }
