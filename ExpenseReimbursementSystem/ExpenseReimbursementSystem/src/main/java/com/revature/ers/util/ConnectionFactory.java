@@ -48,8 +48,6 @@ public class ConnectionFactory {
 		} catch (IOException ioe) {
 			log.error(ioe.getMessage());
 		}
-		
 		return conn;
 	}
-
 }
