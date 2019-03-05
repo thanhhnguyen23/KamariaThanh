@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 		return reimbursements;
 	}
 
+	
 	@Override
 	public Reimbursement getById(int id) {
 		
@@ -57,17 +59,64 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 	
 	
 	@Override
-	public Reimbursement add(Reimbursement obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public Reimbursement add(Reimbursement newReimb) {
+	
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			
+			conn.setAutoCommit(false); //look into why we set autocommint to false before we actually call the statement
+			
+			String sql = "INSERT INTO er_reimbursement VALUES (0, ?, ?, ?, ?, null, ?, ?, ?, ?)";
+			//null value here represents the BLOB receipt value
+			
+			String[] keys = new String[1];
+			keys[0] = "reimb_id";
+			
+			PreparedStatement pstate = conn.prepareStatement(sql, keys);
+			
+			pstate.setInt(1, newReimb.getAmount());
+			pstate.setTimestamp(2, newReimb.getReimbSubmitted());
+			pstate.setTimestamp(3, newReimb.getReimbResolved());
+			pstate.setString(4, newReimb.getReimbDescription());
+			//null value for BLOB would be here
+			pstate.setInt(5, newReimb.getAuthorId());
+			pstate.setInt(6, newReimb.getResolverId());
+			pstate.setInt(7, newReimb.getStatusId());
+			pstate.setInt(8, newReimb.getTypeId());		
+			
+			int rowsInserted = pstate.executeUpdate();
+			
+			ResultSet rs = pstate.getGeneratedKeys();
+			
+			if (rowsInserted != (0)) {
+				while (rs.next()) {
+					newReimb.setReimbId(rs.getInt(1));
+				}
+				
+				conn.commit();
+			}
+		} 
+		
+		catch(SQLIntegrityConstraintViolationException sivce) {
+			log.warn("Reimbursement already exists!");
+		}
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		
+		if (newReimb.getReimbId() == 0) return null;
+		
+		return newReimb;
 	}
 
+	
+	
 	@Override
-	public Reimbursement update(Reimbursement updatedObj) {
+	public Reimbursement update(Reimbursement updatedReimb) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	
 	@Override
 	public boolean delete(int id) {
 		// TODO Auto-generated method stub
