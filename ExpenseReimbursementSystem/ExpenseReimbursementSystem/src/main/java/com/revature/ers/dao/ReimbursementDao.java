@@ -1,15 +1,37 @@
 package com.revature.ers.dao;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.revature.ers.models.Reimbursement;
+import com.revature.ers.util.ConnectionFactory;
 
 public class ReimbursementDao implements DAO<Reimbursement>{
 
+	private static Logger log = Logger.getLogger(ReimbursementDao.class);
+
 	@Override
 	public List<Reimbursement> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reimbursement> reimbursements = new ArrayList<>();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+
+			//TODO -- testing queries requesting all reimbursements -- NOT TESTED
+			String sql = "SELECT * FROM ERS_REIMBURSEMENT ORDER BY REIMB_AUTHOR";
+			ResultSet rs = conn.createStatement().executeQuery(sql);
+			
+			reimbursements = this.mapResultSet(rs);
+			
+		}
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		return reimbursements;
 	}
 
 	@Override
@@ -35,5 +57,24 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	private List<Reimbursement> mapResultSet(ResultSet rs) throws SQLException {
+		List<Reimbursement> reimbursements = new ArrayList<>();
+		while(rs.next()) {
+			Reimbursement reimb = new Reimbursement();
+			reimb.setReimbId(rs.getInt("reimb_id"));
+			reimb.setAmount(rs.getInt("reimb_amount"));
 
+			reimb.setReimbSubmitted(rs.getTimestamp("reimb_submitted"));
+			reimb.setReimbResolved(rs.getTimestamp("reimb_resolved"));
+			reimb.setReimbDescription(rs.getString("reimb_description"));
+			reimb.setAuthorId(rs.getInt("reimb_author"));
+			reimb.setResolverId(rs.getInt("reimb_resolver"));
+			reimb.setStatusId(rs.getInt("reimb_status_id"));
+			reimb.setTypeId(rs.getInt("reimb_type_id"));
+			
+			reimbursements.add(reimb);
+		}
+		return reimbursements;
+	}
 }
