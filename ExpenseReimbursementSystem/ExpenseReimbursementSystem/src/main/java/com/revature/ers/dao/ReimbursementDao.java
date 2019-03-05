@@ -112,14 +112,36 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 	
 	@Override
 	public Reimbursement update(Reimbursement updatedReimb) {
-		// TODO Auto-generated method stub
+		
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			
+			String sql = ("UPDATE ers_reimbursements SET reimb_amount = ?, reimb_status_id = ?, reimb_type_id = ? WHERE reimb_id = ?");
+			PreparedStatement pstate = conn.prepareStatement(sql);
+			
+			pstate.setInt(1, updatedReimb.getAmount());
+			pstate.setInt(2, updatedReimb.getStatusId());
+			pstate.setInt(3, updatedReimb.getTypeId());
+			pstate.setInt(4, updatedReimb.getReimbId());
+			pstate.setInt(5, updatedReimb.getReimbId());
+			
+			int rowsUpdated = pstate.executeUpdate();
+			if (rowsUpdated != 0) {
+				conn.commit();
+				return updatedReimb;
+			}
+					
+			
+		} catch (SQLException e) {
+			log.error(e.getMessage());
+		}
+		
 		return null;
 	}
 
 	
 	@Override
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
