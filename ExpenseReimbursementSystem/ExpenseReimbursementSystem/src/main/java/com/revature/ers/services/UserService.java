@@ -9,7 +9,6 @@ public class UserService {
 	
 	private UserDao userDao = new UserDao();
 	
-	
 	public List<User> getAllUsers() {
 		return userDao.getAll();
 	}
@@ -29,7 +28,13 @@ public class UserService {
 		return null;
 	}
 	
+	//TODO -- look at bookstore v3 for inspiration
 	//figure out way to get the current user and then that current user's id
+	//////////////////////////////
+	// things to consider per WS
+	//awt - filter
+	//////////////////////////////
+	
 	public User getUserById(int userId) {
 		if (userDao.get)
 	}

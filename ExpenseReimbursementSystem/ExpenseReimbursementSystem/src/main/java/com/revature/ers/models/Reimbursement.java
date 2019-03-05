@@ -1,14 +1,14 @@
 package com.revature.ers.models;
 
-import oracle.sql.TIMESTAMP;
+import java.sql.Timestamp;
+
 
 public class Reimbursement {
 	private int reimbId;
 	private int amount;
-	private TIMESTAMP reimbSubmitted;
-	private TIMESTAMP reimbResolved;
+	private Timestamp reimbSubmitted; 	
+	private Timestamp reimbResolved; 	
 	private String reimbDescription;
-//	private BlobDBAccess vs BLOB 
 	private int authorId;
 	private int resolverId;
 	private int statusId;
@@ -20,7 +20,7 @@ public class Reimbursement {
 	}
 	
 	
-	public Reimbursement(int reimbId, int amount, TIMESTAMP reimbSubmitted, TIMESTAMP reimbResolved,
+	public Reimbursement(int reimbId, int amount, Timestamp reimbSubmitted, Timestamp reimbResolved,
 			String reimbDescription, int authorId, int resolverId, int statusId, int typeId) {
 		super();
 		this.reimbId = reimbId;
@@ -64,22 +64,22 @@ public class Reimbursement {
 	}
 
 
-	public TIMESTAMP getReimbSubmitted() {
+	public Timestamp  getReimbSubmitted() {
 		return reimbSubmitted;
 	}
 
 
-	public void setReimbSubmitted(TIMESTAMP reimbSubmitted) {
+	public void setReimbSubmitted(Timestamp reimbSubmitted) {
 		this.reimbSubmitted = reimbSubmitted;
 	}
 
 
-	public TIMESTAMP getReimbResolved() {
+	public Timestamp getReimbResolved() {
 		return reimbResolved;
 	}
 
 
-	public void setReimbResolved(TIMESTAMP reimbResolved) {
+	public void setReimbResolved(Timestamp reimbResolved) {
 		this.reimbResolved = reimbResolved;
 	}
 
@@ -134,6 +134,8 @@ public class Reimbursement {
 	}
 
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -142,6 +144,8 @@ public class Reimbursement {
 		result = prime * result + authorId;
 		result = prime * result + ((reimbDescription == null) ? 0 : reimbDescription.hashCode());
 		result = prime * result + reimbId;
+		result = prime * result + ((reimbResolved == null) ? 0 : reimbResolved.hashCode());
+		result = prime * result + ((reimbSubmitted == null) ? 0 : reimbSubmitted.hashCode());
 		result = prime * result + resolverId;
 		result = prime * result + statusId;
 		result = prime * result + typeId;
@@ -168,6 +172,16 @@ public class Reimbursement {
 		} else if (!reimbDescription.equals(other.reimbDescription))
 			return false;
 		if (reimbId != other.reimbId)
+			return false;
+		if (reimbResolved == null) {
+			if (other.reimbResolved != null)
+				return false;
+		} else if (!reimbResolved.equals(other.reimbResolved))
+			return false;
+		if (reimbSubmitted == null) {
+			if (other.reimbSubmitted != null)
+				return false;
+		} else if (!reimbSubmitted.equals(other.reimbSubmitted))
 			return false;
 		if (resolverId != other.resolverId)
 			return false;
