@@ -5,13 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import oracle.sql.TIMESTAMP;
 
+import org.apache.log4j.Logger;
 
 import com.revature.ers.models.Reimbursement;
 import com.revature.ers.util.ConnectionFactory;
 
 public class ReimbursementDao implements DAO<Reimbursement>{
+
+	private static Logger log = Logger.getLogger(ReimbursementDao.class);
 
 	@Override
 	public List<Reimbursement> getAll() {
@@ -19,12 +21,16 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 
-			//TODO -- testing queries requesting all reimbursements
+			//TODO -- testing queries requesting all reimbursements -- NOT TESTED
 			String sql = "SELECT * FROM ERS_REIMBURSEMENT ORDER BY REIMB_AUTHOR";
 			ResultSet rs = conn.createStatement().executeQuery(sql);
-
+			
+			reimbursements = this.mapResultSet(rs);
+			
 		}
-
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
 		return reimbursements;
 	}
 
@@ -61,21 +67,13 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 
 			reimb.setReimbSubmitted(rs.getTimestamp("reimb_submitted"));
 			reimb.setReimbResolved(rs.getTimestamp("reimb_resolved"));
+			reimb.setReimbDescription(rs.getString("reimb_description"));
+			reimb.setAuthorId(rs.getInt("reimb_author"));
+			reimb.setResolverId(rs.getInt("reimb_resolver"));
+			reimb.setStatusId(rs.getInt("reimb_status_id"));
+			reimb.setTypeId(rs.getInt("reimb_type_id"));
 			
-			
-			
-
-
-///			reimb_submitted		TIMESTAMP,
-//			reimb_resolved		TIMESTAMP,
-//			reimb_description 	VARCHAR2(250),
-//			reimb_receipt		BLOB,
-//			reimb_author		NUMBER,
-//			reimb_resolver		NUMBER,
-//			reimb_status_id		NUMBER,
-//			reimb_type_id		NUMBER,
-//
-			
+			reimbursements.add(reimb);
 		}
 		return reimbursements;
 	}

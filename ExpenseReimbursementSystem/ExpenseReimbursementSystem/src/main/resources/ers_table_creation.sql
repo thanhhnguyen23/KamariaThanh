@@ -78,12 +78,13 @@ CREATE TABLE ers_reimbursement_type(
 
 
 CREATE TABLE ers_reimbursement(
+
 	reimb_id			NUMBER,
 	reimb_amount		NUMBER,
 	reimb_submitted		TIMESTAMP,
 	reimb_resolved		TIMESTAMP,
 	reimb_description 	VARCHAR2(250),
-	reimb_receipt		BLOB,
+	reimb_receipt		BLOB, -- currently not being used (non-mvp compliant)
 	reimb_author		NUMBER,
 	reimb_resolver		NUMBER,
 	reimb_status_id		NUMBER,

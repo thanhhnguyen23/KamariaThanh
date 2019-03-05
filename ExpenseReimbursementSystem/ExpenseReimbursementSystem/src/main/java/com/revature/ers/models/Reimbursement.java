@@ -2,7 +2,6 @@ package com.revature.ers.models;
 
 import java.sql.Timestamp;
 
-
 public class Reimbursement {
 	private int reimbId;
 	private int amount;
