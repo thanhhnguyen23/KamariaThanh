@@ -1,6 +1,7 @@
 package com.revature.ers.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,10 +37,25 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 
 	@Override
 	public Reimbursement getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Reimbursement reimb = new Reimbursement();
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			
+			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_reimbursement WHERE reimb_id = ?");
+			pstate.setInt(1, id);
+			
+			ResultSet rs = pstate.executeQuery();
+			reimb = this.mapResultSet(rs).get(0);
+			
+		} catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		
+		return reimb;
 	}
 
+	
+	
 	@Override
 	public Reimbursement add(Reimbursement obj) {
 		// TODO Auto-generated method stub
@@ -57,6 +73,8 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 	
 	private List<Reimbursement> mapResultSet(ResultSet rs) throws SQLException {
 		List<Reimbursement> reimbursements = new ArrayList<>();
@@ -77,8 +95,4 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 		}
 		return reimbursements;
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 5de1f29fbf77556a0d516b44f873697cd810c394
