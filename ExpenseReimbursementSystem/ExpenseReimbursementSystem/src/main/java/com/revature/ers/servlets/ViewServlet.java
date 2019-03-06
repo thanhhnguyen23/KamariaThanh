@@ -18,14 +18,23 @@ public class ViewServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		log.debug("Request sent to front controller, ViewServlet.doGet()");
+		log.debug("--> ViewServlet: doGet() ");
 		
 		String nextView = RequestViewHelper.process(req);
-		log.debug("Navigating to: " + nextView);
-		
+
 		if(nextView != null) {
-			req.getRequestDispatcher(nextView).forward(req, resp);
+			try {
+				// if there's a nextView is available, forward req, resp
+				req.getRequestDispatcher(nextView).forward(req, resp);
+			}
+			catch(Exception e) {
+				log.error(e.getMessage());
+				// server side error
+				resp.setStatus(500);
+			}
+
 		} else {
+			// unauthorized 
 			resp.setStatus(401);
 		}
 	}
