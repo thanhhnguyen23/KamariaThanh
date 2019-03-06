@@ -14,6 +14,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.revature.ers.models.User;
 import com.revature.ers.services.UserService;
+import com.revature.ers.util.JwtConfig;
+import com.revature.ers.util.JwtGenerator;
 
 @WebServlet("/auth")
 public class AuthServlet extends HttpServlet {
