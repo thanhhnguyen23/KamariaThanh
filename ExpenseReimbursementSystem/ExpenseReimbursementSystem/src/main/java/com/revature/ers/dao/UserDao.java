@@ -129,7 +129,6 @@ public class UserDao implements DAO<User>{
 			keys[0] = "user_role_id";
 
 			PreparedStatement pstate = conn.prepareStatement(sql, keys);
-			
 
 			pstate.setInt(1, newUser.getUserId());
 			pstate.setString(2, newUser.getUsername());
