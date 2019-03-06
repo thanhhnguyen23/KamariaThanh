@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.revature.ers.models.Principal;
+import com.revature.ers.util.JwtConfig;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+
 @WebFilter("/*")
 public class JwtAuthFilter implements Filter {
 	
