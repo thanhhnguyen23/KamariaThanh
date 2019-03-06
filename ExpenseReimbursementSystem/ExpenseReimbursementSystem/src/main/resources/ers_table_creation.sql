@@ -2,27 +2,28 @@
 ---- ************************************************
 ---- used to reset tables 
 ---- ************************************************
---DROP TABLE ers_users;       
---DROP TABLE ers_user_roles;  
---DROP TABLE ers_reimbursement;
---DROP TABLE ers_reimbursement_status;
---DROP TABLE ers_reimbursement_type;
+DROP TABLE ers_user_roles;  
+DROP TABLE ers_users;
+DROP TABLE ers_reimbursement;
+DROP TABLE ers_reimbursement_status;
+DROP TABLE ers_reimbursement_type;
+
 
 ---- ************************************************
 ---- used to drop sequences
 ---- ************************************************
---drop sequence ers_reimb_id_pk_seq;
-
-
+DROP SEQUENCE ers_reimb_id_pk_seq;
+DROP SEQUENCE ers_user_pk_seq;
 	-------------------------------------------
 	-- TODO
 	-------------------------------------------
-	-- templates vs angular templates
 	-- servlets handling register/login logic
 	-------------------------------------------
 
 	-- drop table cascade constraints -- 
 	------------------------------------
+drop trigger ers_reimb_pk_trigger;
+drop trigger ers_user_pk_trigger;
 
 -- ************************************************
 -- table creation
@@ -37,6 +38,7 @@ CREATE TABLE ers_user_roles(
 	PRIMARY KEY (ers_user_role_id)
 );
 -- WORKS
+
 
 CREATE TABLE ers_users(
 	ers_user_id 		NUMBER,
@@ -112,11 +114,48 @@ CREATE TABLE ers_reimbursement(
 
 
 -- ***************************************************
+-- sequence creation
+-- ***************************************************
+
+CREATE SEQUENCE ers_reimb_id_pk_seq
+MINVALUE 1
+MAXVALUE 999999999
+INCREMENT BY 1
+START WITH 1;
+
+-- ****************************************************************
+-- registration/login
+-- creating user sequence
+
+-- this may break UserService and UserDao when handling queries
+-- ****************************************************************
+CREATE SEQUENCE ers_user_pk_seq
+MINVALUE 1
+MAXVALUE 99999999
+INCREMENT BY 1
+START WITH 8; -- increment by 1 starting at 8 because of dummy accounts
+
+
+CREATE OR replace trigger ers_users_pk_trigger BEFORE
+-- sequences start at 8 including the dummy accounts
+	INSERT ON ers_users
+	FOR EACH ROW
+BEGIN
+	SELECT 
+		ers_user_pk_seq.NEXTVAL
+		INTO :NEW.ers_user_id
+		FROM
+			dual;
+END;
+/
+-- ****************************************************************
+
+
+-- ***************************************************
 -- trigger creation
 -- ***************************************************
--- COME BACK TO THIS, NOT WORKING -- LET'S TEST
--- ***************************************************
 CREATE OR REPLACE TRIGGER ers_reimb_pk_trigger BEFORE
+
     INSERT ON ers_reimbursement
     FOR EACH ROW
 BEGIN
@@ -127,22 +166,11 @@ BEGIN
         dual;
 END;
 /
+
 --****************************************************
 
 
--- ***************************************************
--- sequence creation
--- ***************************************************
 
-CREATE SEQUENCE ers_reimb_id_pk_seq
-MINVALUE 1
-MAXVALUE 999999999
-INCREMENT BY 1
-START WITH 1;
-
-
-
-select * from ers_user_roles;
 
 
 -- ************************************************
@@ -209,3 +237,4 @@ END;
 
 
 COMMIT;
+
