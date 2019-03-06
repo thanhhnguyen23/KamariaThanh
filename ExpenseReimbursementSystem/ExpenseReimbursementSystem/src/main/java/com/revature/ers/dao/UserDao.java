@@ -120,7 +120,7 @@ public class UserDao implements DAO<User>{
 	// unimplemented methods 
 	@Override
 	public User add(User newUser) {
-		//TODO -- 
+		//TODO -- adding newUser
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			conn.setAutoCommit(false);
 
@@ -137,12 +137,18 @@ public class UserDao implements DAO<User>{
 			pstate.setString(5, newUser.getLastName());
 			pstate.setString(6,  newUser.getEmail());
 			
+			//TODO - 
 			int rowsInserted = pstate.executeUpdate();
 			
 			ResultSet rs = pstate.getGeneratedKeys();
 			
 			if(rowsInserted != 0) {
 				while(rs.next()) {
+
+//					while(rs.next()) {
+//						newUser.setId(rs.getInt(1)); // should we setId along with setRoleId? TN
+//						newUser.setRole(new Role(3));
+//					}
 					newUser.setRoleId(rs.getInt(1));
 				}
 				conn.commit();

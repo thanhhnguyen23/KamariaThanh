@@ -43,5 +43,17 @@ public class UserService {
 		return userDao.getById(userId);
 	}
 	
+	public User addUser(User newUser) {
+
+		if (newUser.getUsername().equals("") || 
+				newUser.getPassword().equals("") || 
+				newUser.getFirstName().equals("") || 
+				newUser.getLastName().equals("")) {
+			return null;
+		}
+
+		return userDao.add(newUser);
+	}
+
 
 }
