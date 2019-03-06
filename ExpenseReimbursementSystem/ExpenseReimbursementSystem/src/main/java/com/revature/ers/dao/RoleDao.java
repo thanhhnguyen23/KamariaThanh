@@ -24,7 +24,6 @@ public class RoleDao implements DAO<Role>{
 		List<Role> roles = new ArrayList<>();
 
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			//TODO -- Callable Statement
 			String sql = "{ CALL get_all_roles(?) }";
 			
 			CallableStatement cstate = conn.prepareCall(sql);

@@ -137,7 +137,7 @@ public class UserDao implements DAO<User>{
 			pstate.setString(5, newUser.getLastName());
 			pstate.setString(6,  newUser.getEmail());
 			
-			//TODO - 
+			//TODO - need to review
 			int rowsInserted = pstate.executeUpdate();
 			
 			ResultSet rs = pstate.getGeneratedKeys();
