@@ -23,8 +23,7 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 
-			//TODO -- testing queries requesting all reimbursements -- NOT TESTED
-			String sql = "SELECT * FROM ERS_REIMBURSEMENT ORDER BY REIMB_AUTHOR";
+			String sql = "SELECT * FROM ers_reimbursement JOIN ers_users ON (reimb_author = ers_user_id)";
 			ResultSet rs = conn.createStatement().executeQuery(sql);
 			
 			reimbursements = this.mapResultSet(rs);
@@ -65,23 +64,24 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			
 			conn.setAutoCommit(false); //look into why we set autocommint to false before we actually call the statement
 			
-			String sql = "INSERT INTO er_reimbursement VALUES (0, ?, ?, ?, ?, null, ?, ?, ?, ?)";
+			String sql = "INSERT INTO er_reimbursement VALUES (?, ?, ?, ?, ?, null, ?, ?, ?, ?)";
 			//null value here represents the BLOB receipt value
 			
-			String[] keys = new String[1];
-			keys[0] = "reimb_id";
+//			String[] keys = new String[1];
+//			keys[0] = "reimb_id";
 			
-			PreparedStatement pstate = conn.prepareStatement(sql, keys);
+			PreparedStatement pstate = conn.prepareStatement(sql);
 			
-			pstate.setInt(1, newReimb.getAmount());
-			pstate.setTimestamp(2, newReimb.getReimbSubmitted());
-			pstate.setTimestamp(3, newReimb.getReimbResolved());
-			pstate.setString(4, newReimb.getReimbDescription());
+			pstate.setInt(1, newReimb.getReimbId());
+			pstate.setInt(2, newReimb.getAmount());
+			pstate.setTimestamp(3, newReimb.getReimbSubmitted());
+			pstate.setTimestamp(4, newReimb.getReimbResolved());
+			pstate.setString(5, newReimb.getReimbDescription());
 			//null value for BLOB would be here
-			pstate.setInt(5, newReimb.getAuthorId());
-			pstate.setInt(6, newReimb.getResolverId());
-			pstate.setInt(7, newReimb.getStatusId());
-			pstate.setInt(8, newReimb.getTypeId());		
+			pstate.setInt(6, newReimb.getAuthorId());
+			pstate.setInt(7, newReimb.getResolverId());
+			pstate.setInt(8, newReimb.getStatusId());
+			pstate.setInt(9, newReimb.getTypeId());		
 			
 			int rowsInserted = pstate.executeUpdate();
 			

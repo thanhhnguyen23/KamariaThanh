@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,12 +119,51 @@ public class UserDao implements DAO<User>{
 
 	// unimplemented methods 
 	@Override
-	public User add(User obj) {
-		return null;
+	public User add(User newUser) {
+		//TODO -- 
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			conn.setAutoCommit(false);
+
+			String sql = "INSERT INTO ers_users VALUES (?, ?, ?, ?, ?, ?, 2)";
+			String[] keys = new String[1];
+			keys[0] = "user_role_id";
+
+			PreparedStatement pstate = conn.prepareStatement(sql, keys);
+			
+
+			pstate.setInt(1, newUser.getUserId());
+			pstate.setString(2, newUser.getUsername());
+			pstate.setString(3,  newUser.getPassword());
+			pstate.setString(4, newUser.getFirstName());
+			pstate.setString(5, newUser.getLastName());
+			pstate.setString(6,  newUser.getEmail());
+			
+			int rowsInserted = pstate.executeUpdate();
+			
+			ResultSet rs = pstate.getGeneratedKeys();
+			
+			if(rowsInserted != 0) {
+				while(rs.next()) {
+					newUser.setRoleId(rs.getInt(1));
+				}
+				conn.commit();
+			}
+		}
+		catch(SQLIntegrityConstraintViolationException e) {
+			log.warn(e.getMessage());
+		}
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		
+		if(newUser.getUserId() == 0) return null;
+
+		return newUser;
+
 	}
 
 	@Override
-	public User update(User updatedObj) {
+	public User update(User updatedUser) {
 		return null;
 	}
 
