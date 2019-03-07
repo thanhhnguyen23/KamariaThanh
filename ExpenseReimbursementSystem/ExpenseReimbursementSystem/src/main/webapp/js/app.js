@@ -5,13 +5,13 @@ window.onload = function() {
     document.getElementById('to-logout').addEventListener('click', logout);
 }
 
-// /*
-//     Login component
+/*
+    Login component
 
-//         - loadLogin()
-//         - configureLogin()
-//         - login()
-// */
+        - loadLogin()
+        - configureLogin()
+        - login()
+*/
 async function loadLogin() {
     console.log('in loadLogin()');
 
@@ -60,17 +60,17 @@ async function login() {
 
 }
 
-// //-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
 
-// /*
-//     Register component
+/*
+    Register component
 
-//         - loadRegister()
-//         - configureRegister()
-//         - validateUsername()
-//         - validatePassword()
-//         - register()
-// */
+        - loadRegister()
+        - configureRegister()
+        - validateUsername()
+        - validatePassword()
+        - register()
+*/
 
 async function loadRegister() {
     console.log('in loadRegister()');
