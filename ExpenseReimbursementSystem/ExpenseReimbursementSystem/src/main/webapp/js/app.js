@@ -28,6 +28,12 @@ function configureLogin() {
     document.getElementById('submit-creds').addEventListener('click', login);
 }
 
+/* 
+    Login Function will:
+        1. retrieve the credentials from the input fields and store them into an array 'credentials'
+        2. fetches the auth servlet (login servlet) that creates a JWT/verification for the user
+        3. if the response is successful, the dashboard gets loaded
+*/
 async function login() {
     console.log('in login()');
     let credentials = [];
@@ -43,6 +49,7 @@ async function login() {
         body: JSON.stringify(credentials)
     });
 
+    // we don't have to check the user role to change the dashboard view because we validate their id in the request view helper switch statement
     if(response.status == 200) {
         document.getElementById('alert-msg').hidden = true;
         localStorage.setItem('jwt', response.headers.get('Authorization'));
@@ -129,7 +136,13 @@ async function register() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(newUser)
+        
     });
+
+    // here, we force the user back to the login so we only have to repeat the fetch auth process once
+    if(response.status == 200) {
+        loadLogin();
+    } 
 
     let responseBody = await response.json();
     console.log(responseBody);
@@ -137,21 +150,30 @@ async function register() {
 
 //-------------------------------------------------------------------------------------
 
-// /*
-//     Dashboard component
-//         - loadDashboard()
-//  */
+/*
+    Dashboard Employee component
+        - loadDashboard()
+        - configureDashboard()
+        - dashboard()
+ */
 
-// async function loadDashboard() {
-//     console.log('in loadDashboard()');
-//     APP_VIEW.innerHTML = await fetchView('dashboard.view');
-//     DYNAMIC_CSS_LINK.href = 'css/dashboard.css';
-//     configureDashboard();
-// }
+async function loadDashboard() {
+    console.log('in loadDashboard()');
+    APP_VIEW.innerHTML = await fetchView('dashboard.view'); // request view helper
+    DYNAMIC_CSS_LINK.href = 'css/dashboard.css';
+    configureDashboard();
+}
 
-// function configureDashboard() {
-//     console.log('in configureDashboard()');
-// }
+function configureDashboard() {
+    console.log('in configureDashboard()');
+
+    // figure out which button trigures the dashboard on the html
+    document.getElementById('submit-creds').addEventListener('click', login);
+}
+
+async function dashboard() {
+
+}
 
 // //-------------------------------------------------------------------------------------
 // async function fetchView(uri) {
@@ -169,5 +191,30 @@ async function register() {
 
 // //-------------------------------------------------------------------------------------
 
+/*
+    Dashboard Manager component (admin-dash)
+        - loadDashboard()
+        - configureDashboard()
+        - dashboard()
+ */
+
+ async function loadDashboard() {
+
+ }
+
+ //figure out which button in the html, triggers the dashboard
+ function configureDashboard() {
+
+ }
+
+ async function dashboard() {
+
+ }
+
+//-------------------------------------------------------------------------------------
+
+
+
 // const APP_VIEW = document.getElementById('app-view');
 // const DYNAMIC_CSS_LINK = document.getElementById('dynamic-css');
+
