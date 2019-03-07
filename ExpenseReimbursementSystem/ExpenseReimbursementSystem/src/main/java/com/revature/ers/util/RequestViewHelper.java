@@ -22,9 +22,10 @@ public class RequestViewHelper {
 		
 		case "/ExpenseReimbursementSystem/dashboard.view":
 			Principal principal = (Principal) request.getAttribute("principal");
-			if(principal == null) return null;
+			if(principal.getRole() == "ADMIN") {
+				return "partials/admin-dash.html"; // admin/employee will have their dashboard
+			}
 			return "partials/dashboard.html";
-		
 		default: 
 			return null;
 		
