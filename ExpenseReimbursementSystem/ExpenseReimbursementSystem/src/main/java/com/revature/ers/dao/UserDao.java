@@ -59,7 +59,11 @@ public class UserDao implements DAO<User>{
 		User user = null;
 
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id) WHERE ers_username = ?");
+
+			// this is wrong
+//			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id) WHERE ers_username = ?");
+			PreparedStatement pstate = conn.prepareStatement("SELECT ers_username FROM ers_users JOIN ers_user_roles ON (ers_user_role_id = user_role_id) WHERE ers_users.ers_username = ?");
+
 			pstate.setString(1, username);
 
 			List<User> users = this.mapResultSet(pstate.executeQuery());

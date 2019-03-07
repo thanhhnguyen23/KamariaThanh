@@ -25,6 +25,11 @@ public class UserService {
 		}
 		return null;
 	}
+	public User IsUsernameAvaiable(String username) {
+		//TODO -- validate username is not taken
+
+		return username;
+	}
 	
 	public User getUserByUsername(String username) {
 		if (!username.equals("")) {
@@ -46,6 +51,11 @@ public class UserService {
 	}
 	
 	public User addUser(User newUser) {
+		/////////////////////////////////////////////////
+		User oldUser = new User();
+		
+		String oldUsername = oldUser.getUsername();
+		/////////////////////////////////////////////////
 
 		if (newUser.getUsername().equals("") || 
 				newUser.getPassword().equals("") || 
@@ -53,6 +63,12 @@ public class UserService {
 				newUser.getLastName().equals("")) {
 			return null;
 		}
+		///////////////////////////////////////////////////////////////////////
+		// check to see if new username is currently in the database
+		if(newUser.getUsername().equals(userDao.getByUsername(oldUsername))){
+			return null;
+		}
+		///////////////////////////////////////////////////////////////////////
 
 		return userDao.add(newUser);
 	}
