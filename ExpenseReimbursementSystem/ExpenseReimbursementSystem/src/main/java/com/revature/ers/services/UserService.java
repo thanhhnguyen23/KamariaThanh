@@ -25,14 +25,22 @@ public class UserService {
 		}
 		return null;
 	}
-	public User IsUsernameAvaiable(String username) {
-		//TODO -- validate username is not taken
 
-		return username;
-	}
+	// used for UI validation
+	public Boolean isUsernameAvailable(String username) {
+		
+		// if username is found, then username is NOT available
+		if(userDao.getByUsername(username) == null) {
+			return true;
+		}
+		// if username is found, then username IS AVAILABLE
+		else {
+			return false;
+		}
+	}	
 	
 	public User getUserByUsername(String username) {
-		if (!username.equals("")) {
+		if(!username.equals("")) {
 			return userDao.getByUsername(username);
 		}
 		return null;

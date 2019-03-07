@@ -17,10 +17,22 @@ public class UserDao implements DAO<User>{
 	
 	private static Logger log = Logger.getLogger(UserDao.class);
 
+	public List<User> getAllUsernames(){
+		List<User> usernames = new ArrayList<>();
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			ResultSet rs = conn.createStatement().executeQuery("SELECT ers_username FROM ers_users JOIN ers_user_roles ON (ers_user_role_id = user_role_id)");
+			
+			usernames = this.mapResultSet(rs);
+		}
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		return usernames;
+	}
 	@Override
 	public List<User> getAll() {
 		List<User> users = new ArrayList<>();
-		try (Connection conn = ConnectionFactory.getInstance().getConnection()){ //TODO -- need to create ConnectionFactory util
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()){ 
 			ResultSet rs = conn.createStatement().executeQuery(
 					"SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id)"
 					); 
@@ -60,8 +72,6 @@ public class UserDao implements DAO<User>{
 
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 
-			// this is wrong
-//			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id) WHERE ers_username = ?");
 			PreparedStatement pstate = conn.prepareStatement("SELECT ers_username FROM ers_users JOIN ers_user_roles ON (ers_user_role_id = user_role_id) WHERE ers_users.ers_username = ?");
 
 			pstate.setString(1, username);
