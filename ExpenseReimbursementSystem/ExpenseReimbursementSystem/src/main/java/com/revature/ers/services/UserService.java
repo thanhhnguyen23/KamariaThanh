@@ -2,6 +2,8 @@ package com.revature.ers.services;
 
 import java.util.List;
 
+import javax.servlet.annotation.WebServlet;
+
 import org.apache.log4j.Logger;
 
 import com.revature.ers.dao.UserDao;
