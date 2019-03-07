@@ -89,10 +89,17 @@ function configureRegister() {
 */
 
 // on blur to validate
+// how is this making a call to the database
 function validateUsername(event) {
     console.log('in validateUsername');
     console.log(event.target.value);
+
+    // ajax call here to the database to check for duplicate users
 }
+
+
+
+// check username and password for length (at least more than 2 characters)
 
 // use keyup to validate password
 function validatePassword(event) {
