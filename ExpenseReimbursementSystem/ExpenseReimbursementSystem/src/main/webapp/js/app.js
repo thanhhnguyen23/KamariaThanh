@@ -2,7 +2,7 @@ window.onload = function() {
     document.getElementById('to-login').addEventListener('click', loadLogin);
     document.getElementById('to-register').addEventListener('click', loadRegister);
     document.getElementById('to-dashboard').addEventListener('click', loadDashboard);
-    document.getElementById('to-logout').addEventListener('click', logout);
+    // document.getElementById('to-logout').addEventListener('click', logout);
 }
 
 /*
