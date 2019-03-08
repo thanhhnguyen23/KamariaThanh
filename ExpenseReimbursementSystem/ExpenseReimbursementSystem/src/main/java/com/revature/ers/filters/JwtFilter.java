@@ -17,7 +17,12 @@ import com.revature.ers.util.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
-@WebFilter("/*")
+//////////////////////////////////////////////////////////////////////
+// taking out filters and all related files to test login/registration
+///////////////////////////////////////////////////////////////////////
+
+
+//@WebFilter("/*")
 public class JwtFilter extends HttpFilter {
 	
 	private static final long serialVersionUID = 1L;
@@ -34,7 +39,7 @@ public class JwtFilter extends HttpFilter {
 //		log.info(JwtConfig.HEADER);
 		
 		// 3. Validate the header values and check the prefix
-		if(header == null || !header.startsWith(JwtConfig.PREFIX)) {
+//		if(header == null || !header.startsWith(JwtConfig.PREFIX)) {
 
 			log.info("Request originates from an unauthenticated origin");
 			
@@ -43,8 +48,8 @@ public class JwtFilter extends HttpFilter {
 			
 			// 3.2: If there is no header, or one that we provided, then go to the next step in the filter chain (target servlet)
 			chain.doFilter(req, resp);
-			return;
-		}
+//			return;
+//		}
 		
 		// 4. Get the token
 		String token = header.replaceAll(JwtConfig.PREFIX, "");
