@@ -33,13 +33,17 @@ public class JwtFilter extends HttpFilter {
 		log.info("Inside of JwtFilter.doFilter()");
 		
 		// 2. Get the HTTP header named "Authorization"
+		// header is not receiving the "Authorization" as the header
+		// however, the JwtConfig.HEADER & JwtConfig.PREFIX does its proper values
+		
 		String header = req.getHeader(JwtConfig.HEADER);
 //		String header = JwtConfig.HEADER; // testing
-
-//		log.info(JwtConfig.HEADER);
+		log.info(header);
+		log.info(JwtConfig.HEADER);
+		log.info(JwtConfig.PREFIX);
 		
 		// 3. Validate the header values and check the prefix
-//		if(header == null || !header.startsWith(JwtConfig.PREFIX)) {
+		if(header == null || !header.startsWith(JwtConfig.PREFIX)) {
 
 			log.info("Request originates from an unauthenticated origin");
 			
@@ -48,11 +52,13 @@ public class JwtFilter extends HttpFilter {
 			
 			// 3.2: If there is no header, or one that we provided, then go to the next step in the filter chain (target servlet)
 			chain.doFilter(req, resp);
-//			return;
-//		}
+			return;
+		}
 		
 		// 4. Get the token
+		log.info(header);
 		String token = header.replaceAll(JwtConfig.PREFIX, "");
+		log.info(token);
 		
 		try {
 			
