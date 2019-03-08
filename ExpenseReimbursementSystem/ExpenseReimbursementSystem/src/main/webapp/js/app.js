@@ -176,18 +176,18 @@ async function dashboard() {
 }
 
 // //-------------------------------------------------------------------------------------
-// async function fetchView(uri) {
-//     let response = await fetch(uri, {
-//         method: 'GET',
-//         mode: 'cors',
-//         headers: {
-//             'Authorization': localStorage.getItem('jwt')
-//         }
-//     });
+async function fetchView(uri) {
+    let response = await fetch(uri, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'Authorization': localStorage.getItem('jwt')
+        }
+    });
 
-//     if(response.status == 401) loadLogin();
-//     return await response.text();
-// }
+    if(response.status == 401) loadLogin();
+    return await response.text();
+}
 
 // //-------------------------------------------------------------------------------------
 
@@ -215,6 +215,6 @@ async function dashboard() {
 
 
 
-// const APP_VIEW = document.getElementById('app-view');
-// const DYNAMIC_CSS_LINK = document.getElementById('dynamic-css');
+const APP_VIEW = document.getElementById('app-view');
+const DYNAMIC_CSS_LINK = document.getElementById('dynamic-css');
 
