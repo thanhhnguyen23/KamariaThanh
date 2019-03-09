@@ -121,12 +121,12 @@ async function register() {
 
 // Double check, about ers_user_id and the incrementing values
     let newUser = {
-        ers_user_id: {},
-        ers_username: document.getElementById('register-username').value,
-        ers_password: document.getElementById('register-password').value,
-        user_first_name: document.getElementById('register-fn').value,
-        user_last_name: document.getElementById('register-ln').value,
-        user_role_id: 2
+        userId: {},
+        username: document.getElementById('register-username').value,
+        password: document.getElementById('register-password').value,
+        firstName: document.getElementById('register-fn').value,
+        lastName: document.getElementById('register-ln').value,
+        roleId: 2
     };
 
     let response = await fetch('users', {
