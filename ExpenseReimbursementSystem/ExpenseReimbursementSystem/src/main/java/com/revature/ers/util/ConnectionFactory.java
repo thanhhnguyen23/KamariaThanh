@@ -1,5 +1,6 @@
 package com.revature.ers.util;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,6 +10,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+
+import oracle.jdbc.driver.OracleDriver;
 
 public class ConnectionFactory {
 
@@ -33,7 +36,14 @@ public class ConnectionFactory {
 		try {
 			
 			// Load the properties file (application.properties) keys/values into the Properties object
-			prop.load(new FileReader("src/main/resources/application.properties"));
+
+			// ERROR ConnectionFactory:47 - src/main/resources/application.properties (No such file or directory)
+			//////////////////////////////////////////////////////////////////////////////////////////////////////
+			DriverManager.registerDriver(new OracleDriver());
+
+//			prop.load(new FileReader("src/main/resources/application.properties"));
+			prop.load(new FileReader("/home/thn05/Dropbox/_RevatureTraining/KamariaThanh/ExpenseReimbursementSystem/ExpenseReimbursementSystem/src/main/resources/application.properties"));
+			
 			
 			// Get a connection from the DriverManager class
 			conn = DriverManager.getConnection(

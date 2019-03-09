@@ -92,10 +92,18 @@ public class UserDao implements DAO<User>{
 	}
 
 	public User getByCredentials(String username, String password) {
+
+		log.info("username: " + username + " password: " + password);
+
 		User user = null;
 
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id) WHERE ers_username = ? AND ers_password = ?");
+
+
+			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_users JOIN ers_user_roles ON (ers_user_role_id = user_role_id) WHERE ers_users.ers_username = ? AND ers_users.ers_password = ?");
+
+			log.info("trying to get prepared statement to work");
+
 			pstate.setString(1, username);
 			pstate.setString(2, password);
 
