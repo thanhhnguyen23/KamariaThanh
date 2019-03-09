@@ -126,6 +126,7 @@ async function register() {
         password: document.getElementById('register-password').value,
         firstName: document.getElementById('register-fn').value,
         lastName: document.getElementById('register-ln').value,
+        email: document.getElementById('register-email').value,
         roleId: 2
     };
 
@@ -138,6 +139,9 @@ async function register() {
         body: JSON.stringify(newUser)
         
     });
+
+    console.log(newUser);
+    console.log(response);
 
     // here, we force the user back to the login so we only have to repeat the fetch auth process once
     if(response.status == 200) {
