@@ -27,23 +27,51 @@ public class UserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.info("Request received by UserServlet.doPost()");
+		
 		User newUser = null;
+		log.info("setting newUser null");
 		
 		ObjectMapper mapper = new ObjectMapper();
+		log.info("setting up mapper object");
 		
 		try {
+			/////////////////////////////////////////////////////////////
+			log.info(req);
+			log.info(mapper);
+			log.info(User.class); // cannot not deserialize instance of int out of START_OBJECT token
+
 			newUser = mapper.readValue(req.getInputStream(), User.class);
+
+			/////////////////////////////////////////////////////////////
+
 		} catch (MismatchedInputException mie) {
 			log.error(mie.getMessage());
+
+			log.info(newUser);
+
 			resp.setStatus(400);
 			return;
+
+		}
+		catch(Exception e){
+			log.error(e.getMessage());
+			resp.setStatus(500);
 		}
 		
+
 		newUser = userService.addUser(newUser); 
-		
+		try {
+			
 		String userJson = mapper.writeValueAsString(newUser);
 		PrintWriter out = resp.getWriter();
 		out.write(userJson);
+		}
+		catch(Exception e) {
+			log.error(e.getMessage());
+			resp.setStatus(500);
+		}
+		
+		
 	}
 
 }

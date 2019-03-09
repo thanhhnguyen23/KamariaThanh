@@ -139,6 +139,8 @@ async function register() {
         body: JSON.stringify(newUser)
         
     });
+    console.log(newUser);
+    console.log(response);
 
     console.log(newUser);
     console.log(response);
