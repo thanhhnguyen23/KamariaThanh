@@ -173,9 +173,39 @@ function configureDashboard() {
 
 async function dashboard() {
 
+    console.log('in dashboard');
+
 }
 
-// //-------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------
+
+/*
+    Dashboard Manager component (admin-dash)
+        - loadDashboard()
+        - configureDashboard()
+        - dashboard()
+ */
+
+ async function loadAdminDashboard() {
+    console.log('in loadAdminDashboard()');
+    APP_VIEW.innerHTML = await fetchView('dashboard.view');
+    DYNAMIC_CSS_LINK.href = 'css/admin-dash.css';
+    configureAdminDashboard();
+ }
+
+ //figure out which button in the html, triggers the dashboard
+ function configureAdminDashboard() {
+     console.log('in configureAdminDashboard()');
+     document.getElementById('submit-creds').addEventListener('click', login);
+
+ }
+
+ async function adminDashboard() {
+    console.log('in dashboard');
+ }
+
+//-------------------------------------------------------------------------------------
 async function fetchView(uri) {
     let response = await fetch(uri, {
         method: 'GET',
@@ -188,31 +218,7 @@ async function fetchView(uri) {
     if(response.status == 401) loadLogin();
     return await response.text();
 }
-
-// //-------------------------------------------------------------------------------------
-
-/*
-    Dashboard Manager component (admin-dash)
-        - loadDashboard()
-        - configureDashboard()
-        - dashboard()
- */
-
- async function loadDashboard() {
-
- }
-
- //figure out which button in the html, triggers the dashboard
- function configureDashboard() {
-
- }
-
- async function dashboard() {
-
- }
-
-//-------------------------------------------------------------------------------------
-
+//---------------------------------------------------------------------
 
 
 const APP_VIEW = document.getElementById('app-view');
