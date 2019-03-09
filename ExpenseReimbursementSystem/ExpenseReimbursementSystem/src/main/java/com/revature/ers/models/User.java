@@ -1,12 +1,18 @@
 package com.revature.ers.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
+
 	private int userId;
 	private String username;
 	private String password;
 	private String firstName;
 	private String lastName;
+
+	@JsonIgnore
 	private String email;
+	@JsonIgnore
 	private int roleId;
 
 	public User() {

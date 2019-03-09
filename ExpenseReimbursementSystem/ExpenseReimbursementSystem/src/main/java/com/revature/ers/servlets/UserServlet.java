@@ -27,9 +27,13 @@ public class UserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.info("Request received by UserServlet.doPost()");
+		//////////////////////////////////////////////////////
+		
 		User newUser = null;
+		log.info("setting newUser null");
 		
 		ObjectMapper mapper = new ObjectMapper();
+		log.info("setting up mapper object");
 		
 		try {
 			newUser = mapper.readValue(req.getInputStream(), User.class);
