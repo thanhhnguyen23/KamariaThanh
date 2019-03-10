@@ -3,16 +3,47 @@ package com.revature.ers.models;
 import java.sql.Timestamp;
 
 public class Reimbursement {
-	private int reimbId;
-	private int amount;
-	private Timestamp reimbSubmitted; 	
-	private Timestamp reimbResolved; 	
-	private String reimbDescription;
-	private int authorId;
-	private int resolverId;
-	private int statusId;
-	private int typeId;
 
+	private int reimbId; 					
+	private int amount;						
+	private Timestamp reimbSubmitted; 		
+	private Timestamp reimbResolved; 		
+	private String reimbDescription;		
+
+	// authorId --> current logged in user submitting reimbursement
+	private int authorId;					
+
+	/*
+	 ---------------------------------------------------------------------------------------------------
+	 resolverId --> manager typically resolves reimbursements with statusId: 1 with value of 'PENDING
+	 ---------------------------------------------------------------------------------------------------
+	 1. managers make changes to reimbursements of employees
+	 2. manager (mgr1) cannot make updates to reimbursements mgr1 submitted
+		 2.1 however, mgr1 submitted reimbursements can be updated/modified by other manager (e.g. mgr2)
+	*/
+	private int resolverId;					
+	
+	/*
+	 ------------------------
+	 status of reimbursement
+	 ------------------------
+	 1 -> 'PENDING'
+	 2 -> 'APPROVED'
+	 3 -> 'DONE'
+	 4 -> 'DENIED'
+	*/
+	private int statusId;											
+
+	/*
+	 -----------------------
+	 types of reimbursement
+	 -----------------------
+	 1 -> 'LODGING'
+	 2 -> 'TRAVEL'
+	 3 -> 'FOOD'
+	 4 -> 'OTHER'
+	*/
+	private int typeId;
 
 	public Reimbursement() {
 		super();
@@ -198,7 +229,4 @@ public class Reimbursement {
 				+ ", reimbResolved=" + reimbResolved + ", reimbDescription=" + reimbDescription + ", authorId="
 				+ authorId + ", resolverId=" + resolverId + ", statusId=" + statusId + ", typeId=" + typeId + "]";
 	}
-	
-
-	
 }

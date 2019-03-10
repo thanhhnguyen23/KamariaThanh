@@ -26,6 +26,19 @@ public class RequestViewHelper {
 				return "partials/admin-dash.html"; // admin/employee will have their dashboard
 			}
 			return "partials/dashboard.html";
+			
+		// reimbursements
+		//TODO -- KD -- Reimbursements View 
+
+//		case "/ExpenseReimbursementSystem/new-reimb.view":
+//			Principal principal = (Principal) request.getAttribute("principal");
+//			if(principal.getRole() == "USER") {
+//				return "partials/new-reimb.html"; 
+//			}
+//			return "partials/dashboard.html";
+			
+			
+		
 		default: 
 			return null;
 		
