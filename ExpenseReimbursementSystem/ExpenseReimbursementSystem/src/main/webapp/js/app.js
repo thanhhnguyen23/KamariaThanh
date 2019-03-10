@@ -4,7 +4,7 @@ window.onload = function() {
     document.getElementById('to-dashboard').addEventListener('click', loadDashboard);
     // document.getElementById('to-profile').addEvent
     document.getElementById('to-logout').addEventListener('click', logout);
-    document.getElementById('new-reimbursement').addEventListener('click', loadReimbursement);
+    document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
 }
 
 /*
@@ -240,7 +240,7 @@ async function loadReimbursement() {
     console.log('in loadReimbursement()');
 
     APP_VIEW.innerHTML = await fetchView('new-reimb.view');
-    DYNAMIC_CSS_LINK.href = 'css/register.css'; //later, add reimb css
+    // DYNAMIC_CSS_LINK.href = 'css/register.css'; //later, add reimb css
     // configureReimbursement();
     createReimbursement();
 }
