@@ -2,11 +2,18 @@ package com.revature.ers.models;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Reimbursement {
 
+	@JsonIgnore 						// may be needed to match JSON files for transmitting to js
 	private int reimbId; 					
 	private int amount;						
+
+	@JsonIgnore 						// may be needed to match JSON files for transmitting to js
 	private Timestamp reimbSubmitted; 		
+
+	@JsonIgnore 						// may be needed to match JSON files for transmitting to js
 	private Timestamp reimbResolved; 		
 	private String reimbDescription;		
 
