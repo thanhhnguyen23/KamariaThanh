@@ -171,8 +171,7 @@ async function loadDashboard() {
     APP_VIEW.innerHTML = await fetchView('dashboard.view'); // request view helper
     DYNAMIC_CSS_LINK.href = 'css/dashboard.css';
     configureDashboard();
-    document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
-
+    
 }
 
 function configureDashboard() {
@@ -185,6 +184,8 @@ function configureDashboard() {
 async function dashboard() {
 
     console.log('in dashboard');
+    document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
+
 
 }
 
