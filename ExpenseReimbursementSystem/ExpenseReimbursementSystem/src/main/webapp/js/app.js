@@ -4,7 +4,7 @@ window.onload = function() {
     document.getElementById('to-dashboard').addEventListener('click', loadDashboard);
     // document.getElementById('to-profile').addEvent
     document.getElementById('to-logout').addEventListener('click', logout);
-    document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
+    document.getElementById('new-reimbursement').addEventListener('click', loadReimbursement);
 }
 
 /*
