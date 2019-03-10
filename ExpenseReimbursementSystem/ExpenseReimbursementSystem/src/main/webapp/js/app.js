@@ -2,8 +2,9 @@ window.onload = function() {
     document.getElementById('to-login').addEventListener('click', loadLogin);
     document.getElementById('to-register').addEventListener('click', loadRegister);
     document.getElementById('to-dashboard').addEventListener('click', loadDashboard);
-    document.getElementById('to-profile').addEvent
+    // document.getElementById('to-profile').addEvent
     document.getElementById('to-logout').addEventListener('click', logout);
+    document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
 }
 
 /*
@@ -21,6 +22,8 @@ async function loadLogin() {
     DYNAMIC_CSS_LINK.href = 'css/login.css';
     configureLogin(); //calling configure
 }
+
+
 
 // here, we have event listeners to toggle an alert and invoke login() function
 function configureLogin() {
@@ -143,9 +146,6 @@ async function register() {
     console.log(newUser);
     console.log(response);
 
-    console.log(newUser);
-    console.log(response);
-
     // here, we force the user back to the login so we only have to repeat the fetch auth process once
     if(response.status == 200) {
         loadLogin();
@@ -227,6 +227,65 @@ async function fetchView(uri) {
 }
 //---------------------------------------------------------------------
 
+
+/*
+    Reimbursemnt Component
+
+        -loadReimbursement()
+*/
+
+
+//GO BACK AND CHANGE REIMBURSEMENT
+async function loadReimbursement() {
+    console.log('in loadReimbursement()');
+
+    APP_VIEW.innerHTML = await fetchView('new-reimb.view');
+    DYNAMIC_CSS_LINK.href = 'css/register.css'; //later, add reimb css
+    // configureReimbursement();
+    createReimbursement();
+}
+
+// add validation for fields not being empty
+function configureReimbursement() {
+    console.log.log('in configureReimbursement');
+    document.getElementById('reimbursement-username');
+}
+
+async function createReimbursement() {
+    console.log('in createReimbursement()');
+
+    let newReimb = {
+        reimbId: {},
+        amount: document.getElementById('reimbursement-amount').value,
+        reimbDescription: document.getElementById('reimbursement-description').value,
+        authorId: document.getElementById('reimbursement-username').value,
+        typeId: document.getElementById('reimbursement-type').value
+    };
+
+    // here, we are fetching a REIMBURSEMENTS servlet that technically does not exist yet but will revisit later
+    let response = await fetch('remibursements', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newReimb);
+    });
+
+    console.log(newReimb);
+    console.log(response);
+
+    if (response.status == 200) {
+        //for now load dashboard, but later will load the viewAllReimbursements
+        loadDashboard();
+    }
+
+    let responseBody = await response.json();
+    console.log(responseBody);
+}
+
+
+//-------------------------------------------------------------
 
 const APP_VIEW = document.getElementById('app-view');
 const DYNAMIC_CSS_LINK = document.getElementById('dynamic-css');
