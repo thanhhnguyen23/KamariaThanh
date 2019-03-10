@@ -269,7 +269,7 @@ async function createReimbursement() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newReimb);
+        body: JSON.stringify(newReimb)
     });
 
     console.log(newReimb);
