@@ -1,0 +1,24 @@
+<div class="reimbursement-form">
+    <h1 class="h3 mb-3 font-weight-normal">Create A New Reimbursement</h1>
+  
+    <!--here we are getting their username so we can keep track of whose reimb it is-->
+    <label for="reimbursement-username" class="sr-only">Username</label>
+    <input type="text" id="reimbursement-username" class="form-control" placeholder="Username" required autofocus>
+    
+    <!--
+        here, we are getting the type: 
+            LODGING, FOOD, TRAVEL, OTHER
+        this should be a dropdown menu
+        the type that they chose/the value should be linked to the type id-->
+    <label for="reimbursement-type" class="sr-only">Type of Reimbursement</label>
+    <input type="text" id="reimbursement-type" class="form-control" placeholder="Type" required autofocus>
+    
+    <!--
+        Description here will just be a user input field of what 
+    -->
+    <label for="reimbursement-description" class="sr-only">Description</label>
+    <input type="text" id="reimbursement-description" class="form-control" placeholder="Description" required autofocus>
+    
+    <button class="btn btn-lg btn-primary btn-block" id="new-reimbursement">Create Reimbursement</button>
+    <p class="mt-5 mb-3 text-muted">&copy; Revature 2017-2019</p>
+</div>
