@@ -6,7 +6,7 @@ window.onload = function() {
     document.getElementById('to-logout').addEventListener('click', logout);
 }
 
-document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
+// document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
 
 
 /*
@@ -171,6 +171,8 @@ async function loadDashboard() {
     APP_VIEW.innerHTML = await fetchView('dashboard.view'); // request view helper
     DYNAMIC_CSS_LINK.href = 'css/dashboard.css';
     configureDashboard();
+    document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
+
 }
 
 function configureDashboard() {
