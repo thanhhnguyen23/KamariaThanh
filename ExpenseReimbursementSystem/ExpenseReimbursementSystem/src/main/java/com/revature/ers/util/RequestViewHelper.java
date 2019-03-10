@@ -30,14 +30,12 @@ public class RequestViewHelper {
 		// reimbursements
 		//TODO -- KD -- Reimbursements View 
 
-//		case "/ExpenseReimbursementSystem/new-reimb.view":
-//			Principal principal = (Principal) request.getAttribute("principal");
-//			if(principal.getRole() == "USER") {
-//				return "partials/new-reimb.html"; 
-//			}
-//			return "partials/dashboard.html";
-			
-			
+		case "/ExpenseReimbursementSystem/new-reimb.view":
+			principal = (Principal) request.getAttribute("principal");
+			if(principal.getRole() == "USER" || principal.getRole() == "ADMIN") {
+				return "partials/new-reimb.html"; 
+			}
+			return "partials/dashboard.html";
 		
 		default: 
 			return null;
