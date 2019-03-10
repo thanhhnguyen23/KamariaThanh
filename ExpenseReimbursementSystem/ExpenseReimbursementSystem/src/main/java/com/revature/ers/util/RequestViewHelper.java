@@ -32,10 +32,12 @@ public class RequestViewHelper {
 
 		case "/ExpenseReimbursementSystem/new-reimb.view":
 			principal = (Principal) request.getAttribute("principal");
-			if(principal.getRole() == "USER" || principal.getRole() == "ADMIN") {
-				return "partials/new-reimb.html"; 
-			}
-			return "partials/dashboard.html";
+			// principal.getRole() may not be functioning while retrieving new reimbursement screen
+
+//			if(principal.getRole() == "USER" || principal.getRole() == "ADMIN") {
+			return "partials/new-reimb.html"; 
+//			}
+//			return "partials/dashboard.html";
 		
 		default: 
 			return null;
