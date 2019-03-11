@@ -267,7 +267,7 @@ async function createReimbursement() {
     };
 
     // here, we are fetching a REIMBURSEMENTS servlet that technically does not exist yet but will revisit later
-    let response = await fetch('remibursements', {
+    let response = await fetch('reimbursements', {
         method: 'POST',
         mode: 'cors',
         headers: {
