@@ -170,24 +170,22 @@ async function loadDashboard() {
     console.log('in loadDashboard()');
     APP_VIEW.innerHTML = await fetchView('dashboard.view'); // request view helper
     DYNAMIC_CSS_LINK.href = 'css/dashboard.css';
-    configureDashboard();
+    dashboard();
     
 }
 
-function configureDashboard() {
-    console.log('in configureDashboard()');
+// function configureDashboard() {
+//     console.log('in configureDashboard()');
 
-    // figure out which button trigures the dashboard on the html
-    document.getElementById('submit-creds').addEventListener('click', login);
-    dashboard();
-}
+//     // figure out which button trigures the dashboard on the html
+//     document.getElementById('submit-creds').addEventListener('click', login);
+//     dashboard();
+// }
 
 async function dashboard() {
 
     console.log('in dashboard');
     document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
-
-
 }
 
 
