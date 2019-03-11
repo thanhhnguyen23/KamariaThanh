@@ -179,6 +179,7 @@ function configureDashboard() {
 
     // figure out which button trigures the dashboard on the html
     document.getElementById('submit-creds').addEventListener('click', login);
+    dashboard();
 }
 
 async function dashboard() {
