@@ -64,7 +64,7 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			
 			conn.setAutoCommit(false); //look into why we set autocommint to false before we actually call the statement
 			
-			String sql = "INSERT INTO ers_reimbursement VALUES (?, ?, ?, ?, ?, null, ?, 1, 1, ?)";
+			String sql = "INSERT INTO ers_reimbursement VALUES (0, ?, ?, ?, ?, null, ?, 1, 1, ?)";
 			//null value here represents the BLOB receipt value
 			
 			String[] keys = new String[1];
@@ -72,19 +72,18 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			
 			PreparedStatement pstate = conn.prepareStatement(sql);
 			
-			pstate.setInt(1, newReimb.getReimbId());
-			pstate.setInt(2, newReimb.getAmount());
-			pstate.setTimestamp(3, newReimb.getReimbSubmitted());
-			pstate.setTimestamp(4, newReimb.getReimbResolved());
-			pstate.setString(5, newReimb.getReimbDescription());
+			pstate.setInt(1, newReimb.getAmount());
+			pstate.setTimestamp(2, newReimb.getReimbSubmitted());
+			pstate.setTimestamp(3, newReimb.getReimbResolved());
+			pstate.setString(4, newReimb.getReimbDescription());
 			//here, this represents the null value for BLOB
-			pstate.setInt(6, newReimb.getAuthorId());
+			pstate.setInt(5, newReimb.getAuthorId());
 			// below, we removed the parameter and forced the resolverId to be 1 (ADMIN)
 			// pstate.setInt(7, newReimb.getResolverId());
 
 			// below, we removed the parameter and forced default statusId to be 1 (PENDING)
 			// pstate.setInt(8, newReimb.getStatusId());
-			pstate.setInt(7, newReimb.getTypeId());		
+			pstate.setInt(6, newReimb.getTypeId());		
 			
 			int rowsInserted = pstate.executeUpdate();
 			
