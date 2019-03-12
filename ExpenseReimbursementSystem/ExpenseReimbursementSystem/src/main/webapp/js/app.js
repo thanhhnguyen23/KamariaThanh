@@ -290,7 +290,7 @@ async function createReimbursement() {
             break; //break because the user can only choose one radio button option
         }
     }
-    
+
     let newReimb = {
         reimbId: {},
         amount: document.getElementById('reimbursement-amount').value,
@@ -324,12 +324,18 @@ async function createReimbursement() {
     
     // here, in a second function, parse through the response and get those values separately
 
+<<<<<<< HEAD
     // testing the responseBody
     // let resp_amount = responseBody.amount;
     // console.log(resp_amount);
 
 
 
+=======
+    let resp_amount = newReimb.amount;
+
+    console.log(resp_amount);
+>>>>>>> 7a81faa63c9b4d9cbc22909541f3746f21cb7fea
     // let authorId
     // let reimbDescription
     // let reimbSubmitted
