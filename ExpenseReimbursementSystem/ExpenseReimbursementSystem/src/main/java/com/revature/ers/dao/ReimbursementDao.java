@@ -64,11 +64,8 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			
 			conn.setAutoCommit(false); //look into why we set autocommint to false before we actually call the statement
 			
-<<<<<<< HEAD
-			String sql = "INSERT INTO ers_reimbursement VALUES (?, ?, ?, ?, ?, null, ?, ?, ?, ?)";
-=======
 			String sql = "INSERT INTO er_reimbursement VALUES (?, ?, ?, ?, ?, null, ?, 1, ?, ?)";
->>>>>>> 610434357439f2855e05686fe406980edf6f4063
+
 			//null value here represents the BLOB receipt value
 			
 			String[] keys = new String[1];
