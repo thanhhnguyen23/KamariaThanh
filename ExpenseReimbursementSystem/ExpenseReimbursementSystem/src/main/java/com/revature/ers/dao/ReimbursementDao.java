@@ -79,12 +79,16 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			pstate.setTimestamp(3, newReimb.getReimbResolved());
 			pstate.setString(4, newReimb.getReimbDescription());
 			//here, this represents the null value for BLOB
-			pstate.setInt(5, newReimb.getAuthorId());
+
+			// find out how to set this as the current logged in user id (maybe principal/jwt/claims)
+
+			pstate.setInt(5, newReimb.getAuthorId()); 
 			// below, we removed the parameter and forced the resolverId to be 1 (ADMIN)
 			// pstate.setInt(7, newReimb.getResolverId());
 
 			// below, we removed the parameter and forced default statusId to be 1 (PENDING)
 			// pstate.setInt(8, newReimb.getStatusId());
+			// typeId should correlate to the databsae
 			pstate.setInt(6, newReimb.getTypeId());		
 			
 			int rowsInserted = pstate.executeUpdate();
