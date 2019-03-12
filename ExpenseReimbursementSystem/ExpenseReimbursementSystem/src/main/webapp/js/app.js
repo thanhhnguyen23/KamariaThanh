@@ -282,12 +282,21 @@ function configureReimbursement() {
 async function createReimbursement() {
     console.log('in createReimbursement()');
 
+    // get value from the dropdown
+    let typeSelect = document.getElementById('reimb-type');
+    for (let i = 0; i < typeSelect.length; i++) {
+        if (typeSelect[i].checked) {
+            var typeVal = typeSelect[i].value;
+            break; //break because the user can only choose one radio button option
+        }
+    }
+    
     let newReimb = {
         reimbId: {},
         amount: document.getElementById('reimbursement-amount').value,
         reimbDescription: document.getElementById('reimbursement-description').value,
         authorId: document.getElementById('reimbursement-username').value,
-        typeId: document.getElementById('reimbursement-type').value
+        typeId: typeVal
     };
 
     // here, we are fetching a REIMBURSEMENTS servlet that technically does not exist yet but will revisit later
