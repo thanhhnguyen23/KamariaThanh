@@ -11,16 +11,27 @@
         this should be a dropdown menu
         the type that they chose/the value should be linked to the type id-->
     <!-- <div class = "dropdown-menu"> -->
-        <label for="reimbursement-type" class="sr-only">Specify the Type of Reimbursement</label>
+
+        <!-- <label for="reimbursement-type" class="sr-only">Specify the Type of Reimbursement</label> -->
         <!-- <input type="" id="reimbursement-type" class="form-control" placeholder="Type" required autofocus> -->
 
-        <select>
+        <select name = "type" class = "custom-select">
+            <label for="reimbursement-type" class="sr-only">Specify the Type of Reimbursement</label>
             <!-- <option value="" disabled="disabled" selected="selected">Please specify the type of reimbursement.</option> -->
             <option class = "form-control" value="1">Lodging</option>
             <option class = "form-control" value="2">Travel</option>
             <option class = "form-control" value="3">Food</option>
             <option class = "form-control" value="4">Other</option>
         </select>
+
+        <!-- <form>
+                <select name="cars" class="custom-select">
+                  <option selected>Custom Select Menu</option>
+                  <option value="volvo">Volvo</option>
+                  <option value="fiat">Fiat</option>
+                  <option value="audi">Audi</option>
+                </select>
+              </form> -->
     <!-- </div> -->
     
     <label for="reimbursement-amount" class="sr-only">Reimbursement Amount</label>
