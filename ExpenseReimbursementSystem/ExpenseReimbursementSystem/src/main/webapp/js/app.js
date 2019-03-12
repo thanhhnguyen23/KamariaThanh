@@ -318,14 +318,18 @@ async function createReimbursement() {
         loadDashboard();
     }
 
-    let responseBody = await response.json();
+    let responseBody = await response.json(); // cannot deserialize value of type int from String // username field must be given userid
     console.log(responseBody);
-    
 
+    
     // here, in a second function, parse through the response and get those values separately
 
-    let resp_amount = responseBody.amount;
-    console.log(resp_amount);
+    // testing the responseBody
+    // let resp_amount = responseBody.amount;
+    // console.log(resp_amount);
+
+
+
     // let authorId
     // let reimbDescription
     // let reimbSubmitted

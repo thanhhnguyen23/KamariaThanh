@@ -40,6 +40,12 @@ public class ReimbursementService {
 		
 		return null;
 	}
+	public Reimbursement updateReimbStatus(Reimbursement updatedReimbStatus) {
+		if(updatedReimbStatus.
+			return null;
+		}
+		
+	}
 	
 
 }
