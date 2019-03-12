@@ -1,7 +1,7 @@
 window.onload = function() {
     document.getElementById('to-login').addEventListener('click', loadLogin);
     document.getElementById('to-register').addEventListener('click', loadRegister);
-    document.getElementById('to-dashboard').addEventListener('click', loadDashboard);
+    document.getElementById('to-home').addEventListener('click', loadLogin);
     // document.getElementById('to-profile').addEvent
     document.getElementById('to-logout').addEventListener('click', logout);
 }
@@ -236,6 +236,8 @@ async function fetchView(uri) {
     Reimbursemnt Component
 
         -loadReimbursement()
+        -configureReimbursement()
+        -
 */
 
 
@@ -246,13 +248,31 @@ async function loadReimbursement() {
     APP_VIEW.innerHTML = await fetchView('new-reimb.view');
     // DYNAMIC_CSS_LINK.href = 'css/register.css'; //later, add reimb css
     // configureReimbursement();
+    document.getElementById('alert-empty').hidden = true;
+    document.getElementById('alert-nan').hidden = true;
     createReimbursement();
 }
+
+// type should be a dropdown menu
 
 // add validation for fields not being empty
 function configureReimbursement() {
     console.log.log('in configureReimbursement');
-    document.getElementById('reimbursement-username');
+    let reimb_user = document.getElementById('reimbursement-username').value;
+    let reimb_type = document.getElementById('reimbursement-type').value;
+    let reimb_amount = document.getElementById('reimbursement-amount').value;
+    let reimb_description = document.getElementById('reimbursement-description').value;
+
+    if ((reimb_user == '') || (reimb_type == '') || (reimb_amount == '') || (remb_description == '')) {
+        document.getElementById('alert-empty').hidden = false;
+    } else document.getElementById('alert-empty').hidden = true;
+
+    if (isNaN(reimb_amount)) {
+        document.getElementById('alert-nan').hidden = false;
+    } else document.getElementById('alert-nan').hidden = true;
+
+    if (reimb_description > 250 ) document.getElementById('alert-description').hidden = false;
+    else document.getElementById('alert-description').hidden = true;
 }
 
 async function createReimbursement() {
@@ -280,6 +300,7 @@ async function createReimbursement() {
     console.log(response);
 
     if (response.status == 200) {
+        alert('Your reimbursement has been submitted!');
         //for now load dashboard, but later will load the viewAllReimbursements
         loadDashboard();
     }

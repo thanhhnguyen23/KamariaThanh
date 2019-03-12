@@ -23,5 +23,20 @@
     <input type="text" id="reimbursement-description" class="form-control" placeholder="Description" required autofocus>
     
     <button class="btn btn-lg btn-primary btn-block" id="new-reimbursement">Create Reimbursement</button>
+    
+    <!-- fields empty;   alert-empty -->
+    <div class="alert alert-danger text-center" id="alert-empty" role="alert">
+        Every field must be filled!
+    </div>
+
+    <!-- amount must be a number;    alert-nan -->
+    <div class="alert alert-danger text-center" id="alert-nan" role="alert">
+        Please enter a number for the amount.
+    </div>
+
+    <!-- description cannot be larger than 25;   alert-description-->
+    <div class="alert alert-danger text-center" id="alert-description" role="alert">
+        Description must be less than 250 characters.
+    </div>
     <p class="mt-5 mb-3 text-muted">&copy; Revature 2017-2019</p>
 </div>
