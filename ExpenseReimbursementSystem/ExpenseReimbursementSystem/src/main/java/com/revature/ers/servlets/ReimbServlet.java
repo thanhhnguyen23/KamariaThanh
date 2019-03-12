@@ -39,6 +39,14 @@ public class ReimbServlet extends HttpServlet{
 			log.info(req);
 			log.info(mapper);
 			log.info(Reimbursement.class);
+			/////////////////////////////////////////////////////////////////////////////////////////////
+
+			// checking out newReimb
+			// 3/11/18
+			// Can not deserialize value of type int from String "bwayne": not a valid Integer value
+			log.info(newReimb); // currently null
+			/////////////////////////////////////////////////////////////////////////////////////////////
+			
 			log.info(ReimbServlet.class);
 			
 			newReimb = mapper.readValue(req.getInputStream(), Reimbursement.class);
