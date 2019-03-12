@@ -311,6 +311,14 @@ async function createReimbursement() {
 
     let responseBody = await response.json();
     console.log(responseBody);
+    
+    // let reimb_id = responseBody.reimbId;
+    // etc
+
+    // in response body, parse thru to get the info ya need for ya ticket stuffs 
+
+    //document. innerHTMLs 
+
     // document.getElementById('new-reimbursement').addEventListener('click', alert('Your reimbursement has been submitted!'));
     // alert('Your reimbursement has been submitted!');
 }

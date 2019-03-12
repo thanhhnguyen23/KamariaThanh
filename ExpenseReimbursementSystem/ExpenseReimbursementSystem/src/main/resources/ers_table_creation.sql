@@ -169,8 +169,28 @@ END;
 
 --****************************************************
 
+-- creating trigger to insert timestamp on new reimbursement
 
+CREATE OR REPLACE TRIGGER ers_reimb_submit_timestamp BEFORE
+	INSERT ON ers_reimbursement
+	FOR EACH ROW
+BEGIN
+	SELECT SYSTIMESTAMP
+	INTO :new.reimb_submitted
+	FROM dual;
+END;
+/
 
+--Creating a trigger to insert timestamp on status id update
+CREATE OR REPLACE TRIGGER ers_reimb_resolve_timestamp BEFORE
+	UPDATE ON ers_reimbursement
+	FOR EACH ROW
+BEGIN
+	SELECT SYSTIMESTAMP
+	INTO :new.reimb_resolved
+	FROM dual;
+END;
+/
 
 
 -- ************************************************
