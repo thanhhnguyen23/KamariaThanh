@@ -306,7 +306,7 @@ async function createReimbursement() {
     if (response.status == 200) {
         console.log('the status is 200...');
         //for now load dashboard, but later will load the viewAllReimbursements
-        // loadDashboard();
+        loadDashboard();
     }
 
     let responseBody = await response.json();

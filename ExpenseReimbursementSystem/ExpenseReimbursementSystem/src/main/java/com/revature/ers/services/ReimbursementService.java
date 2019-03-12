@@ -22,7 +22,7 @@ public class ReimbursementService {
 	
 	public Reimbursement addReimbursement(Reimbursement newReimb) {
 		// get amount
-		if(newReimb.getAmount() != 0 || newReimb.getReimbDescription().equals("") || newReimb.getAuthorId() != 0 || newReimb.getTypeId() != 0) {
+		if(newReimb.getAmount() == 0 || newReimb.getReimbDescription().equals("") || newReimb.getAuthorId() == 0 || newReimb.getTypeId() == 0) {
 			return null;
 		}
 		return rDao.add(newReimb);

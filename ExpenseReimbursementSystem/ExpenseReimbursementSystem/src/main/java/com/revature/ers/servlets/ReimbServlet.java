@@ -64,6 +64,7 @@ public class ReimbServlet extends HttpServlet{
 			log.error(e.getMessage());
 			resp.setStatus(500);
 		}
+		
 		newReimb = reimbService.addReimbursement(newReimb);
 
 		try {
