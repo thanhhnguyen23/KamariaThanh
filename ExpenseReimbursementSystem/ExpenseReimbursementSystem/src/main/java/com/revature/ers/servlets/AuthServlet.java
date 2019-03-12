@@ -1,6 +1,7 @@
 package com.revature.ers.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.revature.ers.models.Principal;
 import com.revature.ers.models.User;
 import com.revature.ers.services.UserService;
 import com.revature.ers.util.JwtConfig;
@@ -29,9 +31,12 @@ public class AuthServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		ObjectMapper mapper = new ObjectMapper();
 		String[] credentials = null;
+		PrintWriter out = null;
 		
 		try {
+			out = resp.getWriter();
 			credentials = mapper.readValue(req.getInputStream(), String[].class);
+
 		} catch (MismatchedInputException mie) {
 			log.error(mie.getMessage());
 			resp.setStatus(400);
@@ -50,6 +55,9 @@ public class AuthServlet extends HttpServlet {
 			resp.setStatus(401);
 			return;
 		}
+		// attempting to retrieve role and rolename
+		Principal principal = new Principal(user.getRoleId(), user.getUsername());
+		out.write(mapper.writeValueAsString(principal));
 		
 		resp.setStatus(200);
 		resp.addHeader(JwtConfig.HEADER, JwtConfig.PREFIX + JwtGenerator.createJwt(user));

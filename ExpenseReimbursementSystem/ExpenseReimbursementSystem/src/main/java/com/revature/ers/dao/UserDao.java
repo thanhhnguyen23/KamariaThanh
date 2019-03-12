@@ -102,7 +102,7 @@ public class UserDao implements DAO<User>{
 
 			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_users JOIN ers_user_roles ON (ers_user_role_id = user_role_id) WHERE ers_users.ers_username = ? AND ers_users.ers_password = ?");
 
-			log.info("trying to get prepared statement to work");
+//			log.info("trying to get prepared statement to work"); 
 
 			pstate.setString(1, username);
 			pstate.setString(2, password);

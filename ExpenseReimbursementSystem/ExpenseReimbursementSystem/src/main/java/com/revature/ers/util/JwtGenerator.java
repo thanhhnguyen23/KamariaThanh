@@ -15,7 +15,8 @@ public class JwtGenerator {
 	private static Logger log = Logger.getLogger(JwtGenerator.class);
 	
 	public static String createJwt(User subject) {
-		log.info("Creating new JWT for: " + subject.getUsername());
+		// getting username/userId
+		log.info("Creating new JWT for: " + subject.getUsername() + "\nUser ID: " + subject.getUserId());
 		
 		// The JWT Signature Algorithm used to sign the token
 		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -28,8 +29,7 @@ public class JwtGenerator {
 				.setSubject(subject.getUsername())
 				.setIssuer("revature")
 //				.claim("role", subject.getRole().getRoleName()) // TODO - need to look into "subject.getRole()
-
-				.claim("role", subject.getRoleId())
+				.claim("role ID: ", subject.getRoleId())
 				.setExpiration(new Date(nowMillis + JwtConfig.EXPIRATION * 1000))
 				.signWith(signatureAlgorithm, JwtConfig.signingKey);
 		

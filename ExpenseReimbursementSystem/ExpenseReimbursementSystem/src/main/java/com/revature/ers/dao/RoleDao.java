@@ -46,7 +46,8 @@ public class RoleDao implements DAO<Role>{
 		Role role = new Role();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			
-			PreparedStatement pstate = conn.prepareStatement("SELECT * FROM ers_user_roles WHERE ers_user_role_id = ?");
+			String sql = "SELECT * FROM ers_user_roles JOIN ers_users ON (ers_user_role_id = user_role_id) WHERE user_role_id = ?";
+			PreparedStatement pstate = conn.prepareStatement(sql);
 			pstate.setInt(1, roleId);
 
 
