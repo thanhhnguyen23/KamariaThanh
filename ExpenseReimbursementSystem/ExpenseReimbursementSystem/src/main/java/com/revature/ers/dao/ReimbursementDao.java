@@ -64,7 +64,7 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			
 			conn.setAutoCommit(false); //look into why we set autocommint to false before we actually call the statement
 			
-			String sql = "INSERT INTO er_reimbursement VALUES (?, ?, ?, ?, ?, null, ?, ?, ?, ?)";
+			String sql = "INSERT INTO er_reimbursement VALUES (?, ?, ?, ?, ?, null, ?, 1, ?, ?)";
 			//null value here represents the BLOB receipt value
 			
 //			String[] keys = new String[1];
@@ -79,9 +79,10 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			pstate.setString(5, newReimb.getReimbDescription());
 			//null value for BLOB would be here
 			pstate.setInt(6, newReimb.getAuthorId());
-			pstate.setInt(7, newReimb.getResolverId());
-			pstate.setInt(8, newReimb.getStatusId());
-			pstate.setInt(9, newReimb.getTypeId());		
+			// here, we removed the parameter and forced the resolverId to be 1 (ADMIN)
+			// pstate.setInt(7, newReimb.getResolverId());
+			pstate.setInt(7, newReimb.getStatusId());
+			pstate.setInt(8, newReimb.getTypeId());		
 			
 			int rowsInserted = pstate.executeUpdate();
 			
