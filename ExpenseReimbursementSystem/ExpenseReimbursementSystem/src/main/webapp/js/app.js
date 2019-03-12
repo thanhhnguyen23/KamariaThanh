@@ -237,7 +237,7 @@ async function fetchView(uri) {
 
         -loadReimbursement()
         -configureReimbursement()
-        -
+        -reimbursement()
 */
 
 
@@ -246,11 +246,15 @@ async function loadReimbursement() {
     console.log('in loadReimbursement()');
 
     APP_VIEW.innerHTML = await fetchView('new-reimb.view');
-    // DYNAMIC_CSS_LINK.href = 'css/register.css'; //later, add reimb css
-    // configureReimbursement();
     document.getElementById('alert-empty').hidden = true;
     document.getElementById('alert-nan').hidden = true;
-    createReimbursement();
+    document.getElementById('alert-description').hidden = true;
+    configureReimbursement();
+}
+
+function configureReimbursement() {
+    console.log('in configureReimb()');
+    document.getElementById('new-reimbursement').addEventListener('click', createReimbursement);
 }
 
 // type should be a dropdown menu
@@ -300,7 +304,7 @@ async function createReimbursement() {
     console.log(response);
 
     if (response.status == 200) {
-        
+        console.log('the status is 200...');
         //for now load dashboard, but later will load the viewAllReimbursements
         loadDashboard();
     }
