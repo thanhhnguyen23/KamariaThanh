@@ -167,6 +167,37 @@ BEGIN
 END;
 /
 
+-- ***************************************************
+-- new triggers -- ers_reimb_submit_timestamp
+-- ***************************************************
+CREATE OR REPLACE TRIGGER ers_reimb_submit_timestamp BEFORE
+    INSERT ON ers_reimbursement
+    FOR EACH ROW
+BEGIN
+    SELECT SYSTIMESTAMP
+    INTO :new.reimb_submitted
+    FROM dual;
+END;
+/
+
+
+
+
+
+-- ***************************************************
+-- new triggers -- ers_reimb_resolve_timesamp
+-- ***************************************************
+
+CREATE OR REPLACE TRIGGER ers_reimb_resolve_timestamp BEFORE
+    UPDATE ON ers_reimbursement
+    FOR EACH ROW
+BEGIN
+    SELECT SYSTIMESTAMP
+    INTO :new.reimb_resolved
+    FROM dual;
+END;
+/
+
 --****************************************************
 
 
