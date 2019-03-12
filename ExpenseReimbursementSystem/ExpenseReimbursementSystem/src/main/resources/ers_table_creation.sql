@@ -186,6 +186,7 @@ END;
 
 -- ***************************************************
 -- new triggers -- ers_reimb_resolve_timesamp
+-- check back after update has been completed
 -- ***************************************************
 
 CREATE OR REPLACE TRIGGER ers_reimb_resolve_timestamp BEFORE
