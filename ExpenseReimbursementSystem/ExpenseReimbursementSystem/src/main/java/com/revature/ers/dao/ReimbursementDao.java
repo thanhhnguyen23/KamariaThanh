@@ -62,16 +62,18 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 	
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			
-			conn.setAutoCommit(false); //look into why we set autocommint to false before we actually call the statement
+			conn.setAutoCommit(false); //look into why we set autocommit to false before we actually call the statement
 			
 			String sql = "INSERT INTO ers_reimbursement VALUES (0, ?, ?, ?, ?, null, ?, 1, 1, ?)";
 			//null value here represents the BLOB receipt value
 			
 			String[] keys = new String[1];
 			keys[0] = "reimb_id";
+
 			
-			PreparedStatement pstate = conn.prepareStatement(sql);
+			PreparedStatement pstate = conn.prepareStatement(sql, keys);
 			
+//			pstate.setInt(1, newReimb.getReimbId());
 			pstate.setInt(1, newReimb.getAmount());
 			pstate.setTimestamp(2, newReimb.getReimbSubmitted());
 			pstate.setTimestamp(3, newReimb.getReimbResolved());
