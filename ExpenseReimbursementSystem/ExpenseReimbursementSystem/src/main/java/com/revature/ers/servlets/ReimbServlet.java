@@ -36,8 +36,7 @@ public class ReimbServlet extends HttpServlet{
 		log.info("setting up mapper object");
 
 		try {
-			log.info(req);
-			log.info(mapper);
+			log.info("mapper: " + mapper);
 			log.info(Reimbursement.class);
 			/////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -125,6 +125,7 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);
 			
+			// update reimbursements
 			String sql = ("UPDATE ers_reimbursements SET reimb_amount = ?, reimb_status_id = ?, reimb_type_id = ? WHERE reimb_id = ?");
 			PreparedStatement pstate = conn.prepareStatement(sql);
 			
@@ -132,8 +133,7 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			pstate.setInt(2, updatedReimb.getStatusId());
 			pstate.setInt(3, updatedReimb.getTypeId());
 			pstate.setInt(4, updatedReimb.getReimbId());
-			pstate.setInt(5, updatedReimb.getReimbId());
-			
+
 			int rowsUpdated = pstate.executeUpdate();
 			if (rowsUpdated != 0) {
 				conn.commit();
@@ -152,6 +152,43 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 	@Override
 	public boolean delete(int id) {
 		return false;
+	}
+	
+	
+	// update statusId on reimbursement
+	public Reimbursement updateReimbStatus(Reimbursement updatedReimbStatus) {
+		
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			// update statusId 
+			/*
+			 1 -> 'PENDING'
+			 2 -> 'APPROVED'
+			 3 -> 'DONE'
+			 4 -> 'DENIED'
+			 */
+
+			// manager would have this capability to choose approved, or deny 
+			// however, if the manager is the submitter of the original reimbursement, then the approver must be another manager
+			String sql = ("UPDATE ers_reimbursements SET reimb_status_id = ?");
+			
+			PreparedStatement pstate = conn.prepareStatement(sql);
+			
+			// updating status 
+			pstate.setInt(1, updatedReimbStatus.getStatusId());
+
+			int rowsUpdated = pstate.executeUpdate();
+			if (rowsUpdated != 0) {
+				conn.commit();
+				return updatedReimbStatus;
+			}
+					
+			
+		} catch (SQLException e) {
+			log.error(e.getMessage());
+		}
+		
+		return null;
 	}
 	
 	

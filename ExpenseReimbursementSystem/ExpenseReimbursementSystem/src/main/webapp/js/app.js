@@ -321,15 +321,31 @@ async function createReimbursement() {
         loadDashboard();
     }
 
-    let responseBody = await response.json();
+    let responseBody = await response.json(); // cannot deserialize value of type int from String // username field must be given userid
     console.log(responseBody);
-    
 
+<<<<<<< HEAD
     // here, in a second function, parse through the response/newReimb and get those values separately
+=======
+    
+    // here, in a second function, parse through the response and get those values separately
+>>>>>>> 8d990dfd9c2d57a7a29f2592c3ff87a76e41ef10
 
+<<<<<<< HEAD
+    // testing the responseBody
+    // let resp_amount = responseBody.amount;
+    // console.log(resp_amount);
+
+
+
+=======
     let resp_amount = newReimb.amount;
     console.log(resp_amount);
+<<<<<<< HEAD
     
+=======
+>>>>>>> 7a81faa63c9b4d9cbc22909541f3746f21cb7fea
+>>>>>>> 8d990dfd9c2d57a7a29f2592c3ff87a76e41ef10
     // let authorId
     // let reimbDescription
     // let reimbSubmitted
