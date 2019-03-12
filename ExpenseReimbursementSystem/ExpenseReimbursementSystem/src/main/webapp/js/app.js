@@ -256,24 +256,24 @@ async function loadReimbursement() {
 // type should be a dropdown menu
 
 // add validation for fields not being empty
-function configureReimbursement() {
-    console.log.log('in configureReimbursement');
-    let reimb_user = document.getElementById('reimbursement-username').value;
-    let reimb_type = document.getElementById('reimbursement-type').value;
-    let reimb_amount = document.getElementById('reimbursement-amount').value;
-    let reimb_description = document.getElementById('reimbursement-description').value;
+// function configureReimbursement() {
+//     console.log.log('in configureReimbursement');
+//     let reimb_user = document.getElementById('reimbursement-username').value;
+//     let reimb_type = document.getElementById('reimbursement-type').value;
+//     let reimb_amount = document.getElementById('reimbursement-amount').value;
+//     let reimb_description = document.getElementById('reimbursement-description').value;
 
-    if ((reimb_user == '') || (reimb_type == '') || (reimb_amount == '') || (remb_description == '')) {
-        document.getElementById('alert-empty').hidden = false;
-    } else document.getElementById('alert-empty').hidden = true;
+//     if ((reimb_user == '') || (reimb_type == '') || (reimb_amount == '') || (remb_description == '')) {
+//         document.getElementById('alert-empty').hidden = false;
+//     } else document.getElementById('alert-empty').hidden = true;
 
-    if (isNaN(reimb_amount)) {
-        document.getElementById('alert-nan').hidden = false;
-    } else document.getElementById('alert-nan').hidden = true;
+//     if (isNaN(reimb_amount)) {
+//         document.getElementById('alert-nan').hidden = false;
+//     } else document.getElementById('alert-nan').hidden = true;
 
-    if (reimb_description > 250 ) document.getElementById('alert-description').hidden = false;
-    else document.getElementById('alert-description').hidden = true;
-}
+//     if (reimb_description > 250 ) document.getElementById('alert-description').hidden = false;
+//     else document.getElementById('alert-description').hidden = true;
+// }
 
 async function createReimbursement() {
     console.log('in createReimbursement()');
