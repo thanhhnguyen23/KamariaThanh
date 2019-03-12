@@ -67,8 +67,8 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			String sql = "INSERT INTO ers_reimbursement VALUES (?, ?, ?, ?, ?, null, ?, 1, ?, ?)";
 			//null value here represents the BLOB receipt value
 			
-//			String[] keys = new String[1];
-//			keys[0] = "reimb_id";
+			String[] keys = new String[1];
+			keys[0] = "reimb_id";
 			
 			PreparedStatement pstate = conn.prepareStatement(sql);
 			
@@ -99,6 +99,7 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 		
 		catch(SQLIntegrityConstraintViolationException sivce) {
 			log.warn("Reimbursement already exists!");
+			log.warn(sivce.getMessage());
 		}
 		catch(SQLException e) {
 			log.error(e.getMessage());
