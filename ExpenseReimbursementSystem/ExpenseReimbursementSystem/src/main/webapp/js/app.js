@@ -312,12 +312,21 @@ async function createReimbursement() {
     let responseBody = await response.json();
     console.log(responseBody);
     
+
+    // here, in a second function, parse through the response and get those values separately
+    let amount
+    let authorId
+    let reimbDescription
+    let reimbSubmitted
+    let resolverId
+    let statusId
     // let reimb_id = responseBody.reimbId;
+    let typeId
     // etc
 
     // in response body, parse thru to get the info ya need for ya ticket stuffs 
 
-    //document. innerHTMLs 
+    // document. innerHTMLs 
 
     // document.getElementById('new-reimbursement').addEventListener('click', alert('Your reimbursement has been submitted!'));
     // alert('Your reimbursement has been submitted!');
