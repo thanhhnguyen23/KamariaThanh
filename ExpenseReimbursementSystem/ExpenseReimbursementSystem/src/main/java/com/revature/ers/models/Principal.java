@@ -2,8 +2,8 @@ package com.revature.ers.models;
 
 public class Principal {
 	
-	private int id;
-	private String role;
+	private int id; //role id
+	private String role; //role name
 	private String username; 
 	
 	public Principal() {

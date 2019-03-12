@@ -300,13 +300,15 @@ async function createReimbursement() {
     console.log(response);
 
     if (response.status == 200) {
-        alert('Your reimbursement has been submitted!');
+        
         //for now load dashboard, but later will load the viewAllReimbursements
         loadDashboard();
     }
 
     let responseBody = await response.json();
     console.log(responseBody);
+    document.getElementById('new-reimbursement').addEventListener('click', alert('Your reimbursement has been submitted!'));
+    // alert('Your reimbursement has been submitted!');
 }
 
 
