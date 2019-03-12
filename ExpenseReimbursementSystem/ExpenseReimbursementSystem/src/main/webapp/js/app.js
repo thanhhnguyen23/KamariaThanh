@@ -186,6 +186,9 @@ async function dashboard() {
 
     console.log('in dashboard');
     document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
+
+    //have a function that loads the view-reimb.html
+    document.getElementById('view-reimb').addEventListener('click', loadViewReimbursements);
 }
 
 
@@ -322,11 +325,11 @@ async function createReimbursement() {
     console.log(responseBody);
     
 
-    // here, in a second function, parse through the response and get those values separately
+    // here, in a second function, parse through the response/newReimb and get those values separately
 
     let resp_amount = newReimb.amount;
-
     console.log(resp_amount);
+    
     // let authorId
     // let reimbDescription
     // let reimbSubmitted
@@ -343,6 +346,15 @@ async function createReimbursement() {
     // document.getElementById('new-reimbursement').addEventListener('click', alert('Your reimbursement has been submitted!'));
     // alert('Your reimbursement has been submitted!');
 }
+
+async function loadViewReimbursements() {
+    console.log('in loadViewReimbursements()');
+
+    APP_VIEW.innerHTML = await fetchView('view-reimb.view');
+    
+}
+
+//not sure if this should occur inside or outside of the function, but when the user clicks view reimbursement button, it should take them to the screen for view-reimb.html
 
 
 //-------------------------------------------------------------
