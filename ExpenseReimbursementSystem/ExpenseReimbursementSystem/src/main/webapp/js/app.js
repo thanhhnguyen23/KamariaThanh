@@ -189,6 +189,7 @@ async function dashboard() {
 
     //have a function that loads the view-reimb.html
     document.getElementById('view-reimb').addEventListener('click', loadViewReimbursements);
+    // document.getElementsByClassName('btn btn-secondary').addEventListener('click', showReimbursement);
 }
 
 
@@ -325,16 +326,16 @@ async function createReimbursement() {
     // console.log(resp_amount);
 
 
-    let resp_amount = newReimb.amount;
+    var resp_amount = newReimb.amount;
     console.log(resp_amount);
     
-    let resp_authorId = newReimb.authorId;
+    var resp_authorId = newReimb.authorId;
     console.log(resp_authorId);
 
-    let resp_reimbDescription = newReimb.reimbDescription
+    var resp_reimbDescription = newReimb.reimbDescription
     console.log(resp_reimbDescription);
 
-    let resp_typeId = newReimb.typeId
+    var resp_typeId = newReimb.typeId
     console.log(resp_typeId);
 
     //THE VALUES BELOW, I WILL NEED TO CALL TO THE DATABASE
@@ -355,7 +356,25 @@ async function loadViewReimbursements() {
 
     APP_VIEW.innerHTML = await fetchView('view-reimb.view');
     DYNAMIC_CSS_LINK.href = 'css/app.css';
+    // document.getElementById('view-reimb').addEventListener('click', showReimbursement);
     
+}
+
+
+// you will show this reimbursement when the user clicks the view reimbursements button
+async function showReimbursement() {
+    //gather the holders for those elements
+    let authorHolder = document.getElementById('authorHolder');
+    let amountHolder = document.getElementById('amountHolder');
+    let descriptionHolder = document.getElementById('descriptionHolder');
+    let typeHolder = document.getElementById('typeHolder');
+
+    //append those values to the holders
+    authorHolder.append(resp_authorId);
+    amountHolder.append(resp_amount);
+    descriptionHolder.append(resp_reimbDescription);
+    typeHolder.append(resp_typeId);
+
 }
 
 
