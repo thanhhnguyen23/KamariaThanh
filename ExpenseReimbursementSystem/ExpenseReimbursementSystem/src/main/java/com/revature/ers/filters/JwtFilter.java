@@ -17,11 +17,6 @@ import com.revature.ers.util.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
-//////////////////////////////////////////////////////////////////////
-// taking out filters and all related files to test login/registration
-///////////////////////////////////////////////////////////////////////
-
-
 //@WebFilter("/*")
 public class JwtFilter extends HttpFilter {
 	
@@ -94,6 +89,7 @@ public class JwtFilter extends HttpFilter {
 			
 			// 7. Attach an attribute to the request indicating information about the principal
 			req.setAttribute("principal", principal);
+			log.info(req.getAttributeNames());
 			/////////////////////////////////////////////////
 			//TODO -- check back why role & username is null
 			/////////////////////////////////////////////////

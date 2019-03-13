@@ -1,51 +1,49 @@
 package com.revature.ers.util;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.revature.ers.models.Principal;
+import com.revature.ers.models.User;
+import com.revature.ers.services.UserService;
 
 public class RequestViewHelper {
+
+	private static UserService userService = new UserService();
 
 	private RequestViewHelper() {
 		super();
 	}
-	
+
 	public static String process(HttpServletRequest request) {
-		
-		switch(request.getRequestURI()) {
-		
+
+		switch (request.getRequestURI()) {
+
 		case "/ExpenseReimbursementSystem/login.view":
-			return "partials/login.html"; //TODO -- need to create partials folder with html files (login, register, and dashboard)
-		
+			return "partials/login.html";   
+
 		case "/ExpenseReimbursementSystem/register.view":
 			return "partials/register.html";
-		
+
 		case "/ExpenseReimbursementSystem/dashboard.view":
-			Principal principal = (Principal) request.getAttribute("principal");
-			if(principal.getRole() == "ADMIN") {
-				return "partials/admin-dash.html"; // admin/employee will have their dashboard
-			}
 			return "partials/dashboard.html";
-			
-		// reimbursements
-		//TODO -- KD -- Reimbursements View 
+
+		case "/ExpenseReimbursementSystem/admin-dashboard.view":
+			return "partials/admin-dash.html";
+
 
 		case "/ExpenseReimbursementSystem/new-reimb.view":
-			principal = (Principal) request.getAttribute("principal");
-			// principal.getRole() may not be functioning while retrieving new reimbursement screen
-
-//			if(principal.getRole() == "USER" || principal.getRole() == "ADMIN") {
+//			principal = (Principal) request.getAttribute("principal");
 			return "partials/new-reimb.html"; 
-//			}
-//			return "partials/dashboard.html";
-		
+
 		case "/ExpenseReimbursementSystem/view-reimb.view":
-			principal = (Principal) request.getAttribute("principal");
+//			principal = (Principal) request.getAttribute("principal");
 			return "partials/view-reimb.html";
-			
-		default: 
+
+		default:
 			return null;
-		
+
 		}
 	}
 
