@@ -29,13 +29,41 @@ public class UserDao implements DAO<User>{
 		}
 		return usernames;
 	}
+	// get all managers
+	public List<User> getAllManagers(){
+		List<User> managers = new ArrayList<>();
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()){
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM ers_users WHERE ers_user_id = 8 OR ers_user_id = 9");
+			
+			managers = this.mapResultSet(rs);
+		}
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		return managers;
+	}
+	// get all employees
+	public List<User> getAllEmployees(){
+		List<User> employees = new ArrayList<>();
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()){
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM ers_users WHERE user_role_id = 2");
+			
+			employees = this.mapResultSet(rs);
+		}
+		catch(SQLException e) {
+			log.error(e.getMessage());
+		}
+		return employees;
+	}
+	
+	
+	
+	
 	@Override
 	public List<User> getAll() {
 		List<User> users = new ArrayList<>();
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()){ 
-			ResultSet rs = conn.createStatement().executeQuery(
-					"SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id)"
-					); 
+			ResultSet rs = conn.createStatement().executeQuery( "SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id)"); 
 
 			users = this.mapResultSet(rs);
 		} catch (SQLException e){

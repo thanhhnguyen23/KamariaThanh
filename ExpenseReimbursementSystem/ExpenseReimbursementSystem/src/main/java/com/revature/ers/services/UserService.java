@@ -38,6 +38,16 @@ public class UserService {
 			return false;
 		}
 	}	
+	// get all employees
+	public List<User> getAllEmployees(){
+		log.info(userDao.getAllEmployees());
+		return userDao.getAllEmployees();
+	}
+	// get all managers
+	public List<User> getAllManagers(){
+		log.info(userDao.getAllManagers());
+		return userDao.getAllManagers();
+	}
 	
 	public User getUserByUsername(String username) {
 		if(!username.equals("")) {
