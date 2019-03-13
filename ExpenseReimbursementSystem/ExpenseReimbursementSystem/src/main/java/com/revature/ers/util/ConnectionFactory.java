@@ -1,6 +1,5 @@
 package com.revature.ers.util;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -41,10 +40,16 @@ public class ConnectionFactory {
 			//////////////////////////////////////////////////////////////////////////////////////////////////////
 			DriverManager.registerDriver(new OracleDriver());
 
+<<<<<<< HEAD
 //			prop.load(new FileReader("src/main/resources/application.properties"));
 			prop.load(new FileReader("C:\\Users\\kamar\\Desktop\\Revature\\KamariaThanh\\ExpenseReimbursementSystem\\ExpenseReimbursementSystem\\src\\main\\resources\\application.properties"));
 //			prop.load(new FileReader("/home/thn05/Dropbox/_RevatureTraining/KamariaThanh/ExpenseReimbursementSystem/ExpenseReimbursementSystem/src/main/resources/application.properties"));
 	
+=======
+//			prop.load(new FileReader("src/main/resources/application.properties")); // doesn't work
+//			prop.load(new FileReader("C:\\Users\\kamar\\Desktop\\Revature\\KamariaThanh\\ExpenseReimbursementSystem\\ExpenseReimbursementSystem\\src\\main\\resources\\application.properties"));
+//			prop.load(new FileReader("/home/thn05/Dropbox/_RevatureTraining/KamariaThanh/ExpenseReimbursementSystem/ExpenseReimbursementSystem/src/main/resources/application.properties"));
+>>>>>>> 359d19c78714aeb6a677d0297d024d139c395afe
 			
 			// Get a connection from the DriverManager class
 			conn = DriverManager.getConnection(

@@ -40,12 +40,19 @@ public class ReimbursementService {
 		
 		return null;
 	}
-//	public Reimbursement updateReimbStatus(Reimbursement updatedReimbStatus) {
-//		if(updatedReimbStatus.
-//			return null;
-//		}
-//		
-//	}
+	// update reimbursement status from pending(1) to approved (2)
+	public Reimbursement updateReimbStatus(Reimbursement updatedReimbStatus) {
+
+		if(updatedReimbStatus.getAmount() != 0 || updatedReimbStatus.getReimbDescription().equals("") || updatedReimbStatus.getAuthorId() != 0 || updatedReimbStatus.getAuthorId() != 0) {
+			return null;
+		}
+		if(updatedReimbStatus != null & updatedReimbStatus.getStatusId() == 1) {
+			Reimbursement persistedReimb = rDao.updateReimbStatus(updatedReimbStatus);
+			return persistedReimb;
+		}
+		return null;
+		
+	}
 	
 
 }
