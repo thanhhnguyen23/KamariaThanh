@@ -285,34 +285,15 @@ function configureReimbursement() {
 async function createReimbursement() {
     console.log('in createReimbursement()');
 
-    // get value from the dropdown
-    // let typeSelect = document.getElementById('reimb-type');
-    // var typeSelect = document.getElementById('new-reimb-type');
-    // for (var i = 0; i < typeSelect.length; i++) {
-    //     if (typeSelect[i].checked) {
-    //         var typeVal = typeSelect[i].value;
-    //         break; //break because the user can only choose one radio button option
-    //     }
-    // }
-
-    // var selector = document.getElementById('new-reimb-type');
-    // var value = selector[selector.selectedIndex].value;
-
-    // var type = typeSelect.options[typeSelect.selectedIndex].value;
-
-    // let typeSelect = document.getElementsByClassName('types').value;
-    // for (let i = 1; i < typeSelect.length; i++) {
-    //     var myType = typeSelect[i].value;
-    // }
-
-    // console.log('Type Select: ' + typeSelect);
     
     let newReimb = {
         reimbId: {},
         amount: document.getElementById('reimbursement-amount').value,
+        resolverId: 1,
+        statusId: 1,
         reimbDescription: document.getElementById('reimbursement-description').value,
         authorId: document.getElementById('reimbursement-username').value,
-        typeId: 1
+        typeId: document.getElementById('new-reimb-type').value
     };
 
     // here, we are fetching a REIMBURSEMENTS servlet that technically does not exist yet but will revisit later
@@ -327,6 +308,7 @@ async function createReimbursement() {
 
     console.log(newReimb);
     console.log(response);
+    // console.log(responseBody);
 
     if (response.status == 200) {
         console.log('the status is 200...');
