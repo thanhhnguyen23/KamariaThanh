@@ -42,8 +42,14 @@ public class ConnectionFactory {
 			DriverManager.registerDriver(new OracleDriver());
 
 //			prop.load(new FileReader("src/main/resources/application.properties"));
+<<<<<<< HEAD
 			prop.load(new FileReader("C:\\Users\\kamar\\Desktop\\Revature\\KamariaThanh\\ExpenseReimbursementSystem\\ExpenseReimbursementSystem\\src\\main\\resources\\application.properties"));
 
+=======
+//			prop.load(new FileReader("C:\\Users\\kamar\\Desktop\\Revature\\KamariaThanh\\ExpenseReimbursementSystem\\ExpenseReimbursementSystem\\src\\main\\resources\\application.properties"));
+			prop.load(new FileReader("/home/thn05/Dropbox/_RevatureTraining/KamariaThanh/ExpenseReimbursementSystem/ExpenseReimbursementSystem/src/main/resources/application.properties"));
+			
+>>>>>>> b76860d5e5ee5173ad89ec799a48da6e931549f3
 			
 			// Get a connection from the DriverManager class
 			conn = DriverManager.getConnection(

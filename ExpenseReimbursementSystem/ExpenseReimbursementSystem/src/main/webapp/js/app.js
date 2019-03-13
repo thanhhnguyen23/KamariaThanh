@@ -334,7 +334,7 @@ async function createReimbursement() {
         loadDashboard();
     }
 
-    let responseBody = await response.json(); // cannot deserialize value of type int from String // username field must be given userid
+    let responseBody = await response.json(); // username field must be given userid
     console.log(responseBody);
 
     // here, in a second function, parse through the response/newReimb and get those values separately

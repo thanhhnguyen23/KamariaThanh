@@ -170,12 +170,15 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 
 			// manager would have this capability to choose approved, or deny 
 			// however, if the manager is the submitter of the original reimbursement, then the approver must be another manager
-			String sql = ("UPDATE ers_reimbursements SET reimb_status_id = ?");
-			
+			// reimb_status_id --> pending reimbursements
+			// reimb_resolver --> managers who can approve reimbursements
+			String sql = ("UPDATE ers_reimbursement SET reimb_status_id = 2 where reimb_id = ?");
+
+
 			PreparedStatement pstate = conn.prepareStatement(sql);
 			
-			// updating status 
-			pstate.setInt(1, updatedReimbStatus.getStatusId());
+			// updating status from pending (1) to approved (2)
+			pstate.setInt(1, updatedReimbStatus.getReimbId());
 
 			int rowsUpdated = pstate.executeUpdate();
 			if (rowsUpdated != 0) {
