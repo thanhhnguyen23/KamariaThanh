@@ -46,6 +46,8 @@ async function login() {
     credentials.push(document.getElementById('username-cred').value);
     credentials.push(document.getElementById('password-cred').value);
 
+    console.log(credentials);
+
     let response = await fetch('auth', {
         method: 'POST',
         mode: 'cors',
@@ -59,7 +61,14 @@ async function login() {
     if(response.status == 200) {
         document.getElementById('alert-msg').hidden = true;
         localStorage.setItem('jwt', response.headers.get('Authorization'));
-        loadDashboard();
+        if (credentials[0] == 'admin_kd' || credentials[0] == 'admin_tn') {
+            loadAdminDashboard();
+        }
+
+        else {
+            loadDashboard();
+        } 
+
     } else {
         document.getElementById('alert-msg').hidden = false;
     }
@@ -204,7 +213,7 @@ async function dashboard() {
 
  async function loadAdminDashboard() {
     console.log('in loadAdminDashboard()');
-    APP_VIEW.innerHTML = await fetchView('dashboard.view');
+    APP_VIEW.innerHTML = await fetchView('admin-dashboard.view');
     DYNAMIC_CSS_LINK.href = 'css/admin-dash.css';
     configureAdminDashboard();
  }
@@ -217,7 +226,13 @@ async function dashboard() {
  }
 
  async function adminDashboard() {
-    console.log('in dashboard');
+    console.log('in adminDashboard');
+    document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
+
+    //have a function that loads the view-reimb.html
+    document.getElementById('view-reimb').addEventListener('click', loadViewReimbursements);
+    // document.getElementsByClassName('btn btn-secondary').addEventListener('click', showReimbursement);
+
  }
 
 //-------------------------------------------------------------------------------------
@@ -314,7 +329,8 @@ async function createReimbursement() {
     if (response.status == 200) {
         console.log('the status is 200...');
         //for now load dashboard, but later will load the viewAllReimbursements
-        loadDashboard();
+        loadViewReimbursements();
+        // loadDashboard();
     }
 
     let responseBody = await response.json(); // username field must be given userid
@@ -360,7 +376,6 @@ async function loadViewReimbursements() {
     
 }
 
-
 // you will show this reimbursement when the user clicks the view reimbursements button
 async function showReimbursement() {
     //gather the holders for those elements
@@ -369,16 +384,20 @@ async function showReimbursement() {
     let descriptionHolder = document.getElementById('descriptionHolder');
     let typeHolder = document.getElementById('typeHolder');
 
+    //create elements to append to the p elements
+
     //append those values to the holders
-    authorHolder.append(resp_authorId);
-    amountHolder.append(resp_amount);
-    descriptionHolder.append(resp_reimbDescription);
-    typeHolder.append(resp_typeId);
+    authorHolder.innerText = resp_authorId;
+    amountHolder.innerText = resp_amount;
+    // descriptionHolder.append(resp_reimbDescription);
+    // typeHolder.append(resp_typeId);
+
+    //modal body would append each of those holders
+
+    // if resp_typeId == '1', resp_typeId2 = LODGING
 
 }
 
-
-//not sure if this should occur inside or outside of the function, but when the user clicks view reimbursement button, it should take them to the screen for view-reimb.html
 
 
 //-------------------------------------------------------------
