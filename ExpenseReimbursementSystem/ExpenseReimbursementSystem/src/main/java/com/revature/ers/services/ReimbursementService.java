@@ -48,6 +48,7 @@ public class ReimbursementService {
 		}
 		if(updatedReimbStatus != null & updatedReimbStatus.getStatusId() == 1) {
 			Reimbursement persistedReimb = rDao.updateReimbStatus(updatedReimbStatus);
+			return persistedReimb;
 		}
 		return null;
 		
