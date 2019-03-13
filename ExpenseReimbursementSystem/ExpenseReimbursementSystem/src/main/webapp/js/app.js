@@ -42,7 +42,7 @@ function configureLogin() {
 */
 async function login() {
     console.log('in login()');
-    let credentials = [];
+    var credentials = [];
     credentials.push(document.getElementById('username-cred').value);
     credentials.push(document.getElementById('password-cred').value);
 
@@ -194,6 +194,7 @@ async function loadDashboard() {
 async function dashboard() {
 
     console.log('in dashboard');
+    console.log(credentials[0]); //this should log the username
     document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
 
     //have a function that loads the view-reimb.html
@@ -215,18 +216,19 @@ async function dashboard() {
     console.log('in loadAdminDashboard()');
     APP_VIEW.innerHTML = await fetchView('admin-dashboard.view');
     DYNAMIC_CSS_LINK.href = 'css/admin-dash.css';
-    configureAdminDashboard();
+    adminDashboard();
  }
 
  //figure out which button in the html, triggers the dashboard
- function configureAdminDashboard() {
-     console.log('in configureAdminDashboard()');
-     document.getElementById('submit-creds').addEventListener('click', login);
+//  function configureAdminDashboard() {
+//      console.log('in configureAdminDashboard()');
+//      document.getElementById('submit-creds').addEventListener('click', login);
 
- }
+//  }
 
  async function adminDashboard() {
     console.log('in adminDashboard');
+    console.log(credentials[0]); //this should log the username
     document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
 
     //have a function that loads the view-reimb.html
@@ -385,6 +387,7 @@ async function showReimbursement() {
     let typeHolder = document.getElementById('typeHolder');
 
     //create elements to append to the p elements
+    //createElement('p).
 
     //append those values to the holders
     authorHolder.innerText = resp_authorId;
