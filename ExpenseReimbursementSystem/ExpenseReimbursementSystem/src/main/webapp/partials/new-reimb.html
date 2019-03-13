@@ -7,12 +7,12 @@
     
 
     <form>
-        <select id = "reimb-type" name="type" class="custom-select">
+        <select id = "new-reimb-type" name="type" class="custom-select">
             <option selected >Specify a Type of Reimbursement</option>
-            <option value="LODGING">Lodging</option>
-            <option value="TRAVEL">Travel</option>
-            <option value="FOOD">Food</option>
-            <option value="OTHER">Other</option>
+            <option class = "types" id = "lodging" value="1">Lodging</option>
+            <option class = "types" id = "travel" value="2">Travel</option>
+            <option class = "types" id = "food" value="3">Food</option>
+            <option class = "types" id = "other" value="4">Other</option>
         </select>
     </form>
     
@@ -26,7 +26,6 @@
     <input type="text" id="reimbursement-description" class="form-control" placeholder="Description" required autofocus>
     
     <button class="btn btn-lg btn-primary btn-block" id="new-reimbursement">Create Reimbursement</button>
-    <button class="btn btn-lg btn-primary btn-block" id="view-reimb">View Reimbursement</button>
     
     <!-- fields empty;   alert-empty -->
     <div class="alert alert-danger text-center" id="alert-empty" role="alert">

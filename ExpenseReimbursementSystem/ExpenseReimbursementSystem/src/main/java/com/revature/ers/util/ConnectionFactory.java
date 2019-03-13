@@ -43,7 +43,7 @@ public class ConnectionFactory {
 
 //			prop.load(new FileReader("src/main/resources/application.properties"));
 			prop.load(new FileReader("C:\\Users\\kamar\\Desktop\\Revature\\KamariaThanh\\ExpenseReimbursementSystem\\ExpenseReimbursementSystem\\src\\main\\resources\\application.properties"));
-			
+
 			
 			// Get a connection from the DriverManager class
 			conn = DriverManager.getConnection(

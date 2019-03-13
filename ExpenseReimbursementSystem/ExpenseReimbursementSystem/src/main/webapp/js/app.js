@@ -3,7 +3,7 @@ window.onload = function() {
     document.getElementById('to-register').addEventListener('click', loadRegister);
     document.getElementById('to-home').addEventListener('click', loadLogin);
     // document.getElementById('to-profile').addEvent
-    document.getElementById('to-logout').addEventListener('click', logout);
+    // document.getElementById('to-logout').addEventListener('click', logout);
 }
 
 // document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
@@ -258,9 +258,9 @@ async function loadReimbursement() {
 function configureReimbursement() {
     console.log('in configureReimb()');
     document.getElementById('new-reimbursement').addEventListener('click', createReimbursement);
+
 }
 
-// type should be a dropdown menu
 
 // add validation for fields not being empty
 // function configureReimbursement() {
@@ -286,20 +286,33 @@ async function createReimbursement() {
     console.log('in createReimbursement()');
 
     // get value from the dropdown
-    let typeSelect = document.getElementById('reimb-type');
-    for (let i = 0; i < typeSelect.length; i++) {
-        if (typeSelect[i].checked) {
-            var typeVal = typeSelect[i].value;
-            break; //break because the user can only choose one radio button option
-        }
-    }
+    // let typeSelect = document.getElementById('reimb-type');
+    // var typeSelect = document.getElementById('new-reimb-type');
+    // for (var i = 0; i < typeSelect.length; i++) {
+    //     if (typeSelect[i].checked) {
+    //         var typeVal = typeSelect[i].value;
+    //         break; //break because the user can only choose one radio button option
+    //     }
+    // }
 
+    // var selector = document.getElementById('new-reimb-type');
+    // var value = selector[selector.selectedIndex].value;
+
+    // var type = typeSelect.options[typeSelect.selectedIndex].value;
+
+    // let typeSelect = document.getElementsByClassName('types').value;
+    // for (let i = 1; i < typeSelect.length; i++) {
+    //     var myType = typeSelect[i].value;
+    // }
+
+    // console.log('Type Select: ' + typeSelect);
+    
     let newReimb = {
         reimbId: {},
         amount: document.getElementById('reimbursement-amount').value,
         reimbDescription: document.getElementById('reimbursement-description').value,
         authorId: document.getElementById('reimbursement-username').value,
-        typeId: typeVal
+        typeId: 1
     };
 
     // here, we are fetching a REIMBURSEMENTS servlet that technically does not exist yet but will revisit later
@@ -332,18 +345,23 @@ async function createReimbursement() {
 
     let resp_amount = newReimb.amount;
     console.log(resp_amount);
-    console.log(responseBody.amount);
-    // let authorId
-    // let reimbDescription
-    // let reimbSubmitted
+    
+    let resp_authorId = newReimb.authorId;
+    console.log(resp_authorId);
+
+    let resp_reimbDescription = newReimb.reimbDescription
+    console.log(resp_reimbDescription);
+
+    let resp_typeId = newReimb.typeId
+    console.log(resp_typeId);
+
+    //THE VALUES BELOW, I WILL NEED TO CALL TO THE DATABASE
+    // let resp_reimbSubmitted 
     // let resolverId
     // let statusId
-    // // let reimb_id = responseBody.reimbId;
-    // let typeId
-    // etc
+
 
     // in response body, parse thru to get the info ya need for ya ticket stuffs 
-
     // document. innerHTMLs 
 
     // document.getElementById('new-reimbursement').addEventListener('click', alert('Your reimbursement has been submitted!'));
