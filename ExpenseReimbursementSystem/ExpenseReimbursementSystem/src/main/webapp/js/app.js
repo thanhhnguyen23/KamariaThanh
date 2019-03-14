@@ -417,9 +417,9 @@ async function getReimbById() {
     }
 
     let response = await fetch('reimbById', {
-        method: 'POST',
-        mode: 'cors',
-        heaaders: {
+        method: 'GET',
+        // mode: 'cors',
+        headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },

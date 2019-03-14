@@ -36,7 +36,6 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 	}
 
 	public List<Reimbursement> reimbByAuthorId(int authorId) {
-//		Reimbursement reimbByAuthorId = new Reimbursement();
 		List<Reimbursement> reimbByAuthorId = new ArrayList<>();
 		
 
