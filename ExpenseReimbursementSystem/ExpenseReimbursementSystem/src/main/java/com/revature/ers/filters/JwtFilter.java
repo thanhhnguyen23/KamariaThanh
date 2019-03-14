@@ -90,9 +90,6 @@ public class JwtFilter extends HttpFilter {
 			// 7. Attach an attribute to the request indicating information about the principal
 			req.setAttribute("principal", principal);
 			log.info(req.getAttributeNames());
-			/////////////////////////////////////////////////
-			//TODO -- check back why role & username is null
-			/////////////////////////////////////////////////
 			log.info("setting attribute in prinicipal: " + req.getAttribute("principal"));
 			
 		} catch (Exception e) {

@@ -77,7 +77,6 @@ public class UserDao implements DAO<User>{
 	public User getById(int userId) {
 		User user = null;
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			//TODO - PreparedStatement
 			PreparedStatement pstate = conn.prepareStatement( "SELECT * FROM ers_users JOIN ers_users_role USING (ers_user_role_id) WHERE ers_user_id = ?");
 			pstate.setInt(1, userId);
 			
@@ -170,7 +169,6 @@ public class UserDao implements DAO<User>{
 	// unimplemented methods 
 	@Override
 	public User add(User newUser) {
-		//TODO -- adding newUser
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			conn.setAutoCommit(false);
 
@@ -187,7 +185,6 @@ public class UserDao implements DAO<User>{
 			pstate.setString(5, newUser.getLastName());
 			pstate.setString(6,  newUser.getEmail());
 			
-			//TODO - need to review
 			int rowsInserted = pstate.executeUpdate();
 			
 			ResultSet rs = pstate.getGeneratedKeys();

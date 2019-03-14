@@ -47,14 +47,13 @@ public class ReimbursementService {
 			return null;
 		}
 		if(updatedReimbStatus != null & updatedReimbStatus.getStatusId() == 1) {
-			Reimbursement persistedReimb = rDao.updateReimbStatus(updatedReimbStatus);
-			return persistedReimb;
+			return rDao.updateReimbStatus(updatedReimbStatus);
 		}
 		return null;
 		
 	}
 	// getting reimbursements by author id
-	public Reimbursement getReimbByAuthorId(int getReimbByAuthorId) {
+	public List<Reimbursement> getReimbByAuthorId(int getReimbByAuthorId) {
 		return rDao.reimbByAuthorId(getReimbByAuthorId);
 	}
 }

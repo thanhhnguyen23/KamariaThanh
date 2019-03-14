@@ -77,6 +77,7 @@ public class ReimbServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
 		log.info("Request sent to get all reimbursements");
 		List<Reimbursement> allReimbursements = reimbService.getAllReimbursements();
+		log.info("getting all reimbursements: " + allReimbursements);
 		
 		if(allReimbursements.isEmpty()) {
 			log.info("Reimbursement List is empty");
@@ -94,5 +95,9 @@ public class ReimbServlet extends HttpServlet{
 		resp.setContentType("application/json");
 		pw.write(response);
 	
+		//////////////////////////////////////////
+		// need to get reimbursements by authorId
+		// services/daos are already in place
+		//////////////////////////////////////////
 	}
 }

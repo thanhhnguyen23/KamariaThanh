@@ -23,6 +23,7 @@ public class ReimbursementByAuthorIdServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
 		log.info("request received by ReimbursementByAutorIdServlet.doGet()");
+		//TODO -- reimbByAuthorId
 		// getting reimbursements by authorId
 
 //		List<User> users = userService.getAllUsers();
@@ -30,12 +31,15 @@ public class ReimbursementByAuthorIdServlet extends HttpServlet{
 //		resp.setStatus(200);
 //		out.write(usersJSON);
 		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//        List<Reimbursement> reimbursement = reimService.getByAuthor(Integer.parseInt(principal.getId()));
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 		
 		
 		
-		//TODO 
+		//TODO -- getting all reimbursements by authorId 
 		// making reimbursement by author id
 //		List<Reimbursement> reimbByAuthorId = reimbService.getReimbursementById(reimbId)
 
