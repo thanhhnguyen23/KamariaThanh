@@ -2,6 +2,7 @@ package com.revature.ers.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -71,6 +72,27 @@ public class ReimbServlet extends HttpServlet{
 		}
 		
 	}
-
-
+	// getting all reimbursements
+	@Override 
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+		log.info("Request sent to get all reimbursements");
+		List<Reimbursement> allReimbursements = reimbService.getAllReimbursements();
+		
+		if(allReimbursements.isEmpty()) {
+			log.info("Reimbursement List is empty");
+			
+			resp.setStatus(400);
+			return;
+		}
+		resp.setStatus(200);
+		
+		// send json object back to client that requested info
+		PrintWriter pw = resp.getWriter();
+		ObjectMapper mapper = new ObjectMapper();
+		String response = mapper.writeValueAsString(allReimbursements);
+		
+		resp.setContentType("application/json");
+		pw.write(response);
+	
+	}
 }

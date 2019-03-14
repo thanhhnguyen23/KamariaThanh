@@ -53,6 +53,8 @@ public class ReimbursementService {
 		return null;
 		
 	}
-	
-
+	// getting reimbursements by author id
+	public Reimbursement getReimbByAuthorId(int getReimbByAuthorId) {
+		return rDao.reimbByAuthorId(getReimbByAuthorId);
+	}
 }
