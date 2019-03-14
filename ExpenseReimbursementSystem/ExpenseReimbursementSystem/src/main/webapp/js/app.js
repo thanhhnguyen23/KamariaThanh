@@ -404,28 +404,119 @@ async function getAllReimbs() {
     if (response.status == 200) {
         console.log(response.status);
 
+        //looping through the responseBody and getting the values for each object
         for (let i =0; i < responseBody.length; i++) {
             var amount = responseBody[i]['amount']
             var reimbDescription = responseBody[i]['reimbDescription'];
             var authorId = responseBody[i]['authorId'];
             var statusId = responseBody[i]['statusId'];
-            var typeId = responseBody[i]['typeId'];
+            var typeId = responseBody[i]['typeId']
+            
+            // if statements to display the type of reimbursement
+            if (typeId == 1) {
+                var typeId2 = 'LODGING';
+            }
+
+            if (typeId == 2) {
+                typeId2 = 'TRAVEL';
+            }
+
+            if (typeId == 3) {
+                typeId2 = 'FOOD';
+            }
+
+            if (typeId == 4) {
+                typeId2 = 'OTHER';
+            }
+
+
+            // if statements to display the status
+            if (statusId == 1) {
+                var statusId2 = 'PENDING';
+            }
+
+            if (statusId == 2) {
+                statusId2 = 'APPROVE';
+            }
+
+            if (statusId == 3) {
+                var statusId2 = 'DONE';
+            }
+
+            if (statusId == 4) {
+                var statusId2 = 'DENIED';
+            }
+
+
+            let clickable = document.createElement('a');
+            clickable.setAttribute('href', "exampleModal");
+          
+            //create button to encapsulate the entire table row
+            let button= document.createElement('button');
+            button.setAttribute('type', "button");
+            button.setAttribute('class', "btn btn-primary");
+            button.setAttribute('data-toggle', "modal");
+            button.setAttribute('data-target', "#exampleModal");
+            
+            let container = document.getElementById('container');
+            
+
+
+            //for each object, create a new table row
+            let tableRow = document.createElement('tr');
+
+            // container.append(tableRow);
+            clickable.append(container);
+
+
+            // button.append(tableRow);
+
+            //for each row, create the table data elements
+            let tableData = document.createElement('td');
+            let tableData1 = document.createElement('td');
+            let tableData2 = document.createElement('td');
+            let tableData3 = document.createElement('td');
+            let tableData4 = document.createElement('td');
+            let tableData5 = document.createElement('td');
+            let tableButton = document.createElement('td');
+
+           
+            //add the values to the table data
+            tableData3.append(authorId);
+            tableData1.append(amount);
+            tableData2.append(reimbDescription);
+            tableData4.append(statusId2);
+            tableData5.append(typeId2);
+            tableButton.append(button);
+
+
+            //append each element, to each row
+            tableRow.append(tableData); // blank, later we add reimbId
+            tableRow.append(tableData3);
+            tableRow.append(tableData1);
+            tableRow.append(tableData2);
+            tableRow.append(tableData4);
+            tableRow.append(tableData5);
+            tableRow.append(tableButton);
+
+            //the table already exists so just append the table rows to the table
+            let table = document.getElementById('adminReimbTable');
+            table.append(tableRow);
+
+        // //get the table rows from the HTML
+            // let amountRow = document.getElementById('amount');
+            // let authorRow = document.getElementById('author-user-id');
+            // let descriptionRow = document.getElementById('description');
+            // let statusRow = document.getElementById('status');
+            // let typeRow = document.getElementById('type');
+
+            // // //add those values to the table rows
+            // amountRow.append(amount);
+            // authorRow.append(authorId);
+            // descriptionRow.append(reimbDescription);
+            // statusRow.append(statusId);
+            // typeRow.append(typeId);
         }
-        
-
-        // //get the table rows
-        let amountRow = document.getElementById('amount');
-        let authorRow = document.getElementById('author-user-id');
-        let descriptionRow = document.getElementById('description');
-        let statusRow = document.getElementById('status');
-        let typeRow = document.getElementById('type');
-
-        // //add those values to the table rows
-        amountRow.append(amount);
-        authorRow.append(authorId);
-        descriptionRow.append(reimbDescription);
-        statusRow.append(statusId);
-        typeRow.append(typeId);
     
 
     }
