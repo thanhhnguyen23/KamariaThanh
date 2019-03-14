@@ -372,8 +372,15 @@ async function loadAdminViewReimbursements() {
     APP_VIEW.innerHTML = await fetchView('view-reimb-admin.view');
     DYNAMIC_CSS_LINK.href = 'css/app.css';
     // document.getElementById('view-admin-reimb').addEventListener('click', showReimbursement);
+   
+    // gonna give us a APP_VIEW error 
+    document.getElementById('approve').addEventListener('click',  approveReimb);
+
     getAllReimbs();
+    
 }
+
+
 
 
 
@@ -484,6 +491,9 @@ async function getAllReimbs() {
 
             // button.append(tableRow);
 
+            //the table datas need template literal id's
+            //use onclick instead of event listeners
+
             //for each row, create the table data elements
             let tableData = document.createElement('td');
             let tableData1 = document.createElement('td');
@@ -491,9 +501,11 @@ async function getAllReimbs() {
             let tableData3 = document.createElement('td');
             let tableData4 = document.createElement('td');
             let tableData5 = document.createElement('td');
-            let tableButton1 = document.createElement('td');
-            let tableButton2 = document.createElement('td');
+            let tableButton1 = document.createElement('td'); //approve
+            let tableButton2 = document.createElement('td'); //deny
 
+            //set attributes for the table datas
+            // tableData.setAttribute
            
             //add the values to the table data
             tableData.append(reimbId);
@@ -520,6 +532,14 @@ async function getAllReimbs() {
             let table = document.getElementById('empReimbTable');
             table.append(tableRow);
 
+<<<<<<< HEAD
+            //here, i am trying to add eacch responseBody item to the modal container
+            // it currently prints 'undefined' like 90 times
+            // let modalContainer = document.getElementById('modal-container');
+            // modalContainer.append(amount[i]);
+        }// end of for loop
+    
+=======
         // //get the table rows from the HTML
             // let amountRow = document.getElementById('amount');
             // let authorRow = document.getElementById('author-user-id');
@@ -541,9 +561,18 @@ async function getAllReimbs() {
             // it currently prints 'undefined' like 90 times
             let modalContainer = document.getElementById('modal-container');
             modalContainer.append(amount[i]);
+>>>>>>> 781925b2c8d171cd572bc45e43dc327c4ef7055d
 
 }// end of for loop
 //////////////////////////////////////////////////////////////////////////////////////////
+
+
+<<<<<<< HEAD
+    
+   
+}
+=======
+>>>>>>> 781925b2c8d171cd572bc45e43dc327c4ef7055d
 
 
 
