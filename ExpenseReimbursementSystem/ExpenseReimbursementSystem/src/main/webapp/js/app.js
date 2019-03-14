@@ -404,6 +404,30 @@ async function getAllReimbs() {
     if (response.status == 200) {
         console.log(response.status);
 
+        for (let i =0; i < responseBody.length; i++) {
+            var amount = responseBody[i]['amount']
+            var reimbDescription = responseBody[i]['reimbDescription'];
+            var authorId = responseBody[i]['authorId'];
+            var statusId = responseBody[i]['statusId'];
+            var typeId = responseBody[i]['typeId'];
+        }
+        
+
+        // //get the table rows
+        let amountRow = document.getElementById('amount');
+        let authorRow = document.getElementById('author-user-id');
+        let descriptionRow = document.getElementById('description');
+        let statusRow = document.getElementById('status');
+        let typeRow = document.getElementById('type');
+
+        // //add those values to the table rows
+        amountRow.append(amount);
+        authorRow.append(authorId);
+        descriptionRow.append(reimbDescription);
+        statusRow.append(statusId);
+        typeRow.append(typeId);
+    
+
     }
 
 }
@@ -416,11 +440,13 @@ async function getReimbById() {
         authorId: document.getElementById('reimbursement-username')
     }
 
+    console.log(authorId);
+
     let response = await fetch('reimbById', {
         method: 'POST',
         mode: 'cors',
         heaaders: {
-            'Accept': 'application/json',
+            // 'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(authorId)
@@ -431,8 +457,8 @@ async function getReimbById() {
         console.log(response.status);
     }
 
-    // let responseBody = await response.json();
-    // console.log(responseBody);
+    let responseBody = await response.json();
+    console.log(responseBody);
 
     console.log(response);
 }
