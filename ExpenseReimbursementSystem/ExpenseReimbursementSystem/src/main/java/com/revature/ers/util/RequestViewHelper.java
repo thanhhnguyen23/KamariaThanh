@@ -36,6 +36,9 @@ public class RequestViewHelper {
 		case "/ExpenseReimbursementSystem/new-reimb.view":
 //			principal = (Principal) request.getAttribute("principal");
 			return "partials/new-reimb.html"; 
+			
+		case "/ExpenseReimbursementSystem/view-reimb-admin.view":
+			return "partials/view-reimb-admin.html";
 
 		case "/ExpenseReimbursementSystem/view-reimb.view":
 //			principal = (Principal) request.getAttribute("principal");
