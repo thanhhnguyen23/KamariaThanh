@@ -75,6 +75,36 @@ public class ReimbServlet extends HttpServlet{
 	// getting all reimbursements
 	@Override 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+
+////////////////////////////////////////////////////////////////////////////////////
+// testing getting all reimbursements by authorId using "getting all reimbursements
+// hardcoding int
+////////////////////////////////////////////////////////////////////////////////////
+// 		currently working, but servlet must accept arguments of type int representing authorid
+//		log.info("request sent to getting all reimbursements by AuthorId");
+//
+//
+//		List<Reimbursement> reimbursementByAuthorId = reimbService.getReimbByAuthorId(48);
+//		log.info("getting all reimbursements by AuthorId" + reimbursementByAuthorId);
+//
+//		if(reimbursementByAuthorId.isEmpty()){
+//			log.info("There are no reimbursements by this authorId");
+//			resp.setStatus(400);
+//			return;
+//		}
+//		resp.setStatus(200);
+//		
+//		PrintWriter pw = resp.getWriter();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String response = mapper.writeValueAsString(reimbursementByAuthorId);
+//				
+//		
+//		resp.setContentType("application/json");
+//		pw.write(response);
+////////////////////////////////////////////////////////////////////////////////
+		
+		
+///////////////////////////////////////////////////////////////////////////////////////
 		log.info("Request sent to get all reimbursements");
 		List<Reimbursement> allReimbursements = reimbService.getAllReimbursements();
 		log.info("getting all reimbursements: " + allReimbursements);
@@ -94,6 +124,7 @@ public class ReimbServlet extends HttpServlet{
 		
 		resp.setContentType("application/json");
 		pw.write(response);
+///////////////////////////////////////////////////////////////////////////////////////
 	
 		//////////////////////////////////////////
 		// need to get reimbursements by authorId

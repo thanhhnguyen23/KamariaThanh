@@ -21,28 +21,29 @@ public class UserServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static Logger log = Logger.getLogger(UserServlet.class);
-	
+
 	private UserService userService = new UserService();
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.info("Request received by UserServlet.doPost()");
-		
+		/////////////////////////////////////////////////////
+		// checking to see if user role Id can work from here
+		log.info("getting userid: 9 \n--> Does it work?" + userService.getUserById(9));
+		/////////////////////////////////////////////////////
+
 		User newUser = null;
 		log.info("setting newUser null");
-		
+
 		ObjectMapper mapper = new ObjectMapper();
 		log.info("setting up mapper object");
-		
+
 		try {
-			/////////////////////////////////////////////////////////////
 			log.info(req);
 			log.info(mapper);
-			log.info(User.class); // cannot not deserialize instance of int out of START_OBJECT token
+			log.info(User.class);
 
 			newUser = mapper.readValue(req.getInputStream(), User.class);
-
-			/////////////////////////////////////////////////////////////
 
 		} catch (MismatchedInputException mie) {
 			log.error(mie.getMessage());
@@ -52,26 +53,22 @@ public class UserServlet extends HttpServlet {
 			resp.setStatus(400);
 			return;
 
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			log.error(e.getMessage());
 			resp.setStatus(500);
 		}
-		
 
-		newUser = userService.addUser(newUser); 
+		newUser = userService.addUser(newUser);
 		try {
-			
-		String userJson = mapper.writeValueAsString(newUser);
-		PrintWriter out = resp.getWriter();
-		out.write(userJson);
-		}
-		catch(Exception e) {
+
+			String userJson = mapper.writeValueAsString(newUser);
+			PrintWriter out = resp.getWriter();
+			out.write(userJson);
+		} catch (Exception e) {
 			log.error(e.getMessage());
 			resp.setStatus(500);
 		}
-		
-		
+
 	}
 
 }
