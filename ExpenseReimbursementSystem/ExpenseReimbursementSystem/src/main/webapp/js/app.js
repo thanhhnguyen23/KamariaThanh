@@ -534,9 +534,9 @@ async function getReimbById() {
     console.log(authorId);
 
     let response = await fetch('reimbById', {
-        method: 'POST',
+        method: 'GET', // changed from POST
         mode: 'cors',
-        heaaders: {
+        headers: {
             // 'Accept': 'application/json',
             'Content-Type': 'application/json'
         },

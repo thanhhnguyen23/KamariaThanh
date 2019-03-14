@@ -6,14 +6,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Reimbursement {
 
-	@JsonIgnore 						// may be needed to match JSON files for transmitting to js
 	private int reimbId; 					
 	private int amount;						
 
-	@JsonIgnore 						// may be needed to match JSON files for transmitting to js
+	// need to take this off when we need to populate the tables
+	@JsonIgnore 						
 	private Timestamp reimbSubmitted; 		
 
-	@JsonIgnore 						// may be needed to match JSON files for transmitting to js
+	// need to take this off when we need to populate the tables
+	@JsonIgnore 						
 	private Timestamp reimbResolved; 		
 	private String reimbDescription;		
 
