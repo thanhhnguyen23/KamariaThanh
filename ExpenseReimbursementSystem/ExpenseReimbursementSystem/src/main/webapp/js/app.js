@@ -455,17 +455,21 @@ async function getAllReimbs() {
             clickable.setAttribute('href', "exampleModal");
           
             //create button to encapsulate the entire table row
-            let button= document.createElement('button');
-            button.setAttribute('type', "button");
-            button.setAttribute('class', "btn btn-primary");
-            button.setAttribute('data-toggle', "modal");
-            button.setAttribute('data-target', "#exampleModal");
+            // when you click
+            let approveButton= document.createElement('button');
+            approveButton.setAttribute('type', "button");
+            approveButton.setAttribute('class', "btn btn-primary");
+            // button.setAttribute('data-toggle', "modal");
+            // button.setAttribute('data-target', "#exampleModal");
+            approveButton.setAttribute('id', "approve");
+
+            let denyButton= document.createElement('button');
+            denyButton.setAttribute('type', "button");
+            denyButton.setAttribute('class', "btn btn-primary");
+            denyButton.setAttribute('id', "deny");
             
             let container = document.getElementById('container');
             
-
-            
-
             //for each object, create a new table row
             let tableRow = document.createElement('tr');
 
@@ -482,7 +486,8 @@ async function getAllReimbs() {
             let tableData3 = document.createElement('td');
             let tableData4 = document.createElement('td');
             let tableData5 = document.createElement('td');
-            let tableButton = document.createElement('td');
+            let tableButton1 = document.createElement('td');
+            let tableButton2 = document.createElement('td');
 
            
             //add the values to the table data
@@ -492,7 +497,8 @@ async function getAllReimbs() {
             tableData2.append(reimbDescription);
             tableData4.append(statusId2);
             tableData5.append(typeId2);
-            tableButton.append(button);
+            tableButton1.append(approveButton);
+            tableButton2.append(denyButton);
 
 
             //append each element, to each row
@@ -502,7 +508,8 @@ async function getAllReimbs() {
             tableRow.append(tableData2);
             tableRow.append(tableData4);
             tableRow.append(tableData5);
-            tableRow.append(tableButton);
+            tableRow.append(tableButton1);
+            tableRow.append(tableButton2);
 
             //the table already exists so just append the table rows to the table
             let table = document.getElementById('adminReimbTable');
@@ -512,32 +519,21 @@ async function getAllReimbs() {
             // document.getElementById('approve').addEventListener('click', approveReimb(authorId, amount, reimbDescription, statusId));
 
 
-        // //get the table rows from the HTML
-            // let amountRow = document.getElementById('amount');
-            // let authorRow = document.getElementById('author-user-id');
-            // let descriptionRow = document.getElementById('description');
-            // let statusRow = document.getElementById('status');
-            // let typeRow = document.getElementById('type');
+        
 
-            // // //add those values to the table rows
-            // amountRow.append(amount);
-            // authorRow.append(authorId);
-            // descriptionRow.append(reimbDescription);
-            // statusRow.append(statusId);
-            // typeRow.append(typeId);
-
+            //here, i am trying to add eacch responseBody item to the modal container
+            // it currently prints 'undefined' like 90 times
             let modalContainer = document.getElementById('modal-container');
             modalContainer.append(amount[i]);
         }// end of for loop
     
-       
 
     } // end of if status statement
 
    
 }
 
-// get reimbursements by id
+// get reimbursements by id to show on the users dashboard
 async function getReimbById() {
     console.log('in getReimbById()');
 
@@ -575,7 +571,7 @@ async function getReimbById() {
 // on approve button click, do this function
 // document.getElementById('approve').addEventListener('click', approveReimb);
 
-async function approveReimb(authorId, amount, reimbDescription, statusId) {
+async function approveReimb() {
     console.log('in approveReimb()');
 
     let updatedReimb = {

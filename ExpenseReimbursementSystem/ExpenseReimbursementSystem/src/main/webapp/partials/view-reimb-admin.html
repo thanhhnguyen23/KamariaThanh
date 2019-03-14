@@ -21,13 +21,14 @@
 <table id = "adminReimbTable" class="table table-striped table-bordered table-dark">
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">Reimbursement#</th>
             <th scope="col">User Id</th>
             <th scope="col">Amount</th>
             <th scope="col">Description</th>
             <th scope="col">Status</th>
             <th scope="col">Type</th>
-            <th scope="col">Aprove/Deny</th>
+            <th scope="col">Aprove</th> <!--was Approve/Deny-->
+            <th scope="col">Deny</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
         <tr id="reimbRow" data-toggle="modal" class='clickable-row' data-href="#exampleModal" >
   <!--
       this is where the table gets populated
+
   -->
        </tr>
         </div>
@@ -56,7 +58,8 @@
         </div>
         <div id = "modal-container" class="modal-body">
           <!-- here i want to populate the modal data with information from the table-->
-          
+
+
         </div>
         <div class="modal-footer">
           <button id = "deny" type="button" class="btn btn-secondary" data-dismiss="modal">Deny</button>
