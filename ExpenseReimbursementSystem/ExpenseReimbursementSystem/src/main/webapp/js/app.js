@@ -6,6 +6,9 @@ window.onload = function() {
     // document.getElementById('to-logout').addEventListener('click', logout);
 }
 
+
+
+
 // document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
 
 
@@ -40,9 +43,10 @@ function configureLogin() {
         2. fetches the auth servlet (login servlet) that creates a JWT/verification for the user
         3. if the response is successful, the dashboard gets loaded
 */
+var credentials = [];
 async function login() {
     console.log('in login()');
-    var credentials = [];
+    // var credentials = [];
     credentials.push(document.getElementById('username-cred').value);
     credentials.push(document.getElementById('password-cred').value);
 
@@ -130,9 +134,15 @@ function validatePassword(event) {
 }
 
 
+
+
 async function register() {
     console.log('in register()');
 
+    localStorage.setItem('username', document.getElementById('register-username').value);
+    localStorage.setItem('firstName', document.getElementById('register-fn').value);
+    localStorage.setItem('lastName', document.getElementById('register-ln').value);
+    localStorage.setItem('email', document.getElementById('register-email').value);
 
 // Double check, about ers_user_id and the incrementing values
     let newUser = {
@@ -229,10 +239,10 @@ async function dashboard() {
  async function adminDashboard() {
     console.log('in adminDashboard');
     console.log(credentials[0]); //this should log the username
-    document.getElementById('create-reimb').addEventListener('click', loadReimbursement);
+    document.getElementById('create-reimb-admin').addEventListener('click', loadReimbursement);
 
     //have a function that loads the view-reimb.html
-    document.getElementById('view-reimb').addEventListener('click', loadViewReimbursements);
+    document.getElementById('view-reimb-admin').addEventListener('click', loadAdminViewReimbursements);
     // document.getElementsByClassName('btn btn-secondary').addEventListener('click', showReimbursement);
 
  }
@@ -300,10 +310,16 @@ function configureReimbursement() {
 //     else document.getElementById('alert-description').hidden = true;
 // }
 
+
+var authorHolder = document.getElementById('authorHolder');
+var amountHolder = document.getElementById('amountHolder');
+var descriptionHolder = document.getElementById('descriptionHolder');
+var typeHolder = document.getElementById('typeHolder')
+
+
 async function createReimbursement() {
     console.log('in createReimbursement()');
 
-    
     let newReimb = {
         reimbId: {},
         amount: document.getElementById('reimbursement-amount').value,
@@ -324,82 +340,118 @@ async function createReimbursement() {
         body: JSON.stringify(newReimb)
     });
 
-    console.log(newReimb);
+    console.log(newReimb.reimbId);
     console.log(response);
     // console.log(responseBody);
 
     if (response.status == 200) {
         console.log('the status is 200...');
-        //for now load dashboard, but later will load the viewAllReimbursements
-        loadViewReimbursements();
-        // loadDashboard();
+        if (credentials[0] == 'admin_kd' || credentials[0] == 'admin_tn') {
+            loadAdminViewReimbursements();
+        }
+
+        else {
+            loadViewReimbursements();
+        }
     }
 
     let responseBody = await response.json(); // username field must be given userid
     console.log(responseBody);
 
-    // here, in a second function, parse through the response/newReimb and get those values separately
-    // testing the responseBody
-    // let resp_amount = responseBody.amount;
-    // console.log(resp_amount);
-
-
-    var resp_amount = newReimb.amount;
-    console.log(resp_amount);
-    
-    var resp_authorId = newReimb.authorId;
-    console.log(resp_authorId);
-
-    var resp_reimbDescription = newReimb.reimbDescription
-    console.log(resp_reimbDescription);
-
-    var resp_typeId = newReimb.typeId
-    console.log(resp_typeId);
-
-    //THE VALUES BELOW, I WILL NEED TO CALL TO THE DATABASE
-    // let resp_reimbSubmitted 
-    // let resolverId
-    // let statusId
-
-
-    // in response body, parse thru to get the info ya need for ya ticket stuffs 
-    // document. innerHTMLs 
-
     // document.getElementById('new-reimbursement').addEventListener('click', alert('Your reimbursement has been submitted!'));
     // alert('Your reimbursement has been submitted!');
 }
 
+
+//=======================================================
+// ADMIN Reimbursement View
+async function loadAdminViewReimbursements() {
+    console.log('in loadAdminViewReimbursements()');
+
+    APP_VIEW.innerHTML = await fetchView('view-reimb-admin.view');
+    DYNAMIC_CSS_LINK.href = 'css/app.css';
+    // document.getElementById('view-admin-reimb').addEventListener('click', showReimbursement);
+    getAllReimbs();
+}
+
+
+
+//=======================================
+
+
+
+// EMPLOYEE Reimbursement View
 async function loadViewReimbursements() {
     console.log('in loadViewReimbursements()');
 
     APP_VIEW.innerHTML = await fetchView('view-reimb.view');
     DYNAMIC_CSS_LINK.href = 'css/app.css';
     // document.getElementById('view-reimb').addEventListener('click', showReimbursement);
+    getReimbById();
+}
+
+
+// get reimbursement 
+async function getAllReimbs() {
+    console.log('in getAllReimbs()');
+
+    let response = await fetch('reimbursements');
+    console.log(response);
+
+    if (response.status == 200) {
+        console.log(response.status);
+
+    }
+
+}
+
+// get reimbursements by id
+async function getReimbById() {
+    console.log('in getReimbById()');
+
+    let authorId = {
+        authorId: document.getElementById('reimbursement-username')
+    }
+
+    let response = await fetch('reimbById', {
+        method: 'POST',
+        mode: 'cors',
+        heaaders: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(authorId)
+    });
+
+    if (response.status == 200) {
+        // populate the user's table on the employee dashboard
+        console.log(response.status);
+    }
+
+    console.log(response);
+}
+
+
+
+
+
+
+// async function approveReimb() {
+//     console.log('in approveReimb()');
+
+
+
+//     let response = await fetch ('updateReimbStatus', {
+//         method: 'POST',
+//         mode: 'cors',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body:JSON.stringify()
+//     });
+
     
-}
-
-// you will show this reimbursement when the user clicks the view reimbursements button
-async function showReimbursement() {
-    //gather the holders for those elements
-    let authorHolder = document.getElementById('authorHolder');
-    let amountHolder = document.getElementById('amountHolder');
-    let descriptionHolder = document.getElementById('descriptionHolder');
-    let typeHolder = document.getElementById('typeHolder');
-
-    //create elements to append to the p elements
-    //createElement('p).
-
-    //append those values to the holders
-    authorHolder.innerText = resp_authorId;
-    amountHolder.innerText = resp_amount;
-    // descriptionHolder.append(resp_reimbDescription);
-    // typeHolder.append(resp_typeId);
-
-    //modal body would append each of those holders
-
-    // if resp_typeId == '1', resp_typeId2 = LODGING
-
-}
+// }
 
 
 
