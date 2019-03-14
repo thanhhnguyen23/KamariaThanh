@@ -391,8 +391,9 @@ async function loadViewReimbursements() {
 }
 
 
-// get reimbursement 
+// get all reimbursements for manager 
 async function getAllReimbs() {
+
     console.log('in getAllReimbs()');
 
     let response = await fetch('reimbursements');
@@ -406,11 +407,13 @@ async function getAllReimbs() {
 
         //looping through the responseBody and getting the values for each object
         for (let i =0; i < responseBody.length; i++) {
-            var amount = responseBody[i]['amount']
+            var reimbId = responseBody[i]['reimbId'];
+            // console.log(reimbId);
+            var amount = responseBody[i]['amount'];
             var reimbDescription = responseBody[i]['reimbDescription'];
             var authorId = responseBody[i]['authorId'];
             var statusId = responseBody[i]['statusId'];
-            var typeId = responseBody[i]['typeId']
+            var typeId = responseBody[i]['typeId'];
             
             // if statements to display the type of reimbursement
             if (typeId == 1) {
@@ -461,6 +464,7 @@ async function getAllReimbs() {
             let container = document.getElementById('container');
             
 
+            
 
             //for each object, create a new table row
             let tableRow = document.createElement('tr');
@@ -482,6 +486,7 @@ async function getAllReimbs() {
 
            
             //add the values to the table data
+            tableData.append(reimbId);
             tableData3.append(authorId);
             tableData1.append(amount);
             tableData2.append(reimbDescription);
@@ -503,6 +508,10 @@ async function getAllReimbs() {
             let table = document.getElementById('adminReimbTable');
             table.append(tableRow);
 
+
+            // document.getElementById('approve').addEventListener('click', approveReimb(authorId, amount, reimbDescription, statusId));
+
+
         // //get the table rows from the HTML
             // let amountRow = document.getElementById('amount');
             // let authorRow = document.getElementById('author-user-id');
@@ -516,11 +525,16 @@ async function getAllReimbs() {
             // descriptionRow.append(reimbDescription);
             // statusRow.append(statusId);
             // typeRow.append(typeId);
-        }
+
+            let modalContainer = document.getElementById('modal-container');
+            modalContainer.append(amount[i]);
+        }// end of for loop
     
+       
 
-    }
+    } // end of if status statement
 
+   
 }
 
 // get reimbursements by id
@@ -558,23 +572,38 @@ async function getReimbById() {
 
 
 
+// on approve button click, do this function
+// document.getElementById('approve').addEventListener('click', approveReimb);
 
-// async function approveReimb() {
-//     console.log('in approveReimb()');
+async function approveReimb(authorId, amount, reimbDescription, statusId) {
+    console.log('in approveReimb()');
 
+    let updatedReimb = {
+        reimbId: {},
+        amount: document.getElementById('reimbursement-amount').value,
+        resolverId: 1,
+        statusId: 2,
+        reimbDescription:  document.getElementById('reimbursement-description').value,
+        authorId: document.getElementById('reimbursement-username').value,
+        typeId: document.getElementById('new-reimb-type').value
 
+    };
 
-//     let response = await fetch ('updateReimbStatus', {
-//         method: 'POST',
-//         mode: 'cors',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body:JSON.stringify()
-//     });
+    let response = await fetch ('updateReimbStatus', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(updatedReimb)
+    });
+
+    let responseBody = await response.json();
+    console.log(responseBody);
+    return responseBody;
 
     
-// }
+}
 
 
 
