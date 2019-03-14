@@ -461,10 +461,6 @@ async function getAllReimbs() {
                 var statusId2 = 'DENIED';
             }
 
-
-            let clickable = document.createElement('a');
-            clickable.setAttribute('href', "exampleModal");
-          
             //create button to encapsulate the entire table row
             // when you click
             let approveButton= document.createElement('button');
@@ -472,26 +468,17 @@ async function getAllReimbs() {
             approveButton.setAttribute('class', "btn btn-primary");
             // button.setAttribute('data-toggle', "modal");
             // button.setAttribute('data-target', "#exampleModal");
-            approveButton.setAttribute('id', "approve");
+            approveButton.setAttribute('id', "approve" + i);
 
             let denyButton= document.createElement('button');
             denyButton.setAttribute('type', "button");
             denyButton.setAttribute('class', "btn btn-primary");
-            denyButton.setAttribute('id', "deny");
+            denyButton.setAttribute('id', "deny" + i);
             
-            let container = document.getElementById('container');
             
             //for each object, create a new table row
             let tableRow = document.createElement('tr');
-
-            // container.append(tableRow);
-            clickable.append(container);
-
-
-            // button.append(tableRow);
-
-            //the table datas need template literal id's
-            //use onclick instead of event listeners
+            tableRow.setAttribute('id', "tableRow" + i); //increment the id
 
             //for each row, create the table data elements
             let tableData = document.createElement('td');
@@ -531,47 +518,21 @@ async function getAllReimbs() {
             let table = document.getElementById('adminReimbTable');
             table.append(tableRow);
 
-<<<<<<< HEAD
-            //here, i am trying to add eacch responseBody item to the modal container
-            // it currently prints 'undefined' like 90 times
-            // let modalContainer = document.getElementById('modal-container');
-            // modalContainer.append(amount[i]);
+            
+
+            document.getElementById('approve' + i).addEventListener('click', approveReimb);
         }// end of for loop
+
+        
     
-=======
-        // //get the table rows from the HTML
-            // let amountRow = document.getElementById('amount');
-            // let authorRow = document.getElementById('author-user-id');
-            // let descriptionRow = document.getElementById('description');
-            // let statusRow = document.getElementById('status');
-            // let typeRow = document.getElementById('type');
-
-            // // //add those values to the table rows
-            // amountRow.append(amount);
-            // authorRow.append(authorId);
-            // descriptionRow.append(reimbDescription);
-            // statusRow.append(statusId);
-            // typeRow.append(typeId);
-        }
-    }
-
-            // document.getElementById('approve').addEventListener('click', approveReimb(authorId, amount, reimbDescription, statusId));
-            //here, i am trying to add eacch responseBody item to the modal container
-            // it currently prints 'undefined' like 90 times
-            let modalContainer = document.getElementById('modal-container');
-            modalContainer.append(amount[i]);
->>>>>>> 781925b2c8d171cd572bc45e43dc327c4ef7055d
 
 }// end of for loop
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
-<<<<<<< HEAD
     
    
 }
-=======
->>>>>>> 781925b2c8d171cd572bc45e43dc327c4ef7055d
 
 
 
@@ -607,35 +568,54 @@ async function getReimbById() {
 }
 
 
-
-
-
-// on approve button click, do this function
-// document.getElementById('approve').addEventListener('click', approveReimb);
-// async function approveReimb() {
-//     console.log('in approveReimb()');
-//     let response = await fetch ('updateReimbStatus', {
-//         method: 'POST',
-//         mode: 'cors',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body:JSON.stringify()
-//     });
-// }
 async function approveReimb() {
     console.log('in approveReimb()');
 
-    let updatedReimb = {
-        reimbId: {},
-        amount: document.getElementById('reimbursement-amount').value,
-        resolverId: 1,
-        statusId: 2,
-        reimbDescription:  document.getElementById('reimbursement-description').value,
-        authorId: document.getElementById('reimbursement-username').value,
-        typeId: document.getElementById('new-reimb-type').value
+    let target = event.target.id + '';
+    let target2 = event.target.id + '';
+    target2.slice(target2.length-1);
 
+    target = target.slice(target.length-1);
+    let tableInfo = document.getElementById('tableRow' + target);
+
+    let newType = tableInfo.childNodes[5].innerText;
+    console.log(newType);
+
+    switch(newType) {
+
+        case("LODGING"):
+            newType = 1;
+            break;
+        case("TRAVEL"):
+            newType = 2;
+            break;
+        case("FOOD"):
+            newType = 3;
+            break;
+        case("OTHER"):
+            newType = 4;
+            break;
+    }
+
+//     reimb id"50"
+// authorId: "9"
+// amount "75000"
+// description "mexico"
+// resolverId: 1
+// statusId: 2
+// typeId: ""
+
+    let updatedReimb = {
+        reimbId: tableInfo.childNodes[0].innerText,
+        authorId: tableInfo.childNodes[1].innerText,
+        amount: tableInfo.childNodes[2].innerText,
+        reimbDescription: tableInfo.childNodes[3].innerText,
+        statusId: 2,
+        typeId: newType
     };
+
+    console.log(updatedReimb);
+
 
     let response = await fetch ('updateReimbStatus', {
         method: 'POST',
@@ -646,9 +626,11 @@ async function approveReimb() {
         body:JSON.stringify(updatedReimb)
     });
 
+    console.log(response);
     let responseBody = await response.json();
-    console.log(responseBody);
+    // console.log(responseBody);
     return responseBody;
+
 
     
 }
