@@ -76,32 +76,6 @@ public class ReimbServlet extends HttpServlet{
 	@Override 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
 
-////////////////////////////////////////////////////////////////////////////////////
-// testing getting all reimbursements by authorId using "getting all reimbursements
-// hardcoding int
-////////////////////////////////////////////////////////////////////////////////////
-// 		currently working, but servlet must accept arguments of type int representing authorid
-//		log.info("request sent to getting all reimbursements by AuthorId");
-//
-//
-//		List<Reimbursement> reimbursementByAuthorId = reimbService.getReimbByAuthorId(48);
-//		log.info("getting all reimbursements by AuthorId" + reimbursementByAuthorId);
-//
-//		if(reimbursementByAuthorId.isEmpty()){
-//			log.info("There are no reimbursements by this authorId");
-//			resp.setStatus(400);
-//			return;
-//		}
-//		resp.setStatus(200);
-//		
-//		PrintWriter pw = resp.getWriter();
-//		ObjectMapper mapper = new ObjectMapper();
-//		String response = mapper.writeValueAsString(reimbursementByAuthorId);
-//				
-//		
-//		resp.setContentType("application/json");
-//		pw.write(response);
-////////////////////////////////////////////////////////////////////////////////
 		
 		
 ///////////////////////////////////////////////////////////////////////////////////////

@@ -50,6 +50,7 @@ async function login() {
     credentials.push(document.getElementById('username-cred').value);
     credentials.push(document.getElementById('password-cred').value);
 
+    
     console.log(credentials);
 
     let response = await fetch('auth', {
@@ -398,6 +399,10 @@ async function loadViewReimbursements() {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////////////
+// get reimbursement 
+//////////////////////////////////////////////////////////////////////////////////////////
+
 // get all reimbursements for manager 
 async function getAllReimbs() {
 
@@ -438,7 +443,6 @@ async function getAllReimbs() {
             if (typeId == 4) {
                 typeId2 = 'OTHER';
             }
-
 
             // if statements to display the status
             if (statusId == 1) {
@@ -527,18 +531,47 @@ async function getAllReimbs() {
             let table = document.getElementById('adminReimbTable');
             table.append(tableRow);
 
+<<<<<<< HEAD
             //here, i am trying to add eacch responseBody item to the modal container
             // it currently prints 'undefined' like 90 times
             // let modalContainer = document.getElementById('modal-container');
             // modalContainer.append(amount[i]);
         }// end of for loop
     
+=======
+        // //get the table rows from the HTML
+            // let amountRow = document.getElementById('amount');
+            // let authorRow = document.getElementById('author-user-id');
+            // let descriptionRow = document.getElementById('description');
+            // let statusRow = document.getElementById('status');
+            // let typeRow = document.getElementById('type');
 
-    } // end of if status statement
+            // // //add those values to the table rows
+            // amountRow.append(amount);
+            // authorRow.append(authorId);
+            // descriptionRow.append(reimbDescription);
+            // statusRow.append(statusId);
+            // typeRow.append(typeId);
+        }
+    }
 
+            // document.getElementById('approve').addEventListener('click', approveReimb(authorId, amount, reimbDescription, statusId));
+            //here, i am trying to add eacch responseBody item to the modal container
+            // it currently prints 'undefined' like 90 times
+            let modalContainer = document.getElementById('modal-container');
+            modalContainer.append(amount[i]);
+>>>>>>> 781925b2c8d171cd572bc45e43dc327c4ef7055d
+
+}// end of for loop
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+<<<<<<< HEAD
     
    
 }
+=======
+>>>>>>> 781925b2c8d171cd572bc45e43dc327c4ef7055d
 
 
 
@@ -553,7 +586,7 @@ async function getReimbById() {
     console.log(authorId);
 
     let response = await fetch('reimbById', {
-        method: 'GET', // changed from POST
+        method: 'GET', 
         mode: 'cors',
         headers: {
             // 'Accept': 'application/json',
@@ -568,7 +601,7 @@ async function getReimbById() {
     }
 
     let responseBody = await response.json();
-    console.log(responseBody);
+    console.log("response: " + responseBody);
 
     console.log(response);
 }
@@ -579,7 +612,17 @@ async function getReimbById() {
 
 // on approve button click, do this function
 // document.getElementById('approve').addEventListener('click', approveReimb);
-
+// async function approveReimb() {
+//     console.log('in approveReimb()');
+//     let response = await fetch ('updateReimbStatus', {
+//         method: 'POST',
+//         mode: 'cors',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body:JSON.stringify()
+//     });
+// }
 async function approveReimb() {
     console.log('in approveReimb()');
 
@@ -617,11 +660,4 @@ async function approveReimb() {
 const APP_VIEW = document.getElementById('app-view');
 const DYNAMIC_CSS_LINK = document.getElementById('dynamic-css');
 
-
-
-
-
 //========================================================================================================================================
-
-
-
