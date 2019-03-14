@@ -16,39 +16,36 @@ import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.revature.ers.models.Reimbursement;
 import com.revature.ers.services.ReimbursementService;
 
-@WebServlet("/reimbursements")
-public class ReimbServlet extends HttpServlet{
-
+@WebServlet("/updateReimbStatus")
+public class UpdateReimbServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	private static Logger log = Logger.getLogger(ReimbServlet.class);
-
-	private ReimbursementService reimbService = new ReimbursementService();
+	private static Logger log = Logger.getLogger(UpdateReimbServlet.class);
 	
-	@Override
+	private ReimbursementService reimbService = new ReimbursementService();
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
-		log.info("request received by ReimbServlet.doPost()");
+		log.info("request received by UpdateReimbServlet.doPost()");
 		
-		Reimbursement newReimb = null;
+		Reimbursement updatedReimbursement = null;
 		
-		log.info("setting new reimbursement to null");
+		log.info("setting up updatedReimbursement to null");
 		
 		ObjectMapper mapper = new ObjectMapper();
-		log.info("setting up mapper object");
-
+		log.info("setting mapper object");
+		
+		
 		try {
 			log.info("mapper: " + mapper);
-			log.info(Reimbursement.class);
-			log.info(newReimb); 
+			log.info(UpdateReimbServlet.class);
+			log.info(updatedReimbursement); // should null at this point
 			
-			log.info(ReimbServlet.class);
 			
-			newReimb = mapper.readValue(req.getInputStream(), Reimbursement.class);
-			log.info("newReimb: " + newReimb);
-
+			updatedReimbursement = mapper.readValue(req.getInputStream(), Reimbursement.class);
+			log.info("updatedReimbursement: " + updatedReimbursement);
 		}
 		catch(MismatchedInputException mie) {
 			log.error(mie.getMessage());
-			log.info(newReimb);
+			log.info(updatedReimbursement);
 			
 			resp.setStatus(400);
 			return;
@@ -57,20 +54,16 @@ public class ReimbServlet extends HttpServlet{
 			log.error(e.getMessage());
 			resp.setStatus(500);
 		}
-		
-		newReimb = reimbService.addReimbursement(newReimb);
-
+		updatedReimbursement = reimbService.updateReimbStatus(updatedReimbursement);
 		try {
-			String reimbJson = mapper.writeValueAsString(newReimb);
+			String reimbStatusJson = mapper.writeValueAsString(updatedReimbursement);
 			PrintWriter out = resp.getWriter();
-			out.write(reimbJson);
+			out.write(reimbStatusJson);
 		}
 		catch(Exception e) {
 			log.error(e.getMessage());
 			resp.setStatus(500);
 		}
-		
 	}
-
-
 }
+
