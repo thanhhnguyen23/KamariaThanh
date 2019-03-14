@@ -50,6 +50,7 @@ async function login() {
     credentials.push(document.getElementById('username-cred').value);
     credentials.push(document.getElementById('password-cred').value);
 
+    
     console.log(credentials);
 
     let response = await fetch('auth', {
@@ -391,7 +392,9 @@ async function loadViewReimbursements() {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////////////
 // get reimbursement 
+//////////////////////////////////////////////////////////////////////////////////////////
 async function getAllReimbs() {
     console.log('in getAllReimbs()');
 
@@ -428,7 +431,6 @@ async function getAllReimbs() {
             if (typeId == 4) {
                 typeId2 = 'OTHER';
             }
-
 
             // if statements to display the status
             if (statusId == 1) {
@@ -517,11 +519,11 @@ async function getAllReimbs() {
             // statusRow.append(statusId);
             // typeRow.append(typeId);
         }
-    
-
     }
-
 }
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 // get reimbursements by id
 async function getReimbById() {
@@ -534,7 +536,7 @@ async function getReimbById() {
     console.log(authorId);
 
     let response = await fetch('reimbById', {
-        method: 'GET', // changed from POST
+        method: 'GET', 
         mode: 'cors',
         headers: {
             // 'Accept': 'application/json',
@@ -549,7 +551,7 @@ async function getReimbById() {
     }
 
     let responseBody = await response.json();
-    console.log(responseBody);
+    console.log("response: " + responseBody);
 
     console.log(response);
 }
@@ -561,9 +563,6 @@ async function getReimbById() {
 
 // async function approveReimb() {
 //     console.log('in approveReimb()');
-
-
-
 //     let response = await fetch ('updateReimbStatus', {
 //         method: 'POST',
 //         mode: 'cors',
@@ -572,22 +571,10 @@ async function getReimbById() {
 //         },
 //         body:JSON.stringify()
 //     });
-
-    
 // }
-
-
-
 //-------------------------------------------------------------
 
 const APP_VIEW = document.getElementById('app-view');
 const DYNAMIC_CSS_LINK = document.getElementById('dynamic-css');
 
-
-
-
-
 //========================================================================================================================================
-
-
-
