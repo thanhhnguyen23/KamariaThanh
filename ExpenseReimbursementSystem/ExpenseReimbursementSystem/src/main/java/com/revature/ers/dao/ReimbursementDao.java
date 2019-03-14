@@ -35,15 +35,18 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 		return reimbursements;
 	}
 
-	public Reimbursement reimbByAuthorId(int id) {
-		Reimbursement reimbByAuthorId = new Reimbursement();
+	public List<Reimbursement> reimbByAuthorId(int authorId) {
+//		Reimbursement reimbByAuthorId = new Reimbursement();
+		List<Reimbursement> reimbByAuthorId = new ArrayList<>();
+		
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()){
 			PreparedStatement pstate = conn.prepareStatement("select * from ers_reimbursement where reimb_author = ?");
-			pstate.setInt(1, id);
+			pstate.setInt(1, authorId);
 			
 			ResultSet rs = pstate.executeQuery();
-			reimbByAuthorId = this.mapResultSet(rs).get(0);
+
+			reimbByAuthorId = this.mapResultSet(rs); // did i get the reimbursements by author? 
 		}
 		catch(SQLException e) {
 			log.error(e.getMessage());
