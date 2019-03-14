@@ -395,7 +395,10 @@ async function loadViewReimbursements() {
 //////////////////////////////////////////////////////////////////////////////////////////
 // get reimbursement 
 //////////////////////////////////////////////////////////////////////////////////////////
+
+// get all reimbursements for manager 
 async function getAllReimbs() {
+
     console.log('in getAllReimbs()');
 
     let response = await fetch('reimbursements');
@@ -409,11 +412,13 @@ async function getAllReimbs() {
 
         //looping through the responseBody and getting the values for each object
         for (let i =0; i < responseBody.length; i++) {
-            var amount = responseBody[i]['amount']
+            var reimbId = responseBody[i]['reimbId'];
+            // console.log(reimbId);
+            var amount = responseBody[i]['amount'];
             var reimbDescription = responseBody[i]['reimbDescription'];
             var authorId = responseBody[i]['authorId'];
             var statusId = responseBody[i]['statusId'];
-            var typeId = responseBody[i]['typeId']
+            var typeId = responseBody[i]['typeId'];
             
             // if statements to display the type of reimbursement
             if (typeId == 1) {
@@ -454,16 +459,21 @@ async function getAllReimbs() {
             clickable.setAttribute('href', "exampleModal");
           
             //create button to encapsulate the entire table row
-            let button= document.createElement('button');
-            button.setAttribute('type', "button");
-            button.setAttribute('class', "btn btn-primary");
-            button.setAttribute('data-toggle', "modal");
-            button.setAttribute('data-target', "#exampleModal");
+            // when you click
+            let approveButton= document.createElement('button');
+            approveButton.setAttribute('type', "button");
+            approveButton.setAttribute('class', "btn btn-primary");
+            // button.setAttribute('data-toggle', "modal");
+            // button.setAttribute('data-target', "#exampleModal");
+            approveButton.setAttribute('id', "approve");
+
+            let denyButton= document.createElement('button');
+            denyButton.setAttribute('type', "button");
+            denyButton.setAttribute('class', "btn btn-primary");
+            denyButton.setAttribute('id', "deny");
             
             let container = document.getElementById('container');
             
-
-
             //for each object, create a new table row
             let tableRow = document.createElement('tr');
 
@@ -480,16 +490,19 @@ async function getAllReimbs() {
             let tableData3 = document.createElement('td');
             let tableData4 = document.createElement('td');
             let tableData5 = document.createElement('td');
-            let tableButton = document.createElement('td');
+            let tableButton1 = document.createElement('td');
+            let tableButton2 = document.createElement('td');
 
            
             //add the values to the table data
+            tableData.append(reimbId);
             tableData3.append(authorId);
             tableData1.append(amount);
             tableData2.append(reimbDescription);
             tableData4.append(statusId2);
             tableData5.append(typeId2);
-            tableButton.append(button);
+            tableButton1.append(approveButton);
+            tableButton2.append(denyButton);
 
 
             //append each element, to each row
@@ -499,12 +512,14 @@ async function getAllReimbs() {
             tableRow.append(tableData2);
             tableRow.append(tableData4);
             tableRow.append(tableData5);
-            tableRow.append(tableButton);
+            tableRow.append(tableButton1);
+            tableRow.append(tableButton2);
 
             //the table already exists so just append the table rows to the table
             let table = document.getElementById('adminReimbTable');
             table.append(tableRow);
 
+<<<<<<< HEAD
         // //get the table rows from the HTML
             // let amountRow = document.getElementById('amount');
             // let authorRow = document.getElementById('author-user-id');
@@ -520,12 +535,27 @@ async function getAllReimbs() {
             // typeRow.append(typeId);
         }
     }
+
+            // document.getElementById('approve').addEventListener('click', approveReimb(authorId, amount, reimbDescription, statusId));
+
+
+        
+
+            //here, i am trying to add eacch responseBody item to the modal container
+            // it currently prints 'undefined' like 90 times
+            let modalContainer = document.getElementById('modal-container');
+            modalContainer.append(amount[i]);
+        }// end of for loop
+    
+
+    } // end of if status statement
+   
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-// get reimbursements by id
+// get reimbursements by id to show on the users dashboard
 async function getReimbById() {
     console.log('in getReimbById()');
 
@@ -560,7 +590,10 @@ async function getReimbById() {
 
 
 
+// on approve button click, do this function
+// document.getElementById('approve').addEventListener('click', approveReimb);
 
+<<<<<<< HEAD
 // async function approveReimb() {
 //     console.log('in approveReimb()');
 //     let response = await fetch ('updateReimbStatus', {
@@ -572,6 +605,40 @@ async function getReimbById() {
 //         body:JSON.stringify()
 //     });
 // }
+=======
+async function approveReimb() {
+    console.log('in approveReimb()');
+
+    let updatedReimb = {
+        reimbId: {},
+        amount: document.getElementById('reimbursement-amount').value,
+        resolverId: 1,
+        statusId: 2,
+        reimbDescription:  document.getElementById('reimbursement-description').value,
+        authorId: document.getElementById('reimbursement-username').value,
+        typeId: document.getElementById('new-reimb-type').value
+
+    };
+
+    let response = await fetch ('updateReimbStatus', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(updatedReimb)
+    });
+
+    let responseBody = await response.json();
+    console.log(responseBody);
+    return responseBody;
+
+    
+}
+
+
+
+>>>>>>> 1b2290efc6b5b18a525dbe246d31d0ab305c5b0a
 //-------------------------------------------------------------
 
 const APP_VIEW = document.getElementById('app-view');
