@@ -398,6 +398,9 @@ async function getAllReimbs() {
     let response = await fetch('reimbursements');
     console.log(response);
 
+    let responseBody = await response.json();
+    console.log(responseBody);
+
     if (response.status == 200) {
         console.log(response.status);
 
@@ -427,6 +430,9 @@ async function getReimbById() {
         // populate the user's table on the employee dashboard
         console.log(response.status);
     }
+
+    // let responseBody = await response.json();
+    // console.log(responseBody);
 
     console.log(response);
 }
