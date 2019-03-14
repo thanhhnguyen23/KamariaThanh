@@ -500,7 +500,7 @@ async function getAllReimbs() {
             tableData1.append(amount);
             tableData2.append(reimbDescription);
             tableData4.append(statusId2);
-            tableData4.setAttribute('id', "statusId");
+            tableData4.setAttribute('id', "statusId" + i);
 
             tableData5.append(typeId2);
             tableButton1.append(approveButton);
@@ -686,7 +686,7 @@ async function approveReimb() {
         typeId: newType
     };
 
-    document.getElementById('')
+    document.getElementById('statusId' + target).innerText = 'APPROVED';
 
     console.log(updatedReimb);
 
