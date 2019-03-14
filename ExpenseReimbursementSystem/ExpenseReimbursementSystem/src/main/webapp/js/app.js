@@ -519,7 +519,6 @@ async function getAllReimbs() {
             let table = document.getElementById('adminReimbTable');
             table.append(tableRow);
 
-<<<<<<< HEAD
         // //get the table rows from the HTML
             // let amountRow = document.getElementById('amount');
             // let authorRow = document.getElementById('author-user-id');
@@ -537,20 +536,12 @@ async function getAllReimbs() {
     }
 
             // document.getElementById('approve').addEventListener('click', approveReimb(authorId, amount, reimbDescription, statusId));
-
-
-        
-
             //here, i am trying to add eacch responseBody item to the modal container
             // it currently prints 'undefined' like 90 times
             let modalContainer = document.getElementById('modal-container');
             modalContainer.append(amount[i]);
-        }// end of for loop
-    
 
-    } // end of if status statement
-   
-}
+}// end of for loop
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -592,8 +583,6 @@ async function getReimbById() {
 
 // on approve button click, do this function
 // document.getElementById('approve').addEventListener('click', approveReimb);
-
-<<<<<<< HEAD
 // async function approveReimb() {
 //     console.log('in approveReimb()');
 //     let response = await fetch ('updateReimbStatus', {
@@ -605,7 +594,6 @@ async function getReimbById() {
 //         body:JSON.stringify()
 //     });
 // }
-=======
 async function approveReimb() {
     console.log('in approveReimb()');
 
@@ -638,7 +626,6 @@ async function approveReimb() {
 
 
 
->>>>>>> 1b2290efc6b5b18a525dbe246d31d0ab305c5b0a
 //-------------------------------------------------------------
 
 const APP_VIEW = document.getElementById('app-view');
