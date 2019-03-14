@@ -389,6 +389,7 @@ async function loadViewReimbursements() {
     DYNAMIC_CSS_LINK.href = 'css/app.css';
     // document.getElementById('view-reimb').addEventListener('click', showReimbursement);
     getReimbById();
+
 }
 
 
@@ -516,7 +517,7 @@ async function getAllReimbs() {
             tableRow.append(tableButton2);
 
             //the table already exists so just append the table rows to the table
-            let table = document.getElementById('adminReimbTable');
+            let table = document.getElementById('empReimbTable');
             table.append(tableRow);
 
         // //get the table rows from the HTML
@@ -547,6 +548,8 @@ async function getAllReimbs() {
 
 
 // get reimbursements by id to show on the users dashboard
+// EMPLOYEE REIMBURSEMNET VIEW -- TN
+//----------------------------------
 async function getReimbById() {
     console.log('in getReimbById()');
 
@@ -575,7 +578,90 @@ async function getReimbById() {
     console.log("response: " + responseBody);
 
     console.log(response);
+
+    for ( let i = 0; i < responseBody.length; i++){
+        var reimbId = responseBody[i]['reimbid'];
+        console.log('reimbId: ' + reimbId);
+
+        // populating information needed for tables
+        var amount = responseBody[i]['amount'];
+
+
+        // reimbursement type switches
+
+        if (typeId == 1) {
+            var typeId2 = 'LODGING';
+        }
+
+        if (typeId == 2) {
+            typeId2 = 'TRAVEL';
+        }
+
+        if (typeId == 3) {
+            typeId2 = 'FOOD';
+        }
+
+        if (typeId == 4) {
+            typeId2 = 'OTHER';
+        }
+
+        // if statements to display the status
+        if (statusId == 1) {
+            var statusId2 = 'PENDING';
+        }
+
+        if (statusId == 2) {
+            statusId2 = 'APPROVE';
+        }
+
+        if (statusId == 3) {
+            var statusId2 = 'DONE';
+        }
+
+        if (statusId == 4) {
+            var statusId2 = 'DENIED';
+        }
+
+        // creating elements for information to be populated
+        let clickable = document.createElement('a');
+        clickable.setAttribute('href', 'exampleModal');
+
+        let container = document.getElementById('container');
+
+        // for each object, create a new table row
+        let tableRow = document.createElement('tr');
+
+        clickable.append(container);
+
+
+        // for each row, create the table data elements
+        let tableData = document.createElement('td');
+        let tableData1 = document.createElement('td');
+        let tableData2 = document.createElement('td');
+        let tableData3 = document.createElement('td');
+        let tableData4 = document.createElement('td');
+        let tableData5 = document.createElement('td');
+        let tableButton1 = document.createElement('td');
+        let tableButton2 = document.createElement('td');
+
+        // add the values to the tables
+        tableData.append(reimbId);
+        tableData3.append(authorId);
+        tableData1.append(amount);
+        tableData2.append(reimbDescription);
+        tableData4.append(statusId2);
+        tableData5.append(typeId2);
+        tableButton1.append(approveButton);
+        tableButton2.append(denyButton);
+
+
+        // append each element, to each row
+        tableRow.append(tableData);
+        // look at line around 510
+
+    }
 }
+
 
 
 
