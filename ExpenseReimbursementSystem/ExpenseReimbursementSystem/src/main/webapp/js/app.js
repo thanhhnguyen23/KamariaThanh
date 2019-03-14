@@ -653,26 +653,6 @@ async function getReimbById() {
 }
 
 
-<<<<<<< HEAD
-=======
-
-
-
-
-// on approve button click, do this function
-// document.getElementById('approve').addEventListener('click', approveReimb);
-// async function approveReimb() {
-//     console.log('in approveReimb()');
-//     let response = await fetch ('updateReimbStatus', {
-//         method: 'POST',
-//         mode: 'cors',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body:JSON.stringify()
-//     });
-// }
->>>>>>> 2901f87e896b947176ce0b517e3cf94e5dcd2ea4
 async function approveReimb() {
     console.log('in approveReimb()');
 
