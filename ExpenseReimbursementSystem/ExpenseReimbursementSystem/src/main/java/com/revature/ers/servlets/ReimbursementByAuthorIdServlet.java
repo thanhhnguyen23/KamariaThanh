@@ -1,6 +1,8 @@
 package com.revature.ers.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,19 +15,84 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.revature.ers.models.Principal;
 import com.revature.ers.models.Reimbursement;
 import com.revature.ers.services.ReimbursementService;
 
-//@WebServlet("/reimbById")
-//public class ReimbursementByAuthorIdServlet extends HttpServlet{
-//
-//	private static final long serialVersionUID = 1L;
-//	private static Logger log = Logger.getLogger(ReimbursementByAuthorIdServlet.class);
-//	
-//	private ReimbursementService reimbService = new ReimbursementService();
-//	
-//	@Override
-//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+@WebServlet("/reimbById")
+public class ReimbursementByAuthorIdServlet extends HttpServlet{
+
+	private static final long serialVersionUID = 1L;
+	private static Logger log = Logger.getLogger(ReimbursementByAuthorIdServlet.class);
+	
+	private ReimbursementService reimbService = new ReimbursementService();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+		
+		resp.setContentType("application/json");
+		Principal principal = (Principal) req.getAttribute("principal");
+
+		String requestURI = req.getRequestURI();
+		
+		ObjectMapper map = new ObjectMapper();
+		
+		try {
+			PrintWriter out = resp.getWriter();
+			if (principal == null) {
+				log.info("no principal found on request");
+				resp.setStatus(401);
+				return;
+			}
+			List<Reimbursement> reimbs = new ArrayList<>();
+			
+			log.info("inside our ReimbursementByAuthorServlet" + "current Id: " + principal.getId());
+			reimbs = reimbService.getReimbByAuthorId(principal.getId());
+
+			log.info("reimbursements: " + reimbs);
+			if(!reimbs.isEmpty() && reimbs != null) {
+				out.write(map.writeValueAsString(reimbs));
+				resp.setStatus(200);
+			}
+		}
+		catch(MismatchedInputException mie) {
+			log.error(mie.getMessage());
+		}
+		catch(Exception e) {
+			log.error(e.getMessage());
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 //		log.info("request received by ReimbursementByAuthorIdServlet.doGet()");
 //
 //		log.info("request sent to getting all reimbursements by AuthorId");
@@ -70,6 +137,6 @@ import com.revature.ers.services.ReimbursementService;
 //		
 //		reimbId = reimbService.getReimbByAuthorId();
 //
-//		}
-//
-//}
+		}
+
+}
