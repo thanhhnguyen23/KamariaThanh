@@ -4,6 +4,10 @@ window.onload = function() {
     document.getElementById('to-home').addEventListener('click', loadLogin);
     // document.getElementById('to-profile').addEvent
     // document.getElementById('to-logout').addEventListener('click', logout);
+    document.getElementById('login-homescreen').addEventListener('click', loadLogin);
+    document.getElementById('register-homescreen').addEventListener('click', loadRegister);
+   
+
 }
 
 
