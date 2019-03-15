@@ -56,7 +56,8 @@ public class AuthServlet extends HttpServlet {
 			return;
 		}
 		// attempting to retrieve role and rolename
-		Principal principal = new Principal(user.getRoleId(), user.getUsername());
+//		Principal principal = new Principal((user.getRoleId(), user.getUsername());
+		Principal principal = new Principal(Integer.toString(user.getRoleId()), user.getUsername());
 		out.write(mapper.writeValueAsString(principal));
 		
 		resp.setStatus(200);

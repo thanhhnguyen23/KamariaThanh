@@ -34,7 +34,6 @@ public class ReimbursementByAuthorIdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.info("request sent to getting all reimbursements by AuthorId");
 
-		// map javascript to java datastructure, specifically authorId
 		ObjectMapper mapper = new ObjectMapper();
 		log.info("setting up mapper object for AuthorId");
 
