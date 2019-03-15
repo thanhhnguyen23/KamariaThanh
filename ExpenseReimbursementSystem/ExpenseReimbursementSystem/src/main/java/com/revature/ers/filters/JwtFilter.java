@@ -64,23 +64,10 @@ public class JwtFilter extends HttpFilter {
 					.getBody();
 			
 			// 6. Obtain the principal/subject stored in the JWT
-//			Principal principal = new Principal();
-			Principal principal = new Principal(
-				Integer.parseInt(claims.getId()),
-				claims.get("username", String.class),
-				////////////////////////////////
-				//TODO -- get role isn't working
+			Principal principal = new Principal();
+			principal.setId(claims.getId());
+			principal.setRole(claims.get("role", String.class));
 
-				claims.get("role", String.class)
-				////////////////////////////////
-			);
-
-//			principal.setId(Integer.parseInt(claims.getId()));
-//			// role & username is still null
-//			
-//			principal.setRole(claims.get("role", String.class));
-//			principal.setUsername(claims.get("username", String.class));
-			
 			log.info("principal.getId(): " + principal.getId());
 			log.info("principal.getRole(): " + principal.getRole());
 			log.info("principal.getUsername(): " + principal.getUsername());

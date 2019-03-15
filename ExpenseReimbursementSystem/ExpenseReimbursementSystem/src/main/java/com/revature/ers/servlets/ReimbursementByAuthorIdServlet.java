@@ -17,93 +17,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.revature.ers.models.Principal;
 import com.revature.ers.models.Reimbursement;
+import com.revature.ers.models.User;
 import com.revature.ers.services.ReimbursementService;
+import com.revature.ers.services.UserService;
 
 @WebServlet("/reimbById")
-public class ReimbursementByAuthorIdServlet extends HttpServlet{
+public class ReimbursementByAuthorIdServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static Logger log = Logger.getLogger(ReimbursementByAuthorIdServlet.class);
-	
+
 	private ReimbursementService reimbService = new ReimbursementService();
-	
+	private UserService userService = new UserService();
+
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
-		
-		resp.setContentType("application/json");
-		Principal principal = (Principal) req.getAttribute("principal");
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		log.info("request sent to getting all reimbursements by AuthorId");
 
-		String requestURI = req.getRequestURI();
-		
-		ObjectMapper map = new ObjectMapper();
-		
-		try {
-			PrintWriter out = resp.getWriter();
-			if (principal == null) {
-				log.info("no principal found on request");
-				resp.setStatus(401);
-				return;
-			}
-			List<Reimbursement> reimbs = new ArrayList<>();
-			
-			log.info("inside our ReimbursementByAuthorServlet" + "current Id: " + principal.getId());
-			reimbs = reimbService.getReimbByAuthorId(principal.getId());
+		// map javascript to java datastructure, specifically authorId
+		ObjectMapper mapper = new ObjectMapper();
+		log.info("setting up mapper object for AuthorId");
 
-			log.info("reimbursements: " + reimbs);
-			if(!reimbs.isEmpty() && reimbs != null) {
-				out.write(map.writeValueAsString(reimbs));
-				resp.setStatus(200);
-			}
-		}
-		catch(MismatchedInputException mie) {
-			log.error(mie.getMessage());
-		}
-		catch(Exception e) {
-			log.error(e.getMessage());
-		}
+		Integer reimbId = null;
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-//		log.info("request received by ReimbursementByAuthorIdServlet.doGet()");
-//
-//		log.info("request sent to getting all reimbursements by AuthorId");
-//
-//
-//		// map javascript to java datastructure, specifically authorId
-//		ObjectMapper mapper = new ObjectMapper();
-//		log.info("setting up mapper object for AuthorId");
-//
-//		Integer reimbId = null;
-//
 //		try {
 //			log.info("getting request: " + req);
 //			log.info("mapper: " + mapper);
@@ -111,32 +47,46 @@ public class ReimbursementByAuthorIdServlet extends HttpServlet{
 //			reimbId = mapper.readValue(req.getInputStream(), Integer.class); // reimbId as integer
 //		
 //
-//		List<Reimbursement> reimbursementByAuthorId = reimbService.getReimbByAuthorId(reimbId); // need to parse AuthorId // currently authorId: 48
-//		log.info("getting all reimbursements by AuthorId" + reimbursementByAuthorId);
+//		List<Reimbursement> reimbursementsByAuthorId = reimbService.getReimbByAuthorId(reimbId); // need to parse AuthorId // currently authorId: 48
+//		log.info("getting all reimbursements by AuthorId" + reimbursementsByAuthorId);
 //
-//		if(reimbursementByAuthorId.isEmpty()){
+//		if(reimbursementsByAuthorId.isEmpty()){
 //			log.info("There are no reimbursements by this authorId");
 //			resp.setStatus(400);
 //			return;
 //		}
-//		resp.setStatus(200);
 //		
-//		}
-//		catch(MismatchedInputException mie) {
-//			log.error(mie.getMessage());
-//			log.info(reimbId);
-//			
-//			resp.setStatus(400);
-//			return;
-//		}
-//		catch(Exception e) {
-//			log.error(e.getMessage());
-//			resp.setStatus(500);
-//		}
-//		// return list of reimbursements by AuthorId
-//		
-//		reimbId = reimbService.getReimbByAuthorId();
-//
+//		resp.setContentType("application/json");
+
+		try {
+			PrintWriter out = resp.getWriter();
+			Principal principal = (Principal) req.getAttribute("principal");
+
+			if (principal == null) {
+				log.info("no principal found on request");
+				resp.setStatus(401);
+				return;
+			}
+			List<Reimbursement> reimbs = new ArrayList<>();
+
+			log.info("inside our ReimbursementByAuthorServlet" + "current Id: " + principal.getId());
+			reimbs = reimbService.getReimbByAuthorId(Integer.parseInt((principal.getId())));
+
+			log.info("reimbursements: " + reimbs);
+			if (!reimbs.isEmpty() && reimbs != null) {
+
+				resp.setHeader("Content-Type", "application/json");
+				resp.setHeader("userId", principal.getId());
+				
+				out.write(mapper.writeValueAsString(reimbs));
+				resp.setStatus(200);
+			}
+
+		} catch (MismatchedInputException mie) {
+			log.error(mie.getMessage());
+		} catch (Exception e) {
+			log.error(e.getMessage());
 		}
 
+	}
 }
