@@ -72,7 +72,7 @@ public class ReimbursementByAuthorIdServlet extends HttpServlet {
 			reimbs = reimbService.getReimbByAuthorId(Integer.parseInt((principal.getId())));
 
 			log.info("reimbursements: " + reimbs);
-			if (!reimbs.isEmpty() && reimbs != null) {
+			if (!reimbs.isEmpty()) {
 
 				resp.setHeader("Content-Type", "application/json");
 				resp.setHeader("userId", principal.getId());
