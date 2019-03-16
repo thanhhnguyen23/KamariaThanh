@@ -3,13 +3,23 @@ window.onload = function() {
     document.getElementById('to-register').addEventListener('click', loadRegister);
     document.getElementById('to-home').addEventListener('click', loadLogin);
     // document.getElementById('to-profile').addEvent
-    // document.getElementById('to-logout').addEventListener('click', logout);
+    document.getElementById('to-logout').addEventListener('click', logout);
     // document.getElementById('login-homescreen').addEventListener('click', loadLogin);
     // document.getElementById('register-homescreen').addEventListener('click', loadRegister);
    
     loadLogin();
 }
 
+async function logout(){
+    console.log('in logout()');
+
+    APP_VIEW.innerHTML = await fetchView('login.view');
+    DYNAMIC_CSS_LINK.href = 'css/login.css';
+
+    loadLogin();
+
+
+}
 
 
 
@@ -30,6 +40,7 @@ async function loadLogin() {
     APP_VIEW.innerHTML = await fetchView('login.view');
     DYNAMIC_CSS_LINK.href = 'css/login.css';
     configureLogin(); //calling configure
+
 }
 
 
@@ -48,9 +59,11 @@ function configureLogin() {
         3. if the response is successful, the dashboard gets loaded
 */
 var credentials = [];
+
 async function login() {
     console.log('in login()');
-    // var credentials = [];
+    credentials = [];
+
     credentials.push(document.getElementById('username-cred').value);
     credentials.push(document.getElementById('password-cred').value);
 
