@@ -659,116 +659,6 @@ async function getReimbById() {
 }
 
 }
-// -----------------------------------------------------------------------------------------
-
-
-// get reimbursements by id to show on the users dashboard
-// EMPLOYEE REIMBURSEMNET VIEW -- TN
-// original at 1115 on 3/16/18
-//-------------------------------------------------------------------------------------------------------------------
-// async function getReimbById() {
-//     console.log('in getReimbById()');
-
-//     // get userId because authorId links these two together
-//     var authorId = {
-//         authorId: document.getElementById('reimbursement-username') // currently 'reimbursement-username' --> null
-//     }
-
-//     console.log(authorId);
-
-//     let response = await fetch('reimbById');
-
-//     if (response.status == 200) {
-//         // populate the user's table on the employee dashboard
-//         console.log(response.status);
-//     /
-
-//     let responseBody = await response.json();
-//     console.log("response: " + responseBody);
-
-//     console.log(response);
-
-//     for ( let i = 0; i < responseBody.length; i++) {
-
-//         var reimbId = responseBody[i]['reimbid'];
-//         console.log('reimbId: ' + reimbId);
-
-//         // populating information needed for tables
-//         var amount = responseBody[i]['amount'];
-
-
-//         // reimbursement type switches
-
-//         if (typeId == 1) {
-//             var typeId2 = 'LODGING';
-//         }
-
-//         if (typeId == 2) {
-//             typeId2 = 'TRAVEL';
-//         }
-
-//         if (typeId == 3) {
-//             typeId2 = 'FOOD';
-//         }
-
-//         if (typeId == 4) {
-//             typeId2 = 'OTHER';
-//         }
-
-//         // if statements to display the status
-//         if (statusId == 1) {
-//             var statusId2 = 'PENDING';
-//         }
-
-//         if (statusId == 2) {
-//             statusId2 = 'APPROVE';
-//         }
-
-//         if (statusId == 3) {
-//             var statusId2 = 'DONE';
-//         }
-
-//         if (statusId == 4) {
-//             var statusId2 = 'DENIED';
-//         }
-
-      
-//         // for each object, create a new table row
-//         let tableRow = document.createElement('tr');
-//         tableRow.setAttribute('id', "tableRow" + i);
-
-//         // for each row, create the table data elements
-//         let tableData = document.createElement('td');
-//         let tableData1 = document.createElement('td');
-//         let tableData2 = document.createElement('td');
-//         let tableData3 = document.createElement('td');
-//         let tableData4 = document.createElement('td');
-//         tableData4.setAttribute('id', "statusId" + i);
-
-//         let tableData5 = document.createElement('td');
-
-//         // add the values to the tables
-//         tableData.append(reimbId);
-//         tableData3.append(authorId);
-//         tableData1.append(amount);
-//         tableData2.append(reimbDescription);
-//         tableData4.append(statusId2);
-//         tableData5.append(typeId2);
-
-
-//         // append each element, to each row
-//         tableRow.append(tableData);
-
-//         let table = document.getElementById('empReimbTable');
-//         table.append(tableRow);
-
-//         approveReimb();
-//         denyReimb();
-
-//     }
-// }
-// }
-//-------------------------------------------------------------------------------------------------------------------
 
 
 async function approveReimb() {
@@ -820,7 +710,8 @@ async function approveReimb() {
         method: 'POST',
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
         body:JSON.stringify(updatedReimb)
     });

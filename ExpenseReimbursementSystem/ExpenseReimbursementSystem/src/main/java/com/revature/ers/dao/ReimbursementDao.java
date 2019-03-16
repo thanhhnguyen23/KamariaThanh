@@ -148,7 +148,12 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			PreparedStatement pstate = conn.prepareStatement(sql);
 			
 			pstate.setInt(1, updatedReimb.getAmount());
+
 			pstate.setInt(2, updatedReimb.getStatusId());
+
+			// made an attempt to force statusId from pending to approved
+//			pstate.setInt(2,2);
+
 			pstate.setInt(3, updatedReimb.getTypeId());
 			pstate.setInt(4, updatedReimb.getReimbId());
 
@@ -197,6 +202,7 @@ public class ReimbursementDao implements DAO<Reimbursement>{
 			
 			// updating status from pending (1) to approved (2)
 			pstate.setInt(1, updatedReimbStatus.getReimbId());
+
 
 			int rowsUpdated = pstate.executeUpdate();
 			if (rowsUpdated != 0) {
