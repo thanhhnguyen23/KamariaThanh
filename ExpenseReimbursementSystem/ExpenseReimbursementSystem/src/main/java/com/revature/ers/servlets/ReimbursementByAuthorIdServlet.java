@@ -34,58 +34,38 @@ public class ReimbursementByAuthorIdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.info("request sent to getting all reimbursements by AuthorId");
 
+		resp.setContentType("application/json");
+
+		Principal principal = (Principal) req.getAttribute("principal");
+//		String requestURI = req.getRequestURI();
 		ObjectMapper mapper = new ObjectMapper();
-		log.info("setting up mapper object for AuthorId");
-
-		Integer reimbId = null;
-
-//		try {
-//			log.info("getting request: " + req);
-//			log.info("mapper: " + mapper);
-//			
-//			reimbId = mapper.readValue(req.getInputStream(), Integer.class); // reimbId as integer
-//		
-//
-//		List<Reimbursement> reimbursementsByAuthorId = reimbService.getReimbByAuthorId(reimbId); // need to parse AuthorId // currently authorId: 48
-//		log.info("getting all reimbursements by AuthorId" + reimbursementsByAuthorId);
-//
-//		if(reimbursementsByAuthorId.isEmpty()){
-//			log.info("There are no reimbursements by this authorId");
-//			resp.setStatus(400);
-//			return;
-//		}
-//		
-//		resp.setContentType("application/json");
 
 		try {
+
+			log.info("setting up mapper object for AuthorId");
+
 			PrintWriter out = resp.getWriter();
-			Principal principal = (Principal) req.getAttribute("principal");
-
-			if (principal == null) {
-				log.info("no principal found on request");
+			
+			if(principal == null) {
+				log.warn("no principal on request");
 				resp.setStatus(401);
-				return;
+				return; 
 			}
-			List<Reimbursement> reimbs = new ArrayList<>();
-
-			log.info("inside our ReimbursementByAuthorServlet" + "current Id: " + principal.getId());
-			reimbs = reimbService.getReimbByAuthorId(Integer.parseInt((principal.getId())));
-
-			log.info("reimbursements: " + reimbs);
-			if (!reimbs.isEmpty()) {
-
-				resp.setHeader("Content-Type", "application/json");
-				resp.setHeader("userId", principal.getId());
-				
-				out.write(mapper.writeValueAsString(reimbs));
-				resp.setStatus(200);
-			}
-
-		} catch (MismatchedInputException mie) {
+			List<Reimbursement> reimb = reimbService.getReimbByAuthorId(Integer.parseInt(principal.getId()));
+			
+			String reimbJson = mapper.writeValueAsString(reimb);
+			
+			resp.setStatus(200);
+			out.write(reimbJson);
+		} 
+		catch(NumberFormatException nfe) {
+			log.error(nfe.getMessage());
+			resp.setStatus(400);
+		}
+		catch (MismatchedInputException mie) {
 			log.error(mie.getMessage());
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-
 	}
 }

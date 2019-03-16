@@ -7,3 +7,12 @@ body {
     text-align: center;
 }
 
+/* .btn-primary {
+    background-color: lightgreen;
+    color: black;
+} */
+
+
+.navbar-brand, #dropdown-label, .nav-link, #to-home {
+    color:white;
+}

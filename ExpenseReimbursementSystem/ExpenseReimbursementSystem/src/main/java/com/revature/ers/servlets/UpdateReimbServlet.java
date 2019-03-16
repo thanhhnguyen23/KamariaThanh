@@ -33,6 +33,7 @@ public class UpdateReimbServlet extends HttpServlet{
 		ObjectMapper mapper = new ObjectMapper();
 		log.info("setting mapper object");
 		
+		Reimbursement persistedReimb;
 		
 		try {
 			log.info("mapper: " + mapper);
@@ -42,6 +43,9 @@ public class UpdateReimbServlet extends HttpServlet{
 			
 			updatedReimbursement = mapper.readValue(req.getInputStream(), Reimbursement.class);
 			log.info("updatedReimbursement: " + updatedReimbursement);
+			
+			persistedReimb = reimbService.updateReimbStatus(updatedReimbursement);
+			
 		}
 		catch(MismatchedInputException mie) {
 			log.error(mie.getMessage());

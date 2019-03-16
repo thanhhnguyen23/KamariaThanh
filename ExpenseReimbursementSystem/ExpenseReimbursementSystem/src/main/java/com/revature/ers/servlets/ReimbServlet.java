@@ -78,7 +78,6 @@ public class ReimbServlet extends HttpServlet{
 
 		
 		
-///////////////////////////////////////////////////////////////////////////////////////
 		log.info("Request sent to get all reimbursements");
 		List<Reimbursement> allReimbursements = reimbService.getAllReimbursements();
 		log.info("getting all reimbursements: " + allReimbursements);
@@ -98,11 +97,5 @@ public class ReimbServlet extends HttpServlet{
 		
 		resp.setContentType("application/json");
 		pw.write(response);
-///////////////////////////////////////////////////////////////////////////////////////
-	
-		//////////////////////////////////////////
-		// need to get reimbursements by authorId
-		// services/daos are already in place
-		//////////////////////////////////////////
 	}
 }

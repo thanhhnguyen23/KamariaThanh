@@ -4,10 +4,10 @@ window.onload = function() {
     document.getElementById('to-home').addEventListener('click', loadLogin);
     // document.getElementById('to-profile').addEvent
     // document.getElementById('to-logout').addEventListener('click', logout);
-    document.getElementById('login-homescreen').addEventListener('click', loadLogin);
-    document.getElementById('register-homescreen').addEventListener('click', loadRegister);
+    // document.getElementById('login-homescreen').addEventListener('click', loadLogin);
+    // document.getElementById('register-homescreen').addEventListener('click', loadRegister);
    
-
+    loadLogin();
 }
 
 
@@ -326,7 +326,7 @@ async function createReimbursement() {
     console.log('in createReimbursement()');
 
     let newReimb = {
-        reimbId: {},
+        // reimbId: {}, // uncommented, testing why create reimbursement stopped working
         amount: document.getElementById('reimbursement-amount').value,
         resolverId: 1,
         statusId: 1,
@@ -542,21 +542,25 @@ async function getAllReimbs() {
    
 }
 
-
-
-// get reimbursements by id to show on the users dashboard
-// EMPLOYEE REIMBURSEMNET VIEW -- TN
-//----------------------------------
+// getting reimbursemetn by id // updated version
+// -----------------------------------------------------------------------------------------
 async function getReimbById() {
     console.log('in getReimbById()');
 
-    let authorId = {
-        authorId: document.getElementById('reimbursement-username')
-    }
 
-    console.log(authorId);
+    let response = await fetch('reimbById', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'Authorization': localStorage.getItem('jwt')
+        }
+    });
 
-    let response = await fetch('reimbById');
+    // let role = response.headers.get('UserRole');
+    // let userId = response.headers.get('userId');
+    // console.log(userId);
+
+
 
     if (response.status == 200) {
         // populate the user's table on the employee dashboard
@@ -564,58 +568,62 @@ async function getReimbById() {
     
 
     let responseBody = await response.json();
-    console.log("response: " + responseBody);
+    console.log("response body: " + responseBody);
 
     console.log(response);
 
     for ( let i = 0; i < responseBody.length; i++) {
 
-        var reimbId = responseBody[i]['reimbid'];
-        console.log('reimbId: ' + reimbId);
-
-        // populating information needed for tables
-        var amount = responseBody[i]['amount'];
+        console.log(responseBody[i]);
+        var reimbId2 = responseBody[i].reimbId;
+        console.log(reimbId2);
+        var amount2 = responseBody[i].amount;
+        console.log(amount2);
+        var reimbDescription2 = responseBody[i].reimbDescription;
+        var authorId2 = responseBody[i].authorId;
+        var statusId2 = responseBody[i].statusId;
+        var typeId2 = responseBody[i].typeId;
 
 
         // reimbursement type switches
 
-        if (typeId == 1) {
-            var typeId2 = 'LODGING';
+        if (typeId2 == 1) {
+            var typeId3 = 'LODGING';
         }
 
-        if (typeId == 2) {
-            typeId2 = 'TRAVEL';
+        if (typeId2 == 2) {
+            typeId3 = 'TRAVEL';
         }
 
-        if (typeId == 3) {
-            typeId2 = 'FOOD';
+        if (typeId2 == 3) {
+            typeId3 = 'FOOD';
         }
 
-        if (typeId == 4) {
-            typeId2 = 'OTHER';
+        if (typeId2 == 4) {
+            typeId3 = 'OTHER';
         }
 
         // if statements to display the status
-        if (statusId == 1) {
-            var statusId2 = 'PENDING';
+        if (statusId2 == 1) {
+            var statusId3 = 'PENDING';
         }
 
-        if (statusId == 2) {
-            statusId2 = 'APPROVE';
+        if (statusId2 == 2) {
+            statusId3 = 'APPROVE';
         }
 
-        if (statusId == 3) {
-            var statusId2 = 'DONE';
+        if (statusId2 == 3) {
+            statusId3 = 'DONE';
         }
 
-        if (statusId == 4) {
-            var statusId2 = 'DENIED';
+        if (statusId2 == 4) {
+            statusId3 = 'DENIED';
         }
 
       
         // for each object, create a new table row
         let tableRow = document.createElement('tr');
-        tableRow.setAttribute('id', "tableRow" + i);
+        tableRow.setAttribute('id', "empReimbRow" + i);
 
         // for each row, create the table data elements
         let tableData = document.createElement('td');
@@ -628,27 +636,139 @@ async function getReimbById() {
         let tableData5 = document.createElement('td');
 
         // add the values to the tables
-        tableData.append(reimbId);
-        tableData3.append(authorId);
-        tableData1.append(amount);
-        tableData2.append(reimbDescription);
-        tableData4.append(statusId2);
-        tableData5.append(typeId2);
+        tableData.append(reimbId2);
+        tableData1.append(authorId2);
+        tableData2.append(amount2);
+        tableData3.append(reimbDescription2);
+        tableData4.append(statusId3);
+        tableData5.append(typeId3);
 
 
         // append each element, to each row
         tableRow.append(tableData);
+        tableRow.append(tableData1);
+        tableRow.append(tableData2);
+        tableRow.append(tableData3);
+        tableRow.append(tableData4);
+        tableRow.append(tableData5);
 
         let table = document.getElementById('empReimbTable');
         table.append(tableRow);
-
-        approveReimb();
-        denyReimb();
 
     }
 }
 
 }
+// -----------------------------------------------------------------------------------------
+
+
+// get reimbursements by id to show on the users dashboard
+// EMPLOYEE REIMBURSEMNET VIEW -- TN
+// original at 1115 on 3/16/18
+//-------------------------------------------------------------------------------------------------------------------
+// async function getReimbById() {
+//     console.log('in getReimbById()');
+
+//     // get userId because authorId links these two together
+//     var authorId = {
+//         authorId: document.getElementById('reimbursement-username') // currently 'reimbursement-username' --> null
+//     }
+
+//     console.log(authorId);
+
+//     let response = await fetch('reimbById');
+
+//     if (response.status == 200) {
+//         // populate the user's table on the employee dashboard
+//         console.log(response.status);
+//     /
+
+//     let responseBody = await response.json();
+//     console.log("response: " + responseBody);
+
+//     console.log(response);
+
+//     for ( let i = 0; i < responseBody.length; i++) {
+
+//         var reimbId = responseBody[i]['reimbid'];
+//         console.log('reimbId: ' + reimbId);
+
+//         // populating information needed for tables
+//         var amount = responseBody[i]['amount'];
+
+
+//         // reimbursement type switches
+
+//         if (typeId == 1) {
+//             var typeId2 = 'LODGING';
+//         }
+
+//         if (typeId == 2) {
+//             typeId2 = 'TRAVEL';
+//         }
+
+//         if (typeId == 3) {
+//             typeId2 = 'FOOD';
+//         }
+
+//         if (typeId == 4) {
+//             typeId2 = 'OTHER';
+//         }
+
+//         // if statements to display the status
+//         if (statusId == 1) {
+//             var statusId2 = 'PENDING';
+//         }
+
+//         if (statusId == 2) {
+//             statusId2 = 'APPROVE';
+//         }
+
+//         if (statusId == 3) {
+//             var statusId2 = 'DONE';
+//         }
+
+//         if (statusId == 4) {
+//             var statusId2 = 'DENIED';
+//         }
+
+      
+//         // for each object, create a new table row
+//         let tableRow = document.createElement('tr');
+//         tableRow.setAttribute('id', "tableRow" + i);
+
+//         // for each row, create the table data elements
+//         let tableData = document.createElement('td');
+//         let tableData1 = document.createElement('td');
+//         let tableData2 = document.createElement('td');
+//         let tableData3 = document.createElement('td');
+//         let tableData4 = document.createElement('td');
+//         tableData4.setAttribute('id', "statusId" + i);
+
+//         let tableData5 = document.createElement('td');
+
+//         // add the values to the tables
+//         tableData.append(reimbId);
+//         tableData3.append(authorId);
+//         tableData1.append(amount);
+//         tableData2.append(reimbDescription);
+//         tableData4.append(statusId2);
+//         tableData5.append(typeId2);
+
+
+//         // append each element, to each row
+//         tableRow.append(tableData);
+
+//         let table = document.getElementById('empReimbTable');
+//         table.append(tableRow);
+
+//         approveReimb();
+//         denyReimb();
+
+//     }
+// }
+// }
+//-------------------------------------------------------------------------------------------------------------------
 
 
 async function approveReimb() {

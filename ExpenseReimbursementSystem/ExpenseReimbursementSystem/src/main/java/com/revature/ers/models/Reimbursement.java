@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Reimbursement {
 
+//	@JsonIgnore // must be on; as in @JsonIgnore must NOT be commented out; ERROR: Can not deserialize instance of int out of START_OBJECT token
 	private int reimbId; 					
 	private int amount;						
 
