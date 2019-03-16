@@ -122,15 +122,11 @@ async function loadRegister() {
 // Needs work.....
 function configureRegister() {
   console.log("in configureRegister()");
-  document
-    .getElementById("register-username")
-    .addEventListener("blur", validateUsername);
-  document
-    .getElementById("register-password")
-    .addEventListener("keyup", validatePassword);
-  document
-    .getElementById("register-account")
-    .addEventListener("click", register);
+  document.getElementById("register-username").addEventListener("blur", validateUsername);
+  document.getElementById("register-password").addEventListener("keyup", validatePassword);
+  document.getElementById("register-account").addEventListener("click", register);
+//   document.getElementById('register-account').addEventListener('click', undisableRegisterButton)
+
 }
 
 /*
@@ -154,6 +150,20 @@ function validateUsername(event) {
 function validatePassword(event) {
   console.log("in validatePassword");
   console.log(event.target.value);
+}
+
+function undisableRegisterButton() {
+    if(
+        document.getElementById('register-username').value != '' &&
+        document.getElementById('register-password').value != '' &&
+        document.getElementById('register-fn').value != '' &&
+        document.getElementById('register-ln').value != '' &&
+        document.getElementById('register-email').value != ''
+    ) {
+        document.getElementById('register-account').disabled = false;
+    } else {
+        document.getElementById('register-account').disabled = true;
+    }   
 }
 
 async function register() {
